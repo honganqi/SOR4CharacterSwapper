@@ -7,6 +7,12 @@ as I know and is known to work only on the v5 patch of the
 game released back in July 17, 2020. As of writing, I don't
 know if this will work with v4.
 
+## Requirements
+This is known to work only on Windows 10. Microsoft .NET
+Framework 4.6.0 is also required but this is built into 
+Windows 10. This is also known to work only with the v5
+version of the game on Steam.
+
 ## Usage
 * Navigate to your `bigfile` is located; usually in
 `C:\Program Files (x86)\Steam\steamapps\common\Streets of
@@ -42,6 +48,20 @@ to restart the game for the changes to take effect.
 * If you want to randomize again without closing the app,
 click on the `Clear list` button before doing so to remove
 all the characters in the list.
+
+## Donations
+This was created with love and care for the Streets of Rage 4
+community and is provided without charging anybody. If this
+has somehow made you smile or made your day brighter, please
+feel free to send me a smile, coffee, pizza, a gamepad,
+t-shirt, or anything! Your support means a lot to me as it
+will help cover a lot of costs. Thank you!
+[![Buy me A Coffee](http://sidestream.tk/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
+
+## Discord
+Please feel free to join me on Discord!
+[https://discord.gg/G5rEU7bK5j](https://discord.gg/G5rEU7bK5j) \
+[![Discord](https://discord.com/assets/f9bb9c4af2b9c32a2c5ee0014661546d.png)](https://discord.gg/G5rEU7bK5j)
 
 ## Notes
 * The author of this software will not be liable to any
