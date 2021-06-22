@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SOR4 Character Swapper", "SOR4 Character Swapper.csproj", "{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CA37DC6-A44B-4233-A80C-1D8D0FD61190}
+	EndGlobalSection
+EndGlobal

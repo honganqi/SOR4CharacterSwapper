@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SOR4_Replacer</RootNamespace>
+    <AssemblyName>SOR4 Character Swapper</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SOR4CharacterExplorer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SOR4CharExplorer\bin\Release\SOR4CharacterExplorer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Library.cs" />
+    <Compile Include="forms\Container.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Container.Designer.cs">
+      <DependentUpon>Container.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Info.Designer.cs">
+      <DependentUpon>Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Instructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Instructions.Designer.cs">
+      <DependentUpon>Instructions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Swapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Swapper.Designer.cs">
+      <DependentUpon>Swapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Randomizer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Randomizer.Designer.cs">
+      <DependentUpon>Randomizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="forms\Container.resx">
+      <DependentUpon>Container.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Instructions.resx">
+      <DependentUpon>Instructions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Swapper.resx">
+      <DependentUpon>Swapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="forms\Randomizer.resx">
+      <DependentUpon>Randomizer.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="characters\sor1_playables\chrsor1adam.png" />
+    <EmbeddedResource Include="characters\sor1_playables\chrsor1axel.png" />
+    <EmbeddedResource Include="characters\sor1_playables\chrsor1blaze.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2abadede_challenge.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2donovan.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2galsia.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2jack.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2mrx_challenge.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2shiva_challenge.png" />
+    <EmbeddedResource Include="characters\sor2_enemies\chrsor2zamza_challenge.png" />
+    <EmbeddedResource Include="characters\sor2_playables\chrsor2axel.png" />
+    <EmbeddedResource Include="characters\sor2_playables\chrsor2blaze.png" />
+    <EmbeddedResource Include="characters\sor2_playables\chrsor2max.png" />
+    <EmbeddedResource Include="characters\sor2_playables\chrsor2skate.png" />
+    <EmbeddedResource Include="characters\sor3_playables\chrsor3axel.png" />
+    <EmbeddedResource Include="characters\sor3_playables\chrsor3blaze.png" />
+    <EmbeddedResource Include="characters\sor3_playables\chrsor3shiva.png" />
+    <EmbeddedResource Include="characters\sor3_playables\chrsor3skate.png" />
+    <EmbeddedResource Include="characters\sor3_playables\chrsor3zan.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\bigben\chrsor4bigbenboss.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\bigben\chrsor4bigben_l2_anry.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\bigben\chrsor4bigben_l3_bongo.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\bigben\chrsor4bigben_l4_heart.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4barbon.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4commisser.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4cop.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4diva.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4elite.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4karate.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4koobo.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4signal.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4signal_alt.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4victoria.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\cop\chrsor4cop_l3_chief.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\cop\chrsor4cop_l6_grab.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\cop\chrsor4cop_l8_badgrab.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diamond\chrsor4_l0_diamond.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diamond\chrsor4_l2_garnet.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diamond\chrsor4_l4_pyrop.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diamond\chrsor4_l5_saphyr.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diva\chrsor4kalaas.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diva\chrsor4mariah.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\donovan\chrsor4_l0_donovan.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\donovan\chrsor4_l1_altet.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\donovan\chrsor4_l2_gudden.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\donovan\chrsor4_l3_z.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\dylan\chrsor4_l0_dylan.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\dylan\chrsor4_l3_kevin.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\dylan\chrsor4_l4_francis.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\dylan\chrsor4_l5_brandon.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\elite\chrsor4_l3_elitegold.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\elite\chrsor4_l5_eliteshadow.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\elite\chrsor4_l6_elitelight.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\estel\chrsor4estel.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_galsia.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_galsiasuper.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_joseph.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l3_bt.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l4_brash.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l6_garam.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l7_jonathan.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\gold\chrsor4_l0_gold.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\gold\chrsor4_l1_silver.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\gold\chrsor4_l2_tin.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\gold\chrsor4_l3_bronze.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\karate\chrsor4karate_l0_masa.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\karate\chrsor4karate_l3_goro.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\karate\chrsor4karate_l6_tetsu.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\karate\chrsor4karate_l7_tiger.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\koobo\chrsor4baabo.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\kwashi\chrsor4kwashi.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\max\chrsor4max.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\mry\chrsor4mry.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\mry\chrsor4mry_12.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\msy\chrsor4msy.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\msy\chrsor4msy_12.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\nora\chrsor4electra.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\nora\chrsor4noraboss.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\nora\chrsor4queen.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\nora\chrsor4stiletto.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\raven\chrsor4raven_l0_raven.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\raven\chrsor4raven_l1_condor.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\raven\chrsor4raven_l2_sparrow.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\raven\chrsor4raven_l4_pheasant.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\shiva\chrsor4shiva.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\shiva\chrsor4shivadouble.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\signal\chrsor4_l3_signal_r.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\signal\chrsor4_l4_signal_d.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\sugar\chrsor4sugar_l0_sugar.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\sugar\chrsor4sugar_l1_honey.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\sugar\chrsor4sugar_l2_janet.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\sugar\chrsor4sugar_l3_georgia.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\victoria\chrsor4victoria_l2_toxyne.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\victoria\chrsor4victoria_l3_steffie.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\victoria\chrsor4victoria_l4_anne.png" />
+    <EmbeddedResource Include="characters\sor4_playables\chrsor4adam.png" />
+    <EmbeddedResource Include="characters\sor4_playables\chrsor4axel.png" />
+    <EmbeddedResource Include="characters\sor4_playables\chrsor4blaze.png" />
+    <EmbeddedResource Include="characters\sor4_playables\chrsor4cherry.png" />
+    <EmbeddedResource Include="characters\sor4_playables\chrsor4floyd.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\estel\chrsor4estel_lvl7.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4commisser_7.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\elite\chrsor4_l4_elitedark2.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diamond\chrsor4_l1_ruby.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4bigben.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4gold.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\chrsor4raven.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\cop\chrsor4cop_l7_bad.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\diva\chrsor4_l4_tania.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\elite\chrsor4_l4_elitedark.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_galsiamaso.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_galsia_bt_boss.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\galsia\chrsor4_l0_galsia_lowstruggle.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\koobo\chrsor4koobig.png" />
+    <EmbeddedResource Include="characters\sor4_enemies\victoria\chrsor4victoria_l3_steffie_turret.png" />
+    <EmbeddedResource Include="img\bmc.png" />
+    <EmbeddedResource Include="img\exit.png" />
+    <EmbeddedResource Include="img\open.png" />
+    <EmbeddedResource Include="img\random.png" />
+    <EmbeddedResource Include="img\load.png" />
+    <EmbeddedResource Include="img\save.png" />
+    <EmbeddedResource Include="img\help.png" />
+    <EmbeddedResource Include="img\min.png" />
+    <EmbeddedResource Include="img\sflogo.png" />
+    <EmbeddedResource Include="img\twitch.png" />
+    <EmbeddedResource Include="img\youtube.png" />
+    <Content Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
