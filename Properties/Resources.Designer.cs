@@ -59,5 +59,15 @@ namespace SOR4_Replacer.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SOR4CharacterExplorer {
+            get {
+                object obj = ResourceManager.GetObject("SOR4CharacterExplorer", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

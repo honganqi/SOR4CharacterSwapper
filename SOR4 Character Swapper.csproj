@@ -158,6 +158,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\SOR4CharacterExplorer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <EmbeddedResource Include="characters\sor1_playables\chrsor1adam.png" />
     <EmbeddedResource Include="characters\sor1_playables\chrsor1axel.png" />
     <EmbeddedResource Include="characters\sor1_playables\chrsor1blaze.png" />
