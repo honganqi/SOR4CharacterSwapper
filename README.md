@@ -52,10 +52,10 @@ all the characters in the list.
 ## Donations
 [![Buy me A Coffee](http://sidestream.tk/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
 
-This was created with love and care for the Streets of Rage 4
-community and is provided without charging anybody. If this
-has somehow made you smile or made your day brighter, please
-feel free to send me a smile, coffee, pizza, a gamepad,
+This was created for the Streets of Rage 4 community with
+love and care  and is provided without charging anybody.
+If this has somehow made you smile or made your day brighter,
+please feel free to send me a smile, coffee, pizza, a gamepad,
 t-shirt, or anything! Your support means a lot to me as it
 will help cover a lot of costs. Thank you!
 
