@@ -14,9 +14,14 @@ Windows 10. This is also known to work only with the v5
 version of the game on Steam.
 
 ## Usage
-* Navigate to your `bigfile` is located; usually in
+* After downloading and extracting the zip file somewhere,
+launch the `SOR4 Character Swapper.exe` program.
+* Load your `bigfile` into the app. This is usually in 
 `C:\Program Files (x86)\Steam\steamapps\common\Streets of
-Rage 4\data`.
+Rage 4\data` or wherever you have Steam installed.
+* Choose a character from the `Original` drop-down menu you
+want to replace with the one from the `Replacement` drop-down
+menu then click `Add to list`.
 * Once you're done adding your swaps, randomizing or after
 loading a swap file, click on `Apply changes`.
 * You may use `Save settings` if you have a list of swaps
@@ -25,7 +30,8 @@ load the swaps into the app.
 * After applying swaps for the first time, a backup named
 `bigfile_rep_backup` will be created automatically in the
 same folder. This will be needed by the app to allow you to
-restore your bigfile.
+restore your bigfile. You don't need to create a backup
+manually but, of course, you are free and encouraged to do so.
 
 ## Randomizer
 * You may randomize your swaps for surprise games by
