@@ -209,13 +209,16 @@ namespace SOR4_Replacer
                 }
 
                 info.btnRestoreBigfile.Visible = true;
+                info.btnExtractSwaps.Visible = true;
                 if (classlib.CheckBigfile(Path.Combine(classlib.gameDir, "bigfile")))
                 {
                     info.btnRestoreBigfile.Enabled = false;
+                    info.btnExtractSwaps.Enabled = false;
                 }
                 else
                 {
                     info.btnRestoreBigfile.Enabled = true;
+                    info.btnExtractSwaps.Enabled = true;
                 }
 
                 if (classlib.changeList.Count > 0)
@@ -276,6 +279,7 @@ namespace SOR4_Replacer
                 info.labelValidBigfile.Text = "modded v5 bigfile";
                 info.labelValidBigfile.ForeColor = Color.Crimson;
                 info.btnRestoreBigfile.Enabled = true;
+                info.btnExtractSwaps.Enabled = true;
                 hasNoPending = true;
                 container.labelPending.Visible = false;
                 MessageBox.Show("Swaps have been applied!\n\nYou will need to restart the game if it is currently running." + createdBackup, "Awesomeness unlocked!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -355,25 +359,29 @@ namespace SOR4_Replacer
             }
             if (data.Count() > 0)
             {
-                // clear all swaps
-                foreach (KeyValuePair<string, string> changes in classlib.changeList) bigfileClass.RemoveSwap(classlib.characterPathToIndex[changes.Key]);
-                dataGridView1.Rows.Clear();
-                dataGridView1.Refresh();
-                classlib.changeList.Clear();
-                classlib.changeTo.Clear();
-                foreach (KeyValuePair<int, int> pair in data)
-                {
-                    if (pair.Key != pair.Value) classlib.AddToList(this, pair.Key, pair.Value);
-                }
-                ResetForm();
+                RefreshSwapList(data);
                 return true;
             }
             else
             {
                 MessageBox.Show("Invalid settings file!", "Invalid file", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //classlib.ResetForm();
                 return false;
             }
+        }
+
+        public void RefreshSwapList(Dictionary<int, int> data)
+        {
+            // clear all swaps
+            foreach (KeyValuePair<string, string> changes in classlib.changeList) bigfileClass.RemoveSwap(classlib.characterPathToIndex[changes.Key]);
+            dataGridView1.Rows.Clear();
+            dataGridView1.Refresh();
+            classlib.changeList.Clear();
+            classlib.changeTo.Clear();
+            foreach (KeyValuePair<int, int> pair in data)
+            {
+                if (pair.Key != pair.Value) classlib.AddToList(this, pair.Key, pair.Value);
+            }
+            ResetForm();
         }
 
 

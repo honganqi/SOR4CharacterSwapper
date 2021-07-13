@@ -116,5 +116,12 @@ namespace SOR4_Replacer
         {
             //_mainwindow.MoveWindow(e);
         }
+
+        private void btnExtractSwaps_Click(object sender, EventArgs e)
+        {
+            classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
+            Dictionary<int, int> swapData = classlib.bigfileClass.ExportSwap();
+            _mainwindow.RefreshSwapList(swapData);
+        }
     }
 }
