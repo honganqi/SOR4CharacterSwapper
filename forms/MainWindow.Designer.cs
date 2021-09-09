@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.labelDisplayList = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.btnLoad = new System.Windows.Forms.Button();
             this.ofdLoadDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnSave = new System.Windows.Forms.Button();
@@ -52,25 +44,20 @@
             this.btnMinimize = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
+            this.imgListShadow = new System.Windows.Forms.PictureBox();
+            this.panelSwapList = new System.Windows.Forms.Panel();
             this.panelInstructions = new System.Windows.Forms.Panel();
-            this.colDel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.origThumbCol = new System.Windows.Forms.DataGridViewImageColumn();
-            this.colText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pointer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.newThumbCol = new System.Windows.Forms.DataGridViewImageColumn();
-            this.newCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hiddenIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelLeft.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgListShadow)).BeginInit();
             this.SuspendLayout();
             // 
             // labelDisplayList
             // 
             this.labelDisplayList.AutoSize = true;
             this.labelDisplayList.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDisplayList.Location = new System.Drawing.Point(585, 56);
+            this.labelDisplayList.Location = new System.Drawing.Point(648, 56);
             this.labelDisplayList.Name = "labelDisplayList";
             this.labelDisplayList.Size = new System.Drawing.Size(155, 20);
             this.labelDisplayList.TabIndex = 10;
@@ -81,47 +68,6 @@
             this.openFileDialog1.FileName = "bigfile";
             this.openFileDialog1.Filter = "SOR4 bigfile|bigfile";
             this.openFileDialog1.Title = "Location of \"bigfile\"";
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeColumns = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ColumnHeadersVisible = false;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colDel,
-            this.origThumbCol,
-            this.colText,
-            this.pointer,
-            this.newThumbCol,
-            this.newCol,
-            this.hiddenIndex});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle7;
-            this.dataGridView1.Location = new System.Drawing.Point(586, 87);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.RowTemplate.Height = 60;
-            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView1.Size = new System.Drawing.Size(402, 401);
-            this.dataGridView1.TabIndex = 17;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseLeave);
-            this.dataGridView1.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView1_CellMouseMove);
-            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // btnLoad
             // 
@@ -152,7 +98,7 @@
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSave.Location = new System.Drawing.Point(763, 18);
+            this.btnSave.Location = new System.Drawing.Point(831, 18);
             this.btnSave.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(113, 26);
@@ -189,7 +135,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Location = new System.Drawing.Point(424, 0);
+            this.btnClose.Location = new System.Drawing.Point(484, 0);
             this.btnClose.Margin = new System.Windows.Forms.Padding(0);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(36, 36);
@@ -257,7 +203,7 @@
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(110, 0);
             this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(460, 36);
+            this.panelTop.Size = new System.Drawing.Size(520, 36);
             this.panelTop.TabIndex = 44;
             this.panelTop.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseDown);
             this.panelTop.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelTop_MouseMove);
@@ -267,7 +213,7 @@
             this.labelAuthor.AutoSize = true;
             this.labelAuthor.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAuthor.ForeColor = System.Drawing.Color.White;
-            this.labelAuthor.Location = new System.Drawing.Point(234, 13);
+            this.labelAuthor.Location = new System.Drawing.Point(138, 13);
             this.labelAuthor.Name = "labelAuthor";
             this.labelAuthor.Size = new System.Drawing.Size(73, 13);
             this.labelAuthor.TabIndex = 43;
@@ -284,7 +230,7 @@
             this.btnMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMinimize.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMinimize.ForeColor = System.Drawing.Color.White;
-            this.btnMinimize.Location = new System.Drawing.Point(388, 0);
+            this.btnMinimize.Location = new System.Drawing.Point(448, 0);
             this.btnMinimize.Margin = new System.Windows.Forms.Padding(0);
             this.btnMinimize.Name = "btnMinimize";
             this.btnMinimize.Size = new System.Drawing.Size(36, 36);
@@ -300,129 +246,54 @@
             this.labelTitle.ForeColor = System.Drawing.Color.White;
             this.labelTitle.Location = new System.Drawing.Point(12, 7);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(224, 21);
+            this.labelTitle.Size = new System.Drawing.Size(128, 21);
             this.labelTitle.TabIndex = 41;
-            this.labelTitle.Text = "SOR4 CHARACTER SWAPPER";
+            this.labelTitle.Text = "SOR4 SWAPPER";
             this.labelTitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTitle_MouseDown);
             this.labelTitle.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelTitle_MouseMove);
             // 
             // panelContainer
             // 
+            this.panelContainer.Controls.Add(this.imgListShadow);
             this.panelContainer.Controls.Add(this.btnSave);
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(110, 36);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(460, 464);
+            this.panelContainer.Size = new System.Drawing.Size(520, 464);
             this.panelContainer.TabIndex = 46;
+            // 
+            // imgListShadow
+            // 
+            this.imgListShadow.Location = new System.Drawing.Point(520, 0);
+            this.imgListShadow.Name = "imgListShadow";
+            this.imgListShadow.Size = new System.Drawing.Size(15, 464);
+            this.imgListShadow.TabIndex = 26;
+            this.imgListShadow.TabStop = false;
+            // 
+            // panelSwapList
+            // 
+            this.panelSwapList.Location = new System.Drawing.Point(655, 88);
+            this.panelSwapList.Name = "panelSwapList";
+            this.panelSwapList.Size = new System.Drawing.Size(440, 410);
+            this.panelSwapList.TabIndex = 26;
             // 
             // panelInstructions
             // 
+            this.panelInstructions.BackColor = System.Drawing.SystemColors.Control;
             this.panelInstructions.Location = new System.Drawing.Point(108, 37);
             this.panelInstructions.Name = "panelInstructions";
-            this.panelInstructions.Size = new System.Drawing.Size(460, 463);
+            this.panelInstructions.Size = new System.Drawing.Size(520, 463);
             this.panelInstructions.TabIndex = 47;
             this.panelInstructions.Visible = false;
-            // 
-            // colDel
-            // 
-            this.colDel.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            this.colDel.DefaultCellStyle = dataGridViewCellStyle1;
-            this.colDel.HeaderText = "";
-            this.colDel.MinimumWidth = 6;
-            this.colDel.Name = "colDel";
-            this.colDel.ReadOnly = true;
-            this.colDel.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colDel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colDel.ToolTipText = "Remove";
-            this.colDel.Width = 30;
-            // 
-            // origThumbCol
-            // 
-            this.origThumbCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.NullValue = null;
-            this.origThumbCol.DefaultCellStyle = dataGridViewCellStyle2;
-            this.origThumbCol.HeaderText = "Thumbnail Original";
-            this.origThumbCol.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.origThumbCol.Name = "origThumbCol";
-            this.origThumbCol.ReadOnly = true;
-            this.origThumbCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.origThumbCol.Width = 40;
-            // 
-            // colText
-            // 
-            this.colText.DataPropertyName = "original";
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.colText.DefaultCellStyle = dataGridViewCellStyle3;
-            this.colText.HeaderText = "Change";
-            this.colText.MinimumWidth = 6;
-            this.colText.Name = "colText";
-            this.colText.ReadOnly = true;
-            this.colText.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colText.Width = 110;
-            // 
-            // pointer
-            // 
-            this.pointer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            this.pointer.DefaultCellStyle = dataGridViewCellStyle4;
-            this.pointer.HeaderText = "";
-            this.pointer.Name = "pointer";
-            this.pointer.ReadOnly = true;
-            this.pointer.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.pointer.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.pointer.Width = 30;
-            // 
-            // newThumbCol
-            // 
-            this.newThumbCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.NullValue = null;
-            this.newThumbCol.DefaultCellStyle = dataGridViewCellStyle5;
-            this.newThumbCol.HeaderText = "New Thumbnail";
-            this.newThumbCol.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
-            this.newThumbCol.Name = "newThumbCol";
-            this.newThumbCol.ReadOnly = true;
-            this.newThumbCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.newThumbCol.Width = 40;
-            // 
-            // newCol
-            // 
-            this.newCol.DataPropertyName = "replacement";
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.newCol.DefaultCellStyle = dataGridViewCellStyle6;
-            this.newCol.HeaderText = "New";
-            this.newCol.MinimumWidth = 6;
-            this.newCol.Name = "newCol";
-            this.newCol.ReadOnly = true;
-            this.newCol.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.newCol.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.newCol.Width = 110;
-            // 
-            // hiddenIndex
-            // 
-            this.hiddenIndex.DataPropertyName = "hidden";
-            this.hiddenIndex.HeaderText = "hidden";
-            this.hiddenIndex.MinimumWidth = 6;
-            this.hiddenIndex.Name = "hiddenIndex";
-            this.hiddenIndex.ReadOnly = true;
-            this.hiddenIndex.Visible = false;
-            this.hiddenIndex.Width = 125;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(570, 500);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(630, 500);
             this.Controls.Add(this.labelDisplayList);
+            this.Controls.Add(this.panelSwapList);
             this.Controls.Add(this.panelInstructions);
             this.Controls.Add(this.panelContainer);
             this.Controls.Add(this.panelTop);
@@ -434,14 +305,13 @@
             this.Name = "MainWindow";
             this.Text = "SOR4 CHARACTER SWAPPER";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainWindow_FormClosing);
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainWindow_MouseMove);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panelLeft.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imgListShadow)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,7 +320,6 @@
         #endregion
         private System.Windows.Forms.Label labelDisplayList;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        public System.Windows.Forms.DataGridView dataGridView1;
         public System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.OpenFileDialog ofdLoadDialog;
         public System.Windows.Forms.Button btnSave;
@@ -463,15 +332,10 @@
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button btnMinimize;
         private System.Windows.Forms.Label labelAuthor;
-        private System.Windows.Forms.Panel panelContainer;
         private System.Windows.Forms.Panel panelInstructions;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDel;
-        private System.Windows.Forms.DataGridViewImageColumn origThumbCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colText;
-        private System.Windows.Forms.DataGridViewTextBoxColumn pointer;
-        private System.Windows.Forms.DataGridViewImageColumn newThumbCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn newCol;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hiddenIndex;
+        public System.Windows.Forms.Panel panelSwapList;
+        private System.Windows.Forms.Panel panelContainer;
+        private System.Windows.Forms.PictureBox imgListShadow;
     }
 }
 

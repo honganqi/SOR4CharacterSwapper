@@ -62,7 +62,7 @@
             this.labelLoadedSwapFile.Location = new System.Drawing.Point(10, 121);
             this.labelLoadedSwapFile.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.labelLoadedSwapFile.Name = "labelLoadedSwapFile";
-            this.labelLoadedSwapFile.Size = new System.Drawing.Size(438, 16);
+            this.labelLoadedSwapFile.Size = new System.Drawing.Size(498, 16);
             this.labelLoadedSwapFile.TabIndex = 65;
             this.labelLoadedSwapFile.Visible = false;
             this.labelLoadedSwapFile.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelLoadedSwapFile_MouseDown);
@@ -88,7 +88,7 @@
             this.labelBackupMade.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.labelBackupMade.Location = new System.Drawing.Point(10, 40);
             this.labelBackupMade.Name = "labelBackupMade";
-            this.labelBackupMade.Size = new System.Drawing.Size(438, 15);
+            this.labelBackupMade.Size = new System.Drawing.Size(498, 15);
             this.labelBackupMade.TabIndex = 62;
             this.labelBackupMade.Text = "A \"bigfile_rep_backup\" file will be created upon swapping for the first time.";
             this.labelBackupMade.Visible = false;
@@ -104,7 +104,7 @@
             this.labelValidBigfile.Name = "labelValidBigfile";
             this.labelValidBigfile.Size = new System.Drawing.Size(97, 13);
             this.labelValidBigfile.TabIndex = 61;
-            this.labelValidBigfile.Text = "original v5 bigfile";
+            this.labelValidBigfile.Text = "original v7 bigfile";
             this.labelValidBigfile.Visible = false;
             // 
             // labelBigfileLocationInfo
@@ -114,7 +114,7 @@
             this.labelBigfileLocationInfo.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.labelBigfileLocationInfo.Location = new System.Drawing.Point(10, 7);
             this.labelBigfileLocationInfo.Name = "labelBigfileLocationInfo";
-            this.labelBigfileLocationInfo.Size = new System.Drawing.Size(438, 32);
+            this.labelBigfileLocationInfo.Size = new System.Drawing.Size(498, 32);
             this.labelBigfileLocationInfo.TabIndex = 60;
             this.labelBigfileLocationInfo.Text = "To begin, please look for the \"bigfile\" file in your \"/Streets of Rage 4/data/\" f" +
     "older.";
@@ -148,7 +148,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 173);
+            this.ClientSize = new System.Drawing.Size(520, 173);
             this.Controls.Add(this.btnExtractSwaps);
             this.Controls.Add(this.btnRestoreBigfile);
             this.Controls.Add(this.labelLoadedSwapFile);

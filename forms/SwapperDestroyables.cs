@@ -12,31 +12,31 @@ using System.Reflection;
 
 namespace SOR4_Replacer
 {
-    public partial class Swapper : Form
+    public partial class SwapperDestroyables : Form
     {
         Assembly imageAssembly = Assembly.GetExecutingAssembly();
         private MainWindow _mainwindow;
         Library classlib;
 
-        public Swapper(MainWindow mainwindow)
+        public SwapperDestroyables(MainWindow mainwindow)
         {
             InitializeComponent();
             _mainwindow = mainwindow;
             classlib = mainwindow.classlib;
             labelOrigToReplace.Text = "\u2794";
-            characterList.DrawMode = DrawMode.OwnerDrawFixed;
-            characterList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(characterList_DrawItem);
-            characterList.SelectedIndexChanged += new System.EventHandler(characterList_SelectedIndexChanged);
-            replacementComboBox.DrawMode = DrawMode.OwnerDrawFixed;
-            replacementComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(characterList_DrawItem);
-            replacementComboBox.SelectedIndexChanged += new System.EventHandler(replacementComboBox_SelectedIndexChanged);
+            cmbItemOriginalList.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbItemOriginalList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(itemList_DrawItem);
+            cmbItemOriginalList.SelectedIndexChanged += new System.EventHandler(cmbItemOriginalList_SelectedIndexChanged);
+            cmbItemReplacementList.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbItemReplacementList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(itemList_DrawItem);
+            cmbItemReplacementList.SelectedIndexChanged += new System.EventHandler(cmbItemReplacementList_SelectedIndexChanged);
         }
 
-        private void characterList_DrawItem(object sender, DrawItemEventArgs e)
+        private void itemList_DrawItem(object sender, DrawItemEventArgs e)
         {
             Font fontToUse = e.Font;
             Brush brush = Brushes.Black;
-            if (Library.characterDictionary[e.Index].Path == "n/a")
+            if (Library.destroyableDictionary[e.Index].Path == "n/a")
             {
                 fontToUse = new Font("Segoe UI", 10, FontStyle.Bold | FontStyle.Regular);
             }
@@ -46,29 +46,29 @@ namespace SOR4_Replacer
                 if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) brush = Brushes.White;
                 e.DrawFocusRectangle();
             }
-            e.Graphics.DrawString(characterList.Items[e.Index].ToString(), fontToUse, brush, e.Bounds);
+            e.Graphics.DrawString(cmbItemOriginalList.Items[e.Index].ToString(), fontToUse, brush, e.Bounds);
         }
 
-        private void characterList_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbItemOriginalList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cmb = (ComboBox)sender;
-            if (cmb.Text != "") picThumbOrig.Image = _mainwindow.thumbnailslib.getThumbnail("character", cmb.SelectedIndex);
+            if (cmb.Text != "") picThumbOrig.Image = _mainwindow.thumbnailslib.getThumbnail("destroyable", cmb.SelectedIndex);
             if (cmb.SelectedIndex != -1)
             {
-                if (Library.characterDictionary[cmb.SelectedIndex].Path == "n/a")
+                if (Library.destroyableDictionary[cmb.SelectedIndex].Path == "n/a")
                 {
                     cmb.SelectedIndex = -1;
                 }
             }
         }
 
-        private void replacementComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void cmbItemReplacementList_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cmb = (ComboBox)sender;
-            if (cmb.Text != "") picThumbSwap.Image = _mainwindow.thumbnailslib.getThumbnail("character", cmb.SelectedIndex);
+            if (cmb.Text != "") picThumbSwap.Image = _mainwindow.thumbnailslib.getThumbnail("destroyable", cmb.SelectedIndex);
             if (cmb.SelectedIndex != -1)
             {
-                if (Library.characterDictionary[cmb.SelectedIndex].Path == "n/a")
+                if (Library.destroyableDictionary[cmb.SelectedIndex].Path == "n/a")
                 {
                     cmb.SelectedIndex = -1;
                 }
@@ -77,50 +77,50 @@ namespace SOR4_Replacer
 
         private void btnSetItem_Click(object sender, EventArgs e)
         {
-            if ((characterList.SelectedIndex > -1) && (replacementComboBox.SelectedIndex > -1))
+            if ((cmbItemOriginalList.SelectedIndex > -1) && (cmbItemReplacementList.SelectedIndex > -1))
             {
-                int original = characterList.SelectedIndex;
-                int replace = replacementComboBox.SelectedIndex;
+                int original = cmbItemOriginalList.SelectedIndex;
+                int replace = cmbItemReplacementList.SelectedIndex;
 
-                if (!classlib.changeList.ContainsKey(Library.characterDictionary[original].Path))
+                if (!classlib.destroyableChangeList.ContainsKey(Library.destroyableDictionary[original].Path))
                 {
                     if (original != replace)
                     {
                         if (_mainwindow.Width < _mainwindow.fullWindowWidth) _mainwindow.Width = _mainwindow.fullWindowWidth;
                         _mainwindow.ToggleShowHideListLabels(true);
                         btnClearSwapList.Enabled = true;
-                        _mainwindow.randomizer.btnClearSwapList.Enabled = true;
-                        _mainwindow.swaplistpanel.dataGridView1.Visible = true;
+                        //_mainwindow.randomizer.btnClearSwapList.Enabled = true;
+                        _mainwindow.swaplistdestroyablepanel.dataGridView2.Visible = true;
                         _mainwindow.container.btnStartReplace.Enabled = true;
                         _mainwindow.container.btnClearAllSwaps.Enabled = true;
                         _mainwindow.btnSave.Enabled = true;
                         _mainwindow.btnSave.Visible = true;
 
-                        classlib.AddToList(_mainwindow, "character", original, replace);
+                        classlib.AddToList(_mainwindow, "destroyable", original, replace);
 
                         if ((_mainwindow.info.labelLoadedSwapFile.Visible) && (!_mainwindow.info.labelLoadedSwapFile.Text.Contains(" (modified)"))) _mainwindow.info.labelLoadedSwapFile.Text += " (modified)";
                     }
                     else
                     {
-                        MessageBox.Show("Uh, really? May we have some sense, please?", "Same characters swapped", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Uh, really? May we have some sense, please?", "Same items swapped", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    MessageBox.Show("The character has already been replaced. Please check again.", "Swap already exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("The item has already been replaced. Please check again.", "Swap already exists", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 //classlib.ResetForm();
             }
             else
             {
-                MessageBox.Show("Please make sure, uh... Yeah.", "Character name is empty", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please make sure, uh... Yeah.", "Item name is empty", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("character");
+            _mainwindow.ClearSwaps("destroyable");
         }
 
         private void Swapper_MouseDown(object sender, MouseEventArgs e)

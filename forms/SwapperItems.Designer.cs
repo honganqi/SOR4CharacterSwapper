@@ -1,6 +1,6 @@
 ﻿namespace SOR4_Replacer
 {
-    partial class Swapper
+    partial class SwapperItems
     {
         /// <summary>
         /// Required designer variable.
@@ -33,9 +33,9 @@
             this.btnClearSwapList = new System.Windows.Forms.Button();
             this.labelOrigToReplace = new System.Windows.Forms.Label();
             this.btnSetItem = new System.Windows.Forms.Button();
-            this.replacementComboBox = new System.Windows.Forms.ComboBox();
+            this.cmbItemReplacementList = new System.Windows.Forms.ComboBox();
             this.labelReplacementList = new System.Windows.Forms.Label();
-            this.characterList = new System.Windows.Forms.ComboBox();
+            this.cmbItemOriginalList = new System.Windows.Forms.ComboBox();
             this.labelCharacterList = new System.Windows.Forms.Label();
             this.btnShowList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picThumbSwap)).BeginInit();
@@ -104,19 +104,19 @@
             this.btnSetItem.UseVisualStyleBackColor = true;
             this.btnSetItem.Click += new System.EventHandler(this.btnSetItem_Click);
             // 
-            // replacementComboBox
+            // cmbItemReplacementList
             // 
-            this.replacementComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.replacementComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.replacementComboBox.BackColor = System.Drawing.Color.White;
-            this.replacementComboBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.replacementComboBox.FormattingEnabled = true;
-            this.replacementComboBox.Location = new System.Drawing.Point(226, 27);
-            this.replacementComboBox.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.replacementComboBox.Name = "replacementComboBox";
-            this.replacementComboBox.Size = new System.Drawing.Size(190, 23);
-            this.replacementComboBox.TabIndex = 37;
-            this.replacementComboBox.SelectedIndexChanged += new System.EventHandler(this.replacementComboBox_SelectedIndexChanged);
+            this.cmbItemReplacementList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbItemReplacementList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbItemReplacementList.BackColor = System.Drawing.Color.White;
+            this.cmbItemReplacementList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbItemReplacementList.FormattingEnabled = true;
+            this.cmbItemReplacementList.Location = new System.Drawing.Point(226, 27);
+            this.cmbItemReplacementList.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.cmbItemReplacementList.Name = "cmbItemReplacementList";
+            this.cmbItemReplacementList.Size = new System.Drawing.Size(190, 23);
+            this.cmbItemReplacementList.TabIndex = 37;
+            this.cmbItemReplacementList.SelectedIndexChanged += new System.EventHandler(this.cmbItemReplacementList_SelectedIndexChanged);
             // 
             // labelReplacementList
             // 
@@ -124,23 +124,23 @@
             this.labelReplacementList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelReplacementList.Location = new System.Drawing.Point(223, 11);
             this.labelReplacementList.Name = "labelReplacementList";
-            this.labelReplacementList.Size = new System.Drawing.Size(73, 13);
+            this.labelReplacementList.Size = new System.Drawing.Size(98, 13);
             this.labelReplacementList.TabIndex = 36;
-            this.labelReplacementList.Text = "Replacement";
+            this.labelReplacementList.Text = "Item Replacement";
             // 
-            // characterList
+            // cmbItemOriginalList
             // 
-            this.characterList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.characterList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.characterList.BackColor = System.Drawing.Color.White;
-            this.characterList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.characterList.FormattingEnabled = true;
-            this.characterList.Location = new System.Drawing.Point(12, 27);
-            this.characterList.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.characterList.Name = "characterList";
-            this.characterList.Size = new System.Drawing.Size(190, 23);
-            this.characterList.TabIndex = 35;
-            this.characterList.SelectedIndexChanged += new System.EventHandler(this.characterList_SelectedIndexChanged);
+            this.cmbItemOriginalList.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cmbItemOriginalList.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cmbItemOriginalList.BackColor = System.Drawing.Color.White;
+            this.cmbItemOriginalList.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbItemOriginalList.FormattingEnabled = true;
+            this.cmbItemOriginalList.Location = new System.Drawing.Point(12, 27);
+            this.cmbItemOriginalList.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.cmbItemOriginalList.Name = "cmbItemOriginalList";
+            this.cmbItemOriginalList.Size = new System.Drawing.Size(190, 23);
+            this.cmbItemOriginalList.TabIndex = 35;
+            this.cmbItemOriginalList.SelectedIndexChanged += new System.EventHandler(this.cmbItemOriginalList_SelectedIndexChanged);
             // 
             // labelCharacterList
             // 
@@ -148,9 +148,9 @@
             this.labelCharacterList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCharacterList.Location = new System.Drawing.Point(9, 11);
             this.labelCharacterList.Name = "labelCharacterList";
-            this.labelCharacterList.Size = new System.Drawing.Size(49, 13);
+            this.labelCharacterList.Size = new System.Drawing.Size(74, 13);
             this.labelCharacterList.TabIndex = 34;
-            this.labelCharacterList.Text = "Original";
+            this.labelCharacterList.Text = "Item Original";
             // 
             // btnShowList
             // 
@@ -166,14 +166,14 @@
             this.btnShowList.UseVisualStyleBackColor = true;
             this.btnShowList.Click += new System.EventHandler(this.btnShowList_Click);
             // 
-            // Swapper
+            // SwapperItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 162);
             this.Controls.Add(this.btnShowList);
-            this.Controls.Add(this.characterList);
-            this.Controls.Add(this.replacementComboBox);
+            this.Controls.Add(this.cmbItemOriginalList);
+            this.Controls.Add(this.cmbItemReplacementList);
             this.Controls.Add(this.picThumbSwap);
             this.Controls.Add(this.picThumbOrig);
             this.Controls.Add(this.btnClearSwapList);
@@ -183,7 +183,7 @@
             this.Controls.Add(this.labelCharacterList);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Swapper";
+            this.Name = "SwapperItems";
             this.Text = "Form1";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Swapper_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Swapper_MouseMove);
@@ -201,9 +201,9 @@
         public System.Windows.Forms.Button btnClearSwapList;
         public System.Windows.Forms.Label labelOrigToReplace;
         public System.Windows.Forms.Button btnSetItem;
-        public System.Windows.Forms.ComboBox replacementComboBox;
+        public System.Windows.Forms.ComboBox cmbItemReplacementList;
         public System.Windows.Forms.Label labelReplacementList;
-        public System.Windows.Forms.ComboBox characterList;
+        public System.Windows.Forms.ComboBox cmbItemOriginalList;
         public System.Windows.Forms.Label labelCharacterList;
         public System.Windows.Forms.Button btnShowList;
     }

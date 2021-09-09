@@ -21,21 +21,32 @@ namespace SOR4_Replacer
             InitializeComponent();
             _mainwindow = mainwindow;
             classlib = mainwindow.classlib;
-            string playableTooltipText = "Excludes:\n";
-            string bossTooltipText = "Includes:\n";
-            string minibossTooltipText = "Includes:\n";
-            labelShowListArrow.Text = "\u25B6";
+            string playableTooltipText = "Excludes the following from randomization:\n";
+            string bossTooltipText = "Excludes the following from randomization:\n";
+            string minibossTooltipText = "Excludes the following from randomization:\n";
+            string regularplusTooltipText = "Excludes the following from randomization::\n";
+            string bossIsolateTooltipText = "Isolates the following in their own pool:\n";
+            string minibossIsolateTooltipText = "Isolates the following in their own pool:\n";
+            string regularplusIsolateTooltipText = "Isolates the following in their own pool:\n";
 
             foreach (KeyValuePair<int, Library.Character> character in Library.characterDictionary)
             {
                 if (character.Value.IsPlayable) playableTooltipText = playableTooltipText + " - " + character.Value.Name + "\n";
                 if (character.Value.IsBoss) bossTooltipText = bossTooltipText + " - " + character.Value.Name + "\n";
                 if (character.Value.IsMiniboss) minibossTooltipText = minibossTooltipText + " - " + character.Value.Name + "\n";
+                if (character.Value.IsRegularPlus) regularplusTooltipText = regularplusTooltipText + " - " + character.Value.Name + "\n";
+                if (character.Value.IsBoss) bossIsolateTooltipText = bossIsolateTooltipText + " - " + character.Value.Name + "\n";
+                if (character.Value.IsMiniboss) minibossIsolateTooltipText = minibossIsolateTooltipText + " - " + character.Value.Name + "\n";
+                if (character.Value.IsRegularPlus) regularplusIsolateTooltipText = regularplusIsolateTooltipText + " - " + character.Value.Name + "\n";
             }
 
             toolTipEnemiesOnly.SetToolTip(btnRandomize, playableTooltipText);
             toolTipBoss.SetToolTip(checkIgnoreBoss, bossTooltipText);
             toolTipMiniboss.SetToolTip(checkIgnoreMiniboss, minibossTooltipText);
+            toolTipRegularplus.SetToolTip(checkIgnoreRegularplus, regularplusTooltipText);
+            toolTipBossIsolate.SetToolTip(checkBossToBoss, bossIsolateTooltipText);
+            toolTipMinibossIsolate.SetToolTip(checkMiniToMini, minibossIsolateTooltipText);
+            toolTipRegularplusIsolate.SetToolTip(checkRegplusToRegplus, regularplusIsolateTooltipText);
         }
 
         private void btnRandomize_Click(object sender, EventArgs e)
@@ -63,94 +74,18 @@ namespace SOR4_Replacer
             DialogResult randomAsk = MessageBox.Show(questionString, "Randomize swaps", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (randomAsk == DialogResult.Yes)
             {
-                Random randomObj = new Random();
-                int randomValue;
-
-                List<int> randomList = Library.characterDictionary.Keys.ToList();
-                List<int> bossList = new List<int>(randomList);
-                List<int> minibossList = new List<int>(randomList);
-
-                // remove all characters based on conditions
-                foreach (KeyValuePair<int, Library.Character> character in Library.characterDictionary)
-                {
-                    if ((target == "enemies") && character.Value.IsPlayable) randomList.Remove(character.Key);
-                    //if (checkIgnoreBoss.Checked && character.Value.IsBoss) randomList.Remove(character.Key);
-                    if (character.Value.IsBoss)
-                    {
-                        if (checkIgnoreBoss.Checked || (!checkIgnoreBoss.Checked && checkBossToBoss.Checked))
-                            randomList.Remove(character.Key);
-                    }
-                    if (character.Value.IsMiniboss)
-                    {
-                        if (checkIgnoreMiniboss.Checked || (!checkIgnoreMiniboss.Checked && checkMiniToMini.Checked))
-                        randomList.Remove(character.Key);
-                    }
-                    if (character.Value.IsExcluded) randomList.Remove(character.Key);
-                    if (classlib.changeList.ContainsKey(character.Value.Path)) randomList.Remove(character.Key);
-                    if (!character.Value.IsBoss) bossList.Remove(character.Key);
-                    if (!character.Value.IsMiniboss) minibossList.Remove(character.Key);
-                }
-
-                foreach (KeyValuePair<int, Library.Character> character in Library.characterDictionary)
-                {
-                    // consider only if:
-                    // 1. if target is "enemies" and current character is NOT playable
-                    // 2. if target is "everybody" (NOT enemies only)
-                    // 3. if Ignore Boss is checked and current character is NOT boss
-                    // 4. if Ignore Miniboss is checked and current character is NOT miniboss
-                    // 5. if character is NOT excluded
-                    if ((((target == "enemies") && !character.Value.IsPlayable) || (target != "enemies")) &&
-                        (!checkIgnoreBoss.Checked || (checkIgnoreBoss.Checked && !character.Value.IsBoss)) &&
-                        (!checkIgnoreMiniboss.Checked || (checkIgnoreMiniboss.Checked && !character.Value.IsMiniboss)) &&
-                        !character.Value.IsExcluded &&
-                        !classlib.changeList.ContainsKey(character.Value.Path)
-                        )
-                    {
-                        if (!checkIgnoreBoss.Checked && checkBossToBoss.Checked && character.Value.IsBoss)
-                        {
-                            randomValue = randomObj.Next(0, bossList.Count());
-                            classlib.AddToList(_mainwindow, character.Key, bossList[randomValue]);
-                            if (checkDuplicates.Checked)
-                            {
-                                randomList.Remove(bossList[randomValue]);
-                                bossList.RemoveAt(randomValue);
-                            }
-                        }
-                        else
-                        if (!checkIgnoreMiniboss.Checked && checkMiniToMini.Checked && character.Value.IsMiniboss)
-                        {
-                            randomValue = randomObj.Next(0, minibossList.Count());
-                            classlib.AddToList(_mainwindow, character.Key, minibossList[randomValue]);
-                            if (checkDuplicates.Checked)
-                            {
-                                randomList.Remove(minibossList[randomValue]);
-                                minibossList.RemoveAt(randomValue);
-                            }
-                        }
-                        else
-                        {
-                            randomValue = randomObj.Next(0, randomList.Count());
-                            classlib.AddToList(_mainwindow, character.Key, randomList[randomValue]);
-                            if (checkDuplicates.Checked) randomList.RemoveAt(randomValue);
-                        }
-                    }
-                }
-
-                btnClearSwapList.Enabled = true;
-                _mainwindow.swapper.btnClearSwapList.Enabled = true;
-                _mainwindow.dataGridView1.Visible = true;
-                _mainwindow.container.btnStartReplace.Enabled = true;
+                _mainwindow.RandomizePeople(target);
                 _mainwindow.ResetForm();
             }
             else
             {
-                MessageBox.Show("You ...", "Randomization cancelled", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                MessageBox.Show("You ... *sigh*", "Randomization cancelled", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
         }
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps();
+            _mainwindow.ClearSwaps("character");
         }
 
         private void checkIgnoreBoss_CheckedChanged(object sender, EventArgs e)
@@ -158,6 +93,7 @@ namespace SOR4_Replacer
             if (checkIgnoreBoss.Checked)
             {
                 checkBossToBoss.Enabled = false;
+                checkBossToBoss.Checked = true;
             }
             else
             {
@@ -171,10 +107,24 @@ namespace SOR4_Replacer
             if (checkIgnoreMiniboss.Checked)
             {
                 checkMiniToMini.Enabled = false;
+                checkMiniToMini.Checked = true;
             }
             else
             {
                 checkMiniToMini.Enabled = true;
+            }
+        }
+
+        private void checkIgnoreRegPlus_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkIgnoreRegularplus.Checked)
+            {
+                checkRegplusToRegplus.Enabled = false;
+                checkRegplusToRegplus.Checked = true;
+            }
+            else
+            {
+                checkRegplusToRegplus.Enabled = true;
             }
         }
 
@@ -192,15 +142,11 @@ namespace SOR4_Replacer
         {
             if (_mainwindow.Width < _mainwindow.fullWindowWidth)
             {
-                _mainwindow.Width = _mainwindow.fullWindowWidth;
-                btnShowList.Text = "Hide list";
-                labelShowListArrow.Text = "\u25C0";
+                _mainwindow.ToggleSwapList(true);
             }
             else
             {
-                _mainwindow.Width = _mainwindow.initialWindowWidth;
-                btnShowList.Text = "Show list";
-                labelShowListArrow.Text = "\u25B6";
+                _mainwindow.ToggleSwapList(false);
             }
         }
     }

@@ -29,18 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Instructions));
-            this.labelInstructions = new System.Windows.Forms.Label();
             this.btnInstructionsClose = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // labelInstructions
-            // 
-            this.labelInstructions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelInstructions.Location = new System.Drawing.Point(10, 7);
-            this.labelInstructions.Name = "labelInstructions";
-            this.labelInstructions.Size = new System.Drawing.Size(441, 447);
-            this.labelInstructions.TabIndex = 46;
-            this.labelInstructions.Text = resources.GetString("labelInstructions.Text");
             // 
             // btnInstructionsClose
             // 
@@ -48,7 +39,7 @@
             this.btnInstructionsClose.BackColor = System.Drawing.SystemColors.Control;
             this.btnInstructionsClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInstructionsClose.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInstructionsClose.Location = new System.Drawing.Point(361, 431);
+            this.btnInstructionsClose.Location = new System.Drawing.Point(421, 431);
             this.btnInstructionsClose.Name = "btnInstructionsClose";
             this.btnInstructionsClose.Size = new System.Drawing.Size(90, 23);
             this.btnInstructionsClose.TabIndex = 48;
@@ -56,24 +47,37 @@
             this.btnInstructionsClose.UseVisualStyleBackColor = false;
             this.btnInstructionsClose.Click += new System.EventHandler(this.btnInstructionsClose_Click);
             // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(7, 6);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(504, 419);
+            this.textBox1.TabIndex = 49;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
+            // 
             // Instructions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 463);
+            this.ClientSize = new System.Drawing.Size(520, 463);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.btnInstructionsClose);
-            this.Controls.Add(this.labelInstructions);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Instructions";
             this.Text = "Instructions";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        public System.Windows.Forms.Label labelInstructions;
         public System.Windows.Forms.Button btnInstructionsClose;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

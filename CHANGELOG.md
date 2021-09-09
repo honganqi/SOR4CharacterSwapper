@@ -2,6 +2,75 @@
 All notable changes to this project will be documented in
 this file.
 
+## 3.1.5 - 2021/09/03 15:33 GMT+08:00
+### Fixed
+* REALLY, REALLY fixed the randomizer including (retro) bosses
+even if "IGNORE" and "ISOLATE" BOSS checkboxes were enabled.
+* The following retro characters are now considered Minibosses:
+Commissioner (Stage 7), Abadede SOR2, Mr. X SOR2, Shiva SOR2,
+Zamza SOR2, Abadede SOR1 (elite), Antonio SOR1 (elite),
+Bongo SOR1 (elite), Mr. X SOR1 (elite), Souther SOR1 (elite)
+
+
+## 3.1.0 - 2021/08/29 12:31 GMT+08:00
+### Added
+* Randomizer: added preset buttons for one-click randomization
+experience (VERY experimental)
+* Levels: added a checkbox to prevent Boss Rush getting
+randomized into the Story Levels
+### Changed
+* "Prevent duplicates" checkboxes are now named
+"Allow duplicates". It is still logically the same, but it is
+now an opt-in instead of an opt-out.
+* "Ignore" checkboxes are now under the "IGNORE" column
+* "Swap __ with __ only" checkboxes are now under the "ISOLATE"
+column
+* Various UI changes
+### Fixed
+* FIXED RANDOMIZER INCLUDING BOSSES EVEN IF "IGNORE" AND
+"BOSS WITH BOSS ONLY" CHECKBOXES WERE ENABLED
+* Fixed issue of unexpected swaps/randoms when applying changes
+on a bigfile with existing swaps. There's no need to restore the
+bigfile anymore when applying another set of swaps/randoms.
+* Weapons: "IGNORE" and "ISOLATE" checkboxes of Golden Weapons
+both work now
+
+
+## 3.0.0 - 2021/08/11 6:26 GMT+08:00
+### Added
+* capability to swap and randomize Items, Breakables and Levels
+* filter function in the swap list
+* sort function in the swap list
+* categorization in the drop-down menus
+* "Clear all swap lists" button to accommodate the new Items,
+Breakables, and Levels
+* Characters: Added a Regular+ difficulty category
+* Characters: Added "Ignore Regular+" and "Swap regular+ with
+regular+ only" checkboxes
+* Items: "Ignore Goldens" checkbox to make the randomizer ignore
+the golden weapons
+* Items: "Prevent goldens being swapped with weapons" checkbox
+to only allow them randomizing between themselves
+* Breakables: "Mix 'em all up" button to allow destructive
+breakables (e.g. barrels) to be randomized into garbage cans
+### Changed
+* made the app work with the July 15, 2021 v7 update of the game
+* made the app work with the July 24, 2021 v7 update of the
+update of the game (yes, the second one)
+* renamed the app into "SOR4 Swapper" because it's not limited
+to characters anymore
+* the app now uses thumbnails which are pulled directly from
+the game files
+### Removed
+* thumbnails which came with the app were removed
+
+
+## 2.1.0 - 2021/07/14 00:34 GMT+08:00
+### Added
+* added function to extract the swap list from a modified
+bigfile onto a swap file ("show list" after extracting to 
+be able to save the swap file) (thanks Anthopants)
+
 ## 2.0.1 - 2021/06/18 19:18 GMT+08:00
 ### Changed
 * updated the How-To section

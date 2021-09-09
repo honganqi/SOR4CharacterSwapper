@@ -15,8 +15,7 @@ namespace SOR4_Replacer
         [STAThread]
         static void Main()
         {
-
-            if (File.Exists("SOR4CharacterExplorer.dll"))
+            if (File.Exists("SOR4SwapExplorer.dll"))
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -24,7 +23,7 @@ namespace SOR4_Replacer
             }
             else
             {
-                MessageBox.Show("The file \"SOR4CharacterExplorer.dll\" was not found. Please include it in the same folder with this program.", "DLL missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("The file \"SOR4SwapExplorer.dll\" was not found. Please include it in the same folder with this program.", "DLL missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

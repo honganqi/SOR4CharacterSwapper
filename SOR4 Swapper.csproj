@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC0B8A1C-B272-4B06-809A-E9E07DBA935F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SOR4_Replacer</RootNamespace>
+    <AssemblyName>SOR4 Swapper</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.1.0.0</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="SOR4SwapExplorer, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SOR4CharExplorer\bin\Release\SOR4SwapExplorer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="forms\RandomizerPresets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\RandomizerPresets.Designer.cs">
+      <DependentUpon>RandomizerPresets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\RandomizerDestroyables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\RandomizerDestroyables.Designer.cs">
+      <DependentUpon>RandomizerDestroyables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapListLevelPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapListLevelPanel.Designer.cs">
+      <DependentUpon>SwapListLevelPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapListDestroyablePanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapListDestroyablePanel.Designer.cs">
+      <DependentUpon>SwapListDestroyablePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapperLevels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapperLevels.Designer.cs">
+      <DependentUpon>SwapperLevels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapperDestroyables.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapperDestroyables.Designer.cs">
+      <DependentUpon>SwapperDestroyables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapperItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapperItems.Designer.cs">
+      <DependentUpon>SwapperItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapListItemPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapListItemPanel.Designer.cs">
+      <DependentUpon>SwapListItemPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\RandomizerLevels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\RandomizerLevels.Designer.cs">
+      <DependentUpon>RandomizerLevels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\RandomizerItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\RandomizerItems.Designer.cs">
+      <DependentUpon>RandomizerItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\SwapListPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\SwapListPanel.Designer.cs">
+      <DependentUpon>SwapListPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Library.cs" />
+    <Compile Include="forms\Container.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Container.Designer.cs">
+      <DependentUpon>Container.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Info.Designer.cs">
+      <DependentUpon>Info.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Instructions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Instructions.Designer.cs">
+      <DependentUpon>Instructions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Swapper.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Swapper.Designer.cs">
+      <DependentUpon>Swapper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\Randomizer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\Randomizer.Designer.cs">
+      <DependentUpon>Randomizer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\MainWindow.Designer.cs">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="Thumbnails.cs" />
+    <EmbeddedResource Include="forms\Container.resx">
+      <DependentUpon>Container.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Info.resx">
+      <DependentUpon>Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Instructions.resx">
+      <DependentUpon>Instructions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\RandomizerPresets.resx">
+      <DependentUpon>RandomizerPresets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\RandomizerDestroyables.resx">
+      <DependentUpon>RandomizerDestroyables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapListLevelPanel.resx">
+      <DependentUpon>SwapListLevelPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapListDestroyablePanel.resx">
+      <DependentUpon>SwapListDestroyablePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapperLevels.resx">
+      <DependentUpon>SwapperLevels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapperDestroyables.resx">
+      <DependentUpon>SwapperDestroyables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapperItems.resx">
+      <DependentUpon>SwapperItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapListItemPanel.resx">
+      <DependentUpon>SwapListItemPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\RandomizerLevels.resx">
+      <DependentUpon>RandomizerLevels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\RandomizerItems.resx">
+      <DependentUpon>RandomizerItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\SwapListPanel.resx">
+      <DependentUpon>SwapListPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\Swapper.resx">
+      <DependentUpon>Swapper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\MainWindow.resx">
+      <DependentUpon>MainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="forms\Randomizer.resx">
+      <DependentUpon>Randomizer.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SOR4SwapExplorer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="img\exit.png" />
+    <EmbeddedResource Include="img\open.png" />
+    <EmbeddedResource Include="img\random.png" />
+    <EmbeddedResource Include="img\load.png" />
+    <EmbeddedResource Include="img\save.png" />
+    <EmbeddedResource Include="img\help.png" />
+    <EmbeddedResource Include="img\min.png" />
+    <EmbeddedResource Include="img\sflogo.png" />
+    <EmbeddedResource Include="img\twitch.png" />
+    <EmbeddedResource Include="img\youtube.png" />
+    <EmbeddedResource Include="img\bmc.png" />
+    <EmbeddedResource Include="img\listshadow.png" />
+    <Content Include="logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
