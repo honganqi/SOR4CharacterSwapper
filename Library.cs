@@ -8,13 +8,25 @@ using System.Reflection;
 using System.Drawing;
 using System.Security.Cryptography;
 using System.Data;
-using SOR4CharacterExplorer;
+using SOR4GameExplorer;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public class Library
     {
-        public BigfileExplorer bigfileClass = new BigfileExplorer();
+        public BigfileExplorer bigfileClass = new();
+        public class VersionClass
+        {
+            [Newtonsoft.Json.JsonProperty("release_date")]
+            public String ReleaseDate { get; set; }
+
+            [Newtonsoft.Json.JsonProperty("version")]
+            public String Version { get; set; }
+            [Newtonsoft.Json.JsonProperty("download_url")]
+            public String DownloadURL { get; set; }
+            [Newtonsoft.Json.JsonProperty("description")]
+            public String Description { get; set; }
+        }
 
         public class Character
         {
@@ -22,6 +34,8 @@ namespace SOR4_Replacer
             public string Name { get; set; }
             public string Path { get; set; }
             public string Thumbnail { get; set; }
+            public string NameIndex { get; set; }
+            public string CustomNameIndex { get; set; }
             public bool IsPlayable { get; set; }
             public bool IsBoss { get; set; }
             public bool ReplaceRegs { get; set; }
@@ -68,276 +82,275 @@ namespace SOR4_Replacer
             public bool IsTraining { get; set; }
             public bool IsExcluded { get; set; }
         }
-        public static Dictionary<int, Character> characterDictionary = new Dictionary<int, Character>
+        public static Dictionary<int, Character> characterDictionary = new()
         {
-            [0] = new Character { Name = "--- PLAYABLES ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [1] = new Character { Name = "Axel SOR4", Path = "characters/sor4_playables/chrsor4axel", Thumbnail = "gui/hud/hud_axel_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [2] = new Character { Name = "Blaze SOR4", Path = "characters/sor4_playables/chrsor4blaze", Thumbnail = "gui/hud/hud_blaze_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [3] = new Character { Name = "Cherry SOR4", Path = "characters/sor4_playables/chrsor4cherry", Thumbnail = "gui/hud/hud_cherry_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [4] = new Character { Name = "Floyd SOR4", Path = "characters/sor4_playables/chrsor4floyd", Thumbnail = "gui/hud/hud_floyd_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [5] = new Character { Name = "Adam SOR4", Path = "characters/sor4_playables/chrsor4adam", Thumbnail = "gui/hud/hud_adam_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [6] = new Character { Name = "Estel SOR4", Path = "characters/sor4_playables/chrsor4estel_playable", Thumbnail = "gui/hud/hud_estel_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [7] = new Character { Name = "Max SOR4", Path = "characters/sor4_playables/chrsor4max_playable", Thumbnail = "gui/hud/hud_max_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [8] = new Character { Name = "Shiva SOR4", Path = "characters/sor4_playables/chrsor4shiva", Thumbnail = "gui/hud/hud_shiva_face", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [9] = new Character { Name = "Axel SOR1", Path = "characters/sor1_playables/chrsor1axel", Thumbnail = "gui/hud/hud_sor1_axel", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [10] = new Character { Name = "Blaze SOR1", Path = "characters/sor1_playables/chrsor1blaze", Thumbnail = "gui/hud/hud_sor1_blaze", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [11] = new Character { Name = "Adam SOR1", Path = "characters/sor1_playables/chrsor1adam", Thumbnail = "gui/hud/hud_sor1_adam", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [12] = new Character { Name = "Axel SOR2", Path = "characters/sor2_playables/chrsor2axel", Thumbnail = "gui/hud/hud_sor2_axel", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [13] = new Character { Name = "Blaze SOR2", Path = "characters/sor2_playables/chrsor2blaze", Thumbnail = "gui/hud/hud_sor2_blaze", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [14] = new Character { Name = "Max SOR2", Path = "characters/sor2_playables/chrsor2max", Thumbnail = "gui/hud/hud_sor2_max", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [15] = new Character { Name = "Skate SOR2", Path = "characters/sor2_playables/chrsor2skate", Thumbnail = "gui/hud/hud_sor2_skate", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [16] = new Character { Name = "Axel SOR3", Path = "characters/sor3_playables/chrsor3axel", Thumbnail = "gui/hud/hud_sor3_axel", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [17] = new Character { Name = "Blaze SOR3", Path = "characters/sor3_playables/chrsor3blaze", Thumbnail = "gui/hud/hud_sor3_blaze", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [18] = new Character { Name = "Skate SOR3", Path = "characters/sor3_playables/chrsor3skate", Thumbnail = "gui/hud/hud_sor3_skate", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [19] = new Character { Name = "Dr. Zan SOR3", Path = "characters/sor3_playables/chrsor3zan", Thumbnail = "gui/hud/hud_sor3_zan", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [20] = new Character { Name = "Shiva SOR3", Path = "characters/sor3_playables/chrsor3shiva", Thumbnail = "gui/hud/hud_sor3_shiva", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [21] = new Character { Name = "Roo SOR3", Path = "characters/sor3_playables/chrsor3roo", Thumbnail = "gui/hud/hud_sor3_roo", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [22] = new Character { Name = "--- DIVA ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [23] = new Character { Name = "Diva", Path = "characters/sor4_enemies/diva/chrsor4diva", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4diva", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [24] = new Character { Name = "Diva (survival)", Path = "characters/sor4_enemies/diva/chrsor4diva_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4diva", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [25] = new Character { Name = "Riha", Path = "characters/sor4_enemies/diva/chrsor4mariah", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4mariah", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [26] = new Character { Name = "Riha (survival)", Path = "characters/sor4_enemies/diva/chrsor4mariah_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4mariah", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [27] = new Character { Name = "Beyo", Path = "characters/sor4_enemies/diva/chrsor4kalaas", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4kalaas", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [28] = new Character { Name = "Beyo (survival)", Path = "characters/sor4_enemies/diva/chrsor4kalaas_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4kalaas", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [29] = new Character { Name = "Weetnee", Path = "characters/sor4_enemies/diva/chrsor4_l4_tania", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4divav4", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [30] = new Character { Name = "Weetnee (elite)", Path = "characters/sor4_enemies/diva/chrsor4_l4_tania_elite", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4divav4", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [31] = new Character { Name = "--- COMMISSIONER ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [32] = new Character { Name = "Commissioner", Path = "characters/sor4_enemies/commisser/chrsor4commisser", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [33] = new Character { Name = "Commissioner (survival)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_survival", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [34] = new Character { Name = "Commissioner (Stage 7)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_7", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [35] = new Character { Name = "Deputy", Path = "characters/sor4_enemies/commisser/chrsor4deputy", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [36] = new Character { Name = "Deputy (elite)", Path = "characters/sor4_enemies/commisser/chrsor4deputy_elite", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [37] = new Character { Name = "Lieutenant", Path = "characters/sor4_enemies/commisser/chrsor4lieutenant", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [38] = new Character { Name = "--- NORA ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [39] = new Character { Name = "Nora", Path = "characters/sor4_enemies/nora/chrsor4noraboss", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4nora", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [40] = new Character { Name = "Nora (survival)", Path = "characters/sor4_enemies/nora/chrsor4norabosssurvival", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4nora", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [41] = new Character { Name = "Electra", Path = "characters/sor4_enemies/nora/chrsor4electra", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4electra", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [42] = new Character { Name = "Queen", Path = "characters/sor4_enemies/nora/chrsor4queen", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4queen", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [43] = new Character { Name = "Queen (elite)", Path = "characters/sor4_enemies/nora/chrsor4queen_elite", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4queen", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [44] = new Character { Name = "Stiletto", Path = "characters/sor4_enemies/nora/chrsor4stiletto", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4stiletto", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [45] = new Character { Name = "--- ESTEL ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [46] = new Character { Name = "Estel (boss)", Path = "characters/sor4_enemies/estel/chrsor4estel", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [47] = new Character { Name = "Estel (survival)", Path = "characters/sor4_enemies/estel/chrsor4estel_survival", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [48] = new Character { Name = "Estel (Stage 7)", Path = "characters/sor4_enemies/estel/chrsor4estel_lvl7", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [49] = new Character { Name = "--- BARBON ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [50] = new Character { Name = "Barbon", Path = "characters/sor4_enemies/barbon/chrsor4barbon", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [51] = new Character { Name = "Barbon (survival)", Path = "characters/sor4_enemies/barbon/chrsor4barbonsurvival", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [52] = new Character { Name = "Vulture", Path = "characters/sor4_enemies/barbon/chrsor4vulture", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [53] = new Character { Name = "Wayne", Path = "characters/sor4_enemies/barbon/chrsor4wayne", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [54] = new Character { Name = "Wayne (elite)", Path = "characters/sor4_enemies/barbon/chrsor4wayne_elite", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [55] = new Character { Name = "--- SHIVA ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [56] = new Character { Name = "Shiva (boss)", Path = "characters/sor4_enemies/shiva/chrsor4shiva", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [57] = new Character { Name = "Shiva (survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivasurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [58] = new Character { Name = "--- MAX ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [59] = new Character { Name = "Max (boss)", Path = "characters/sor4_enemies/max/chrsor4max", Thumbnail = "animatedsprites/sor4/enemies/max/sprsor4max", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [60] = new Character { Name = "Max (survival)", Path = "characters/sor4_enemies/max/chrsor4maxsurvival", Thumbnail = "animatedsprites/sor4/enemies/max/sprsor4max", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [61] = new Character { Name = "--- DJ K-WASHI ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [62] = new Character { Name = "DJ K-Washi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashi", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashi", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [63] = new Character { Name = "DJ K-Washi (survival)", Path = "characters/sor4_enemies/kwashi/chrsor4kwashi_survival", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashi", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [64] = new Character { Name = "DJ K-Zushi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashiv2", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashiv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [65] = new Character { Name = "DJ K-Nashi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashiv3", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashiv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [66] = new Character { Name = "--- MR. Y ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [67] = new Character { Name = "Mr. Y", Path = "characters/sor4_enemies/mry/chrsor4mry", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [68] = new Character { Name = "Mr. Y (survival)", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [69] = new Character { Name = "Mr. Y (end)", Path = "characters/sor4_enemies/mry/chrsor4mry_12", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [70] = new Character { Name = "Mr. What", Path = "characters/sor4_enemies/mry/chrsor4mry_12_survival", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mryv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [71] = new Character { Name = "Mr. Whatever", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival2", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mryv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [72] = new Character { Name = "--- MS. Y ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [73] = new Character { Name = "Ms. Y", Path = "characters/sor4_enemies/msy/chrsor4msy", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [74] = new Character { Name = "Ms. Y (survival)", Path = "characters/sor4_enemies/msy/chrsor4msysurvival", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [75] = new Character { Name = "Ms. Y (end)", Path = "characters/sor4_enemies/msy/chrsor4msy_12", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [76] = new Character { Name = "Ms. What", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [77] = new Character { Name = "Ms. Whatever", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival_2", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [78] = new Character { Name = "Ms. Whatever (elite)", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival_2_elite", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [79] = new Character { Name = "--- GALSIA ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [80] = new Character { Name = "Galsia", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [81] = new Character { Name = "Joseph", Path = "characters/sor4_enemies/galsia/chrsor4_l0_joseph", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4joseph", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [82] = new Character { Name = "B.T.", Path = "characters/sor4_enemies/galsia/chrsor4_l3_bt", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4bt", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [83] = new Character { Name = "Brash", Path = "characters/sor4_enemies/galsia/chrsor4_l4_brash", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4brash", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [84] = new Character { Name = "Garam", Path = "characters/sor4_enemies/galsia/chrsor4_l6_garam", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4garam", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [85] = new Character { Name = "Jonathan", Path = "characters/sor4_enemies/galsia/chrsor4_l7_jonathan", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4jonathan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [86] = new Character { Name = "Jonathan (elite)", Path = "characters/sor4_enemies/galsia/chrsor4_l7_jonathan_elite", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4jonathan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [87] = new Character { Name = "Surger", Path = "characters/sor4_enemies/galsia/chrsor4_l8_surger", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4surger", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [88] = new Character { Name = "B.T. (boss)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_bt_boss", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4bt", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [89] = new Character { Name = "Galsia (Nora)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsiamaso", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [90] = new Character { Name = "Galsiaaaaa", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsiasuper", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [91] = new Character { Name = "Galsia (Stage 2 hostage)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_lowstruggle", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [92] = new Character { Name = "--- SIGNAL ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [93] = new Character { Name = "Y. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l0_signal_y", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_y", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [94] = new Character { Name = "G. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l1_signal_g", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_g", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [95] = new Character { Name = "R. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l3_signal_r", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_r", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [96] = new Character { Name = "D. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l4_signal_d", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_d", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [97] = new Character { Name = "D. Signal (elite)", Path = "characters/sor4_enemies/signal/chrsor4_l4_signal_d_elite", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_d", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [98] = new Character { Name = "--- DONOVAN ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [99] = new Character { Name = "Donovan", Path = "characters/sor4_enemies/donovan/chrsor4_l0_donovan", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4donovan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [100] = new Character { Name = "Altet", Path = "characters/sor4_enemies/donovan/chrsor4_l1_altet", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4altet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [101] = new Character { Name = "Gudden", Path = "characters/sor4_enemies/donovan/chrsor4_l2_gudden", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4gudden", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [102] = new Character { Name = "Z", Path = "characters/sor4_enemies/donovan/chrsor4_l3_z", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4z", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [103] = new Character { Name = "Z (elite)", Path = "characters/sor4_enemies/donovan/chrsor4_l3_z_elite", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4z", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [104] = new Character { Name = "--- DYLAN ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [105] = new Character { Name = "Dylan", Path = "characters/sor4_enemies/dylan/chrsor4_l0_dylan", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4dylan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [106] = new Character { Name = "Kevin", Path = "characters/sor4_enemies/dylan/chrsor4_l3_kevin", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4kevin", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [107] = new Character { Name = "Francis", Path = "characters/sor4_enemies/dylan/chrsor4_l4_francis", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4francis", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [108] = new Character { Name = "Brandon", Path = "characters/sor4_enemies/dylan/chrsor4_l5_brandon", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4brandon", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [109] = new Character { Name = "Brandon (elite)", Path = "characters/sor4_enemies/dylan/chrsor4_l5_brandon_elite", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4brandon", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [110] = new Character { Name = "--- DIAMOND ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [111] = new Character { Name = "Diamond", Path = "characters/sor4_enemies/diamond/chrsor4_l0_diamond", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4diamond", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [112] = new Character { Name = "Ruby", Path = "characters/sor4_enemies/diamond/chrsor4_l1_ruby", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [113] = new Character { Name = "Garnet", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [114] = new Character { Name = "Garnet (elite)", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet_elite", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [115] = new Character { Name = "Pyrop", Path = "characters/sor4_enemies/diamond/chrsor4_l4_pyrop", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [116] = new Character { Name = "Saphyr", Path = "characters/sor4_enemies/diamond/chrsor4_l5_saphyr", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4saphyr", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [117] = new Character { Name = "--- BIKER GIRLS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [118] = new Character { Name = "Sugar", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l0_sugar", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4sugar", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [119] = new Character { Name = "Honey", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l1_honey", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4honey", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [120] = new Character { Name = "Candy", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l2_janet", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4janet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [121] = new Character { Name = "Candy (elite)", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l2_janet_elite", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4janet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [122] = new Character { Name = "Caramel", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l3_georgia", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4georgia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [123] = new Character { Name = "--- KICKBOXERS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [124] = new Character { Name = "Raven", Path = "characters/sor4_enemies/raven/chrsor4raven_l0_raven", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4raven", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [125] = new Character { Name = "Condor", Path = "characters/sor4_enemies/raven/chrsor4raven_l1_condor", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4condor", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [126] = new Character { Name = "Sparrow", Path = "characters/sor4_enemies/raven/chrsor4raven_l2_sparrow", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4sparrow", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [127] = new Character { Name = "Sparrow (elite)", Path = "characters/sor4_enemies/raven/chrsor4raven_l2_sparrow_elite", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4sparrow", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [128] = new Character { Name = "Pheasant", Path = "characters/sor4_enemies/raven/chrsor4raven_l4_pheasant", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4pheasant", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [129] = new Character { Name = "--- BOMBER GIRLS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [130] = new Character { Name = "Victoria", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l1_victoria", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4victoria", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [131] = new Character { Name = "Victoria (elite)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l1_victoria_elite", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4victoria", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [132] = new Character { Name = "Elizabeth", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l2_toxyne", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4elizabeth", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [133] = new Character { Name = "Margaret", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [134] = new Character { Name = "Margaret (flashbang)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffiestun", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [135] = new Character { Name = "Margaret (non-attacking)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie_turret", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [136] = new Character { Name = "Anne", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l4_anne", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4anne", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [137] = new Character { Name = "--- GUNMEN ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [138] = new Character { Name = "Gold", Path = "characters/sor4_enemies/gold/chrsor4_l0_gold", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4gold", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [139] = new Character { Name = "Silver", Path = "characters/sor4_enemies/gold/chrsor4_l1_silver", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4silver", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [140] = new Character { Name = "Iron", Path = "characters/sor4_enemies/gold/chrsor4_l2_tin", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4tin", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [141] = new Character { Name = "Iron (elite)", Path = "characters/sor4_enemies/gold/chrsor4_l2_tin_elite", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4tin", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [142] = new Character { Name = "Bronze", Path = "characters/sor4_enemies/gold/chrsor4_l3_bronze", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4bronze", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [143] = new Character { Name = "--- POLICE ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [144] = new Character { Name = "Feroccio", Path = "characters/sor4_enemies/cop/chrsor4cop_l0_cop", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [145] = new Character { Name = "Barney", Path = "characters/sor4_enemies/cop/chrsor4cop_l3_chief", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [146] = new Character { Name = "Dick", Path = "characters/sor4_enemies/cop/chrsor4cop_l6_grab", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [147] = new Character { Name = "Lou", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_badgrab", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [148] = new Character { Name = "Barnaby", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_rookie", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copv5", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [149] = new Character { Name = "Barnaby (elite)", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_rookie_elite", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [150] = new Character { Name = "--- SHIELDS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [151] = new Character { Name = "Murphy", Path = "characters/sor4_enemies/elite/chrsor4_l0_elite", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [152] = new Character { Name = "Ralphy", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegold", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [153] = new Character { Name = "Ralphy (survival)", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegoldhalberd", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [154] = new Character { Name = "Ralphy (survival elite)", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegoldhalberd_elite", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [155] = new Character { Name = "Dunphy", Path = "characters/sor4_enemies/elite/chrsor4_l4_elitedark2", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l4_dark", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [156] = new Character { Name = "Dunphy (Electro)", Path = "characters/sor4_enemies/elite/chrsor4_l4_elitedark", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l4_dark", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [157] = new Character { Name = "Shadow", Path = "characters/sor4_enemies/elite/chrsor4_l5_eliteshadow", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l5_shadow", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [158] = new Character { Name = "Sand", Path = "characters/sor4_enemies/elite/chrsor4_l6_elitelight", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l6_light", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [159] = new Character { Name = "--- KARATE ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [160] = new Character { Name = "Dokuja", Path = "characters/sor4_enemies/karate/chrsor4karate_l0_masa", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate_masa", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [161] = new Character { Name = "Goro", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [162] = new Character { Name = "Goro (elite)", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro_elite", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [163] = new Character { Name = "Tatsu", Path = "characters/sor4_enemies/karate/chrsor4karate_l6_tetsu", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [164] = new Character { Name = "Tora", Path = "characters/sor4_enemies/karate/chrsor4karate_l7_tiger", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate_tiger", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [165] = new Character { Name = "--- BIG BEN ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [166] = new Character { Name = "Big Ben", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [167] = new Character { Name = "Big Ben (elite)", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss_elite", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [168] = new Character { Name = "Big Ben (Galsia slapper)", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l0_bigben", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [169] = new Character { Name = "Anry", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l2_anry", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4anry", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [170] = new Character { Name = "Gourmand", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l3_bongo", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bongo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [171] = new Character { Name = "Heart", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l4_heart", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4heart", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [172] = new Character { Name = "--- KOOBO ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [173] = new Character { Name = "Koobo", Path = "characters/sor4_enemies/koobo/chrsor4koobo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [174] = new Character { Name = "Koobo (less life)", Path = "characters/sor4_enemies/koobo/chrsor4koobolesslife", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [175] = new Character { Name = "Baabo", Path = "characters/sor4_enemies/koobo/chrsor4baabo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [176] = new Character { Name = "Baabo (less life)", Path = "characters/sor4_enemies/koobo/chrsor4baabolesslife", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [177] = new Character { Name = "Baabo (less life elite)", Path = "characters/sor4_enemies/koobo/chrsor4baabolesslife_elite", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [178] = new Character { Name = "Zeebo", Path = "characters/sor4_enemies/koobo/chrsor4zeebo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobov3", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [179] = new Character { Name = "Fuubo", Path = "characters/sor4_enemies/koobo/chrsor4fuubo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobov4", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [180] = new Character { Name = "--- RETRO SOR1 ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [181] = new Character { Name = "Antonio SOR1", Path = "characters/sor1_enemies/chrsor1antonio", Thumbnail = "animatedsprites/sor1/enemies/sprsor1antonio", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [182] = new Character { Name = "Antonio SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1antonio_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1antonio", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [183] = new Character { Name = "Souther SOR1", Path = "characters/sor1_enemies/chrsor1souther", Thumbnail = "animatedsprites/sor1/enemies/sprsor1souther", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [184] = new Character { Name = "Souther SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1souther_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1souther", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [185] = new Character { Name = "Abadede SOR1", Path = "characters/sor1_enemies/chrsor1abadede", Thumbnail = "animatedsprites/sor1/enemies/sprsor1abadede", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [186] = new Character { Name = "Abadede SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1abadede_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1abadede", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [187] = new Character { Name = "Bongo SOR1", Path = "characters/sor1_enemies/chrsor1bongo", Thumbnail = "animatedsprites/sor1/enemies/sprsor1bongo", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [188] = new Character { Name = "Bongo SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1bongo_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1bongo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [189] = new Character { Name = "Mr. X SOR1", Path = "characters/sor1_enemies/chrsor1mrx", Thumbnail = "animatedsprites/sor1/enemies/sprsor1mrx", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [190] = new Character { Name = "Mr. X SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1mrx_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1mrx", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [191] = new Character { Name = "--- RETRO SOR2 ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [192] = new Character { Name = "Galsia SOR2", Path = "characters/sor2_enemies/chrsor2galsia", Thumbnail = "animatedsprites/sor2/enemies/sprsor2galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [193] = new Character { Name = "Donovan SOR2", Path = "characters/sor2_enemies/chrsor2donovan", Thumbnail = "animatedsprites/sor2/enemies/sprsor2donovan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [194] = new Character { Name = "Y. Signal SOR2", Path = "characters/sor2_enemies/chrsor2signal", Thumbnail = "animatedsprites/sor2/enemies/sprsor2signal", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [195] = new Character { Name = "Fog SOR2", Path = "characters/sor2_enemies/chrsor2fog", Thumbnail = "animatedsprites/sor2/enemies/sprsor2fog", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [196] = new Character { Name = "Raven SOR2", Path = "characters/sor2_enemies/chrsor2raven", Thumbnail = "animatedsprites/sor2/enemies/sprsor2raven", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [197] = new Character { Name = "Electra SOR2", Path = "characters/sor2_enemies/chrsor2electra_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2electra", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [198] = new Character { Name = "Hakuyo SOR2", Path = "characters/sor2_enemies/chrsor2hakuyo", Thumbnail = "animatedsprites/sor2/enemies/sprsor2hakuyo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [199] = new Character { Name = "Kusanagi SOR2", Path = "characters/sor2_enemies/chrsor2kusanagi", Thumbnail = "animatedsprites/sor2/enemies/sprsor2kusanagi", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [200] = new Character { Name = "Big Ben SOR2", Path = "characters/sor2_enemies/chrsor2bigben", Thumbnail = "animatedsprites/sor2/enemies/sprsor2bigben", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [201] = new Character { Name = "Jack SOR2", Path = "characters/sor2_enemies/chrsor2jack", Thumbnail = "animatedsprites/sor2/enemies/sprsor2jack", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [202] = new Character { Name = "Barbon SOR2", Path = "characters/sor2_enemies/chrsor2barbon_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2barbon", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [203] = new Character { Name = "Barbon SOR2 (elite)", Path = "characters/sor2_enemies/chrsor2barbon_challenge_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2barbon", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [204] = new Character { Name = "Abadede SOR2", Path = "characters/sor2_enemies/chrsor2abadede_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [205] = new Character { Name = "Abadede SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2abadede_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [206] = new Character { Name = "Abadede SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2abadede_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [207] = new Character { Name = "R. Bear SOR2", Path = "characters/sor2_enemies/chrsor2rbear_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2rbear", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [208] = new Character { Name = "R. Bear SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2rbear_challenge_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2rbear", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [209] = new Character { Name = "Zamza SOR2", Path = "characters/sor2_enemies/chrsor2zamza_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [210] = new Character { Name = "Zamza SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2zamza_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [211] = new Character { Name = "Zamza SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2zamza_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [212] = new Character { Name = "Mr. X SOR2", Path = "characters/sor2_enemies/chrsor2mrx_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [213] = new Character { Name = "Mr. X SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2mrx_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [214] = new Character { Name = "Mr. X SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2mrx_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [215] = new Character { Name = "Shiva SOR2", Path = "characters/sor2_enemies/chrsor2shiva_challenge", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [216] = new Character { Name = "Shiva SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2shiva_challenge_survival", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [217] = new Character { Name = "Shiva SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2shiva_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [218] = new Character { Name = "--- RETRO SOR3 ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [219] = new Character { Name = "Bruce (spawn)", Path = "characters/sor3_enemies/chrsor3bruce_spawn", Thumbnail = "animatedsprites/sor3/enemies/sprsor3bruce", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [220] = new Character { Name = "Galsia SOR3", Path = "characters/sor3_enemies/chrsor3galsia", Thumbnail = "animatedsprites/sor3/enemies/sprsor3galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [221] = new Character { Name = "Zack/Vice SOR3", Path = "characters/sor3_enemies/chrsor3zack", Thumbnail = "animatedsprites/sor3/enemies/sprsor3zack", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [222] = new Character { Name = "Goldie/Slum SOR3", Path = "characters/sor3_enemies/chrsor3goldie", Thumbnail = "animatedsprites/sor3/enemies/sprsor3goldie", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [223] = new Character { Name = "Tiger SOR3", Path = "characters/sor3_enemies/chrsor3tiger", Thumbnail = "animatedsprites/sor3/enemies/sprsor3tiger", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [224] = new Character { Name = "Mona SOR3", Path = "characters/sor3_enemies/chrsor3monalisa", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [225] = new Character { Name = "Mona SOR3 (elite)", Path = "characters/sor3_enemies/chrsor3monalisa_elite", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [226] = new Character { Name = "Lisa SOR3", Path = "characters/sor3_enemies/chrsor3lisamona", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [227] = new Character { Name = "Lisa SOR3 (less life)", Path = "characters/sor3_enemies/chrsor3lisamonalesslife", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = true },
-            [228] = new Character { Name = "Yamato SOR3", Path = "characters/sor3_enemies/chrsor3yamato", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [229] = new Character { Name = "Yamato SOR3 (elite)", Path = "characters/sor3_enemies/chrsor3yamato_elite", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [230] = new Character { Name = "Yamato SOR3 (clone)", Path = "characters/sor3_enemies/chrsor3yamatoclone", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = true },
-            [231] = new Character { Name = "Bruce SOR3", Path = "characters/sor3_enemies/chrsor3bruce", Thumbnail = "animatedsprites/sor3/enemies/sprsor3bruce", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [232] = new Character { Name = "Robo X", Path = "characters/sor3_enemies/chrsor3robotx", Thumbnail = "animatedsprites/sor3/enemies/sprsor3robotx", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [233] = new Character { Name = "--- ALLIES ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [234] = new Character { Name = "Galsia (ally)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_ally", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [235] = new Character { Name = "Donovan (ally)", Path = "characters/sor4_enemies/donovan/chrsor4_l0_donovan_ally", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4donovan", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [236] = new Character { Name = "Dick (ally)", Path = "characters/sor4_enemies/cop/chrsor4cop_l6_grab_ally", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop2", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [237] = new Character { Name = "Koobo (ally)", Path = "characters/sor4_enemies/koobo/chrsor4koobolesslife_ally", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [238] = new Character { Name = "Big Ben (ally)", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss_ally", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [239] = new Character { Name = "Garnet (ally)", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet_ally", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [240] = new Character { Name = "Caramel (ally)", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l3_georgia_ally", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4georgia", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [241] = new Character { Name = "Condor (ally)", Path = "characters/sor4_enemies/raven/chrsor4raven_l1_condor_ally", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4condor", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [242] = new Character { Name = "Goro (ally)", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro_ally", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [243] = new Character { Name = "Margaret (ally)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie_ally", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [244] = new Character { Name = "Gold (ally)", Path = "characters/sor4_enemies/gold/chrsor4_l0_gold_ally", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4gold", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [245] = new Character { Name = "Stiletto (ally)", Path = "characters/sor4_enemies/nora/chrsor4stiletto_ally", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4stiletto", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [246] = new Character { Name = "Commissioner (ally)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_survival_ally", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [247] = new Character { Name = "Barbon (ally)", Path = "characters/sor4_enemies/barbon/chrsor4barbonsurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [248] = new Character { Name = "Mr. Y (ally)", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [249] = new Character { Name = "Ms. Y (ally)", Path = "characters/sor4_enemies/msy/chrsor4msysurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [250] = new Character { Name = "--- DOPPELGANGERS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [251] = new Character { Name = "Break (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4axel_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4axel", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [252] = new Character { Name = "Blaze (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4blaze_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4blaze", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [253] = new Character { Name = "Adam (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4adam_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4adam", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [254] = new Character { Name = "Floyd (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4floyd_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4floyd", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [255] = new Character { Name = "Cherry (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4cherry_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4cherry", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [256] = new Character { Name = "--- MISCELLANEOUS ---", Path = "n/a", Thumbnail = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [257] = new Character { Name = "Shiva (boss spirit)", Path = "characters/sor4_enemies/shiva/chrsor4shivadouble", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [258] = new Character { Name = "Shiva (special forward)", Path = "characters/sor4_playables/chrsor4shivaspecialforward", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [259] = new Character { Name = "Shiva (air special 1)", Path = "characters/sor4_playables/chrsor4shivaairspecial1", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [260] = new Character { Name = "Shiva (air special 2)", Path = "characters/sor4_playables/chrsor4shivaairspecial2", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [261] = new Character { Name = "Shiva (ultra)", Path = "characters/sor4_playables/chrsor4shivaultra", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [262] = new Character { Name = "Shiva (double survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivadoublesurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [263] = new Character { Name = "Barney (alt)", Path = "characters/sor4_enemies/cop/chrsor4cop_l7_bad", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
-            [264] = new Character { Name = "Koobo (Koobig)", Path = "characters/sor4_enemies/koobo/chrsor4koobig", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [0] = new Character { Name = "--- PLAYABLES ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [1] = new Character { Name = "Axel SOR4", Path = "characters/sor4_playables/chrsor4axel", Thumbnail = "gui/hud/hud_axel_face", NameIndex = "CHR_SOR4_AXEL", CustomNameIndex = "CHR_SOR4_AXEL", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [2] = new Character { Name = "Blaze SOR4", Path = "characters/sor4_playables/chrsor4blaze", Thumbnail = "gui/hud/hud_blaze_face", NameIndex = "CHR_SOR4_BLAZE", CustomNameIndex = "CHR_SOR4_BLAZE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [3] = new Character { Name = "Cherry SOR4", Path = "characters/sor4_playables/chrsor4cherry", Thumbnail = "gui/hud/hud_cherry_face", NameIndex = "CHR_SOR4_CHERRY", CustomNameIndex = "CHR_SOR4_CHERRY", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [4] = new Character { Name = "Floyd SOR4", Path = "characters/sor4_playables/chrsor4floyd", Thumbnail = "gui/hud/hud_floyd_face", NameIndex = "CHR_SOR4_FLOYD", CustomNameIndex = "CHR_SOR4_FLOYD", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [5] = new Character { Name = "Adam SOR4", Path = "characters/sor4_playables/chrsor4adam", Thumbnail = "gui/hud/hud_adam_face", NameIndex = "CHR_SOR4_ADAM", CustomNameIndex = "CHR_SOR4_ADAM", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [6] = new Character { Name = "Estel SOR4", Path = "characters/sor4_playables/chrsor4estel_playable", Thumbnail = "gui/hud/hud_estel_face", NameIndex = "CHR_ESTEL", CustomNameIndex = "CHR_ESTEL", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [7] = new Character { Name = "Max SOR4", Path = "characters/sor4_playables/chrsor4max_playable", Thumbnail = "gui/hud/hud_max_face", NameIndex = "CHR_MAX", CustomNameIndex = "CHR_MAX", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [8] = new Character { Name = "Shiva SOR4", Path = "characters/sor4_playables/chrsor4shiva", Thumbnail = "gui/hud/hud_shiva_face", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [9] = new Character { Name = "Axel SOR1", Path = "characters/sor1_playables/chrsor1axel", Thumbnail = "gui/hud/hud_sor1_axel", NameIndex = "CHR_SOR1_AXEL", CustomNameIndex = "CHR_SOR1_AXEL", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [10] = new Character { Name = "Blaze SOR1", Path = "characters/sor1_playables/chrsor1blaze", Thumbnail = "gui/hud/hud_sor1_blaze", NameIndex = "CHR_SOR1_BLAZE", CustomNameIndex = "CHR_SOR1_BLAZE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [11] = new Character { Name = "Adam SOR1", Path = "characters/sor1_playables/chrsor1adam", Thumbnail = "gui/hud/hud_sor1_adam", NameIndex = "CHR_SOR1_ADAM", CustomNameIndex = "CHR_SOR1_ADAM", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [12] = new Character { Name = "Axel SOR2", Path = "characters/sor2_playables/chrsor2axel", Thumbnail = "gui/hud/hud_sor2_axel", NameIndex = "CHR_SOR2_AXEL", CustomNameIndex = "CHR_SOR2_AXEL", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [13] = new Character { Name = "Blaze SOR2", Path = "characters/sor2_playables/chrsor2blaze", Thumbnail = "gui/hud/hud_sor2_blaze", NameIndex = "CHR_SOR2_BLAZE", CustomNameIndex = "CHR_SOR2_BLAZE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [14] = new Character { Name = "Max SOR2", Path = "characters/sor2_playables/chrsor2max", Thumbnail = "gui/hud/hud_sor2_max", NameIndex = "CHR_SOR2_MAX", CustomNameIndex = "CHR_SOR2_MAX", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [15] = new Character { Name = "Skate SOR2", Path = "characters/sor2_playables/chrsor2skate", Thumbnail = "gui/hud/hud_sor2_skate", NameIndex = "CHR_SOR2_SKATE", CustomNameIndex = "CHR_SOR2_SKATE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [16] = new Character { Name = "Axel SOR3", Path = "characters/sor3_playables/chrsor3axel", Thumbnail = "gui/hud/hud_sor3_axel", NameIndex = "CHR_SOR3_AXEL", CustomNameIndex = "CHR_SOR3_AXEL", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [17] = new Character { Name = "Blaze SOR3", Path = "characters/sor3_playables/chrsor3blaze", Thumbnail = "gui/hud/hud_sor3_blaze", NameIndex = "CHR_SOR3_BLAZE", CustomNameIndex = "CHR_SOR3_BLAZE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [18] = new Character { Name = "Skate SOR3", Path = "characters/sor3_playables/chrsor3skate", Thumbnail = "gui/hud/hud_sor3_skate", NameIndex = "CHR_SOR3_SKATE", CustomNameIndex = "CHR_SOR3_SKATE", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [19] = new Character { Name = "Dr. Zan SOR3", Path = "characters/sor3_playables/chrsor3zan", Thumbnail = "gui/hud/hud_sor3_zan", NameIndex = "CHR_SOR3_ZAN", CustomNameIndex = "CHR_SOR3_ZAN", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [20] = new Character { Name = "Shiva SOR3", Path = "characters/sor3_playables/chrsor3shiva", Thumbnail = "gui/hud/hud_sor3_shiva", NameIndex = "CHR_SOR3_SHIVA", CustomNameIndex = "CHR_SOR3_SHIVA", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [21] = new Character { Name = "Roo SOR3", Path = "characters/sor3_playables/chrsor3roo", Thumbnail = "gui/hud/hud_sor3_roo", NameIndex = "CHR_SOR3_ROO", CustomNameIndex = "CHR_SOR3_ROO", IsPlayable = true, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [22] = new Character { Name = "--- DIVA ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [23] = new Character { Name = "Diva", Path = "characters/sor4_enemies/diva/chrsor4diva", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4diva", NameIndex = "CHR_DIVA", CustomNameIndex = "CHR_DIVA", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [24] = new Character { Name = "Diva (survival)", Path = "characters/sor4_enemies/diva/chrsor4diva_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4diva", NameIndex = "CHR_DIVA", CustomNameIndex = "CHR_DIVA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [25] = new Character { Name = "Riha", Path = "characters/sor4_enemies/diva/chrsor4mariah", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4mariah", NameIndex = "CHR_RIHA", CustomNameIndex = "CHR_RIHA", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [26] = new Character { Name = "Riha (survival)", Path = "characters/sor4_enemies/diva/chrsor4mariah_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4mariah", NameIndex = "CHR_RIHA", CustomNameIndex = "CHR_RIHA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [27] = new Character { Name = "Beyo", Path = "characters/sor4_enemies/diva/chrsor4kalaas", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4kalaas", NameIndex = "CHR_BEYO", CustomNameIndex = "CHR_BEYO", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [28] = new Character { Name = "Beyo (survival)", Path = "characters/sor4_enemies/diva/chrsor4kalaas_survival", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4kalaas", NameIndex = "CHR_BEYO", CustomNameIndex = "CHR_BEYO_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [29] = new Character { Name = "Weetnee", Path = "characters/sor4_enemies/diva/chrsor4_l4_tania", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4divav4", NameIndex = "CHR_WEETNEE", CustomNameIndex = "CHR_WEETNEE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [30] = new Character { Name = "Weetnee (elite)", Path = "characters/sor4_enemies/diva/chrsor4_l4_tania_elite", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4divav4", NameIndex = "CHR_WEETNEE", CustomNameIndex = "CHR_WEETNEE_SURV", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [31] = new Character { Name = "--- COMMISSIONER ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [32] = new Character { Name = "Commissioner", Path = "characters/sor4_enemies/commisser/chrsor4commisser", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", NameIndex = "CHR_COMMISSER", CustomNameIndex = "CHR_COMMISSER", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [33] = new Character { Name = "Commissioner (survival)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_survival", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", NameIndex = "CHR_COMMISSER", CustomNameIndex = "CHR_COMMISSER_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [34] = new Character { Name = "Commissioner (Stage 7)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_7", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", NameIndex = "CHR_COMMISSER", CustomNameIndex = "CHR_COMMISSER_SEVEN", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [35] = new Character { Name = "Deputy", Path = "characters/sor4_enemies/commisser/chrsor4deputy", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv3", NameIndex = "CHR_DEPUTY", CustomNameIndex = "CHR_DEPUTY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [36] = new Character { Name = "Deputy (elite)", Path = "characters/sor4_enemies/commisser/chrsor4deputy_elite", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv3", NameIndex = "CHR_DEPUTY", CustomNameIndex = "CHR_DEPUTY_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [37] = new Character { Name = "Lieutenant", Path = "characters/sor4_enemies/commisser/chrsor4lieutenant", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisserv2", NameIndex = "CHR_LIEUTENANT", CustomNameIndex = "CHR_LIEUTENANT", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [38] = new Character { Name = "--- NORA ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [39] = new Character { Name = "Nora", Path = "characters/sor4_enemies/nora/chrsor4noraboss", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4nora", NameIndex = "CHR_NORA", CustomNameIndex = "CHR_NORA", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [40] = new Character { Name = "Nora (survival)", Path = "characters/sor4_enemies/nora/chrsor4norabosssurvival", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4nora", NameIndex = "CHR_NORA", CustomNameIndex = "CHR_NORA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [41] = new Character { Name = "Belle", Path = "characters/sor4_enemies/nora/chrsor4electra", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4electra", NameIndex = "CHR_BELLE", CustomNameIndex = "CHR_BELLE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [42] = new Character { Name = "Stiletto", Path = "characters/sor4_enemies/nora/chrsor4queen", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4stiletto", NameIndex = "CHR_STILETTO", CustomNameIndex = "CHR_STILETTO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [43] = new Character { Name = "Stiletto (elite)", Path = "characters/sor4_enemies/nora/chrsor4queen_elite", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4stiletto", NameIndex = "CHR_STILETTO", CustomNameIndex = "CHR_STILETTO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [44] = new Character { Name = "Queen", Path = "characters/sor4_enemies/nora/chrsor4stiletto", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4queen", NameIndex = "CHR_QUEEN", CustomNameIndex = "CHR_QUEEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [45] = new Character { Name = "--- ESTEL ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [46] = new Character { Name = "Estel (boss)", Path = "characters/sor4_enemies/estel/chrsor4estel", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", NameIndex = "CHR_ESTEL", CustomNameIndex = "CHR_ESTEL", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [47] = new Character { Name = "Estel (survival)", Path = "characters/sor4_enemies/estel/chrsor4estel_survival", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", NameIndex = "CHR_ESTEL", CustomNameIndex = "CHR_ESTEL_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [48] = new Character { Name = "Estel (Stage 7)", Path = "characters/sor4_enemies/estel/chrsor4estel_lvl7", Thumbnail = "animatedsprites/sor4/enemies/estel/sprsor4estel", NameIndex = "CHR_ESTEL", CustomNameIndex = "CHR_ESTEL_SEVEN", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [49] = new Character { Name = "--- BARBON ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [50] = new Character { Name = "Barbon", Path = "characters/sor4_enemies/barbon/chrsor4barbon", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", NameIndex = "CHR_BARBON", CustomNameIndex = "CHR_BARBON", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [51] = new Character { Name = "Barbon (survival)", Path = "characters/sor4_enemies/barbon/chrsor4barbonsurvival", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", NameIndex = "CHR_BARBON", CustomNameIndex = "CHR_BARBON_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [52] = new Character { Name = "Vulture", Path = "characters/sor4_enemies/barbon/chrsor4vulture", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv3", NameIndex = "CHR_VULTURE", CustomNameIndex = "CHR_VULTURE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [53] = new Character { Name = "Wayne", Path = "characters/sor4_enemies/barbon/chrsor4wayne", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [54] = new Character { Name = "Wayne (elite)", Path = "characters/sor4_enemies/barbon/chrsor4wayne_elite", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [55] = new Character { Name = "--- SHIVA ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [56] = new Character { Name = "Shiva (boss)", Path = "characters/sor4_enemies/shiva/chrsor4shiva", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_BOSS", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [57] = new Character { Name = "Shiva (survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivasurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [58] = new Character { Name = "--- MAX ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [59] = new Character { Name = "Max (boss)", Path = "characters/sor4_enemies/max/chrsor4max", Thumbnail = "animatedsprites/sor4/enemies/max/sprsor4max", NameIndex = "CHR_MAX", CustomNameIndex = "CHR_MAX_BOSS", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [60] = new Character { Name = "Max (survival)", Path = "characters/sor4_enemies/max/chrsor4maxsurvival", Thumbnail = "animatedsprites/sor4/enemies/max/sprsor4max", NameIndex = "CHR_MAX", CustomNameIndex = "CHR_MAX_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [61] = new Character { Name = "--- DJ K-WASHI ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [62] = new Character { Name = "DJ K-Washi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashi", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashi", NameIndex = "CHR_KWASHI", CustomNameIndex = "CHR_KWASHI", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [63] = new Character { Name = "DJ K-Washi (survival)", Path = "characters/sor4_enemies/kwashi/chrsor4kwashi_survival", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashi", NameIndex = "CHR_KWASHI", CustomNameIndex = "CHR_KWASHI_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [64] = new Character { Name = "DJ K-Zushi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashiv2", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashiv2", NameIndex = "CHR_KZUSHI", CustomNameIndex = "CHR_KZUSHI", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [65] = new Character { Name = "DJ K-Nashi", Path = "characters/sor4_enemies/kwashi/chrsor4kwashiv3", Thumbnail = "animatedsprites/sor4/enemies/dj_k-washi/sprsor4kwashiv3", NameIndex = "CHR_KNASHI", CustomNameIndex = "CHR_KNASHI", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [66] = new Character { Name = "--- MR. Y ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [67] = new Character { Name = "Mr. Y", Path = "characters/sor4_enemies/mry/chrsor4mry", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", NameIndex = "CHR_MRY", CustomNameIndex = "CHR_MRY", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [68] = new Character { Name = "Mr. Y (survival)", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", NameIndex = "CHR_MRY", CustomNameIndex = "CHR_MRY_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [69] = new Character { Name = "Mr. Y (end)", Path = "characters/sor4_enemies/mry/chrsor4mry_12", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", NameIndex = "CHR_MRY", CustomNameIndex = "CHR_MRY_END", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [70] = new Character { Name = "Mr. What", Path = "characters/sor4_enemies/mry/chrsor4mry_12_survival", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mryv2", NameIndex = "CHR_MRWHY", CustomNameIndex = "CHR_MRWHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [71] = new Character { Name = "Mr. Whatever", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival2", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mryv3", NameIndex = "CHR_MRKNOWWHY", CustomNameIndex = "CHR_MRKNOWWHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [72] = new Character { Name = "--- MS. Y ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [73] = new Character { Name = "Ms. Y", Path = "characters/sor4_enemies/msy/chrsor4msy", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", NameIndex = "CHR_MSY", CustomNameIndex = "CHR_MSY", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [74] = new Character { Name = "Ms. Y (survival)", Path = "characters/sor4_enemies/msy/chrsor4msysurvival", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", NameIndex = "CHR_MSY", CustomNameIndex = "CHR_MSY_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [75] = new Character { Name = "Ms. Y (end)", Path = "characters/sor4_enemies/msy/chrsor4msy_12", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", NameIndex = "CHR_MSY", CustomNameIndex = "CHR_MSY_END", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [76] = new Character { Name = "Ms. What", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv2", NameIndex = "CHR_MSWHY", CustomNameIndex = "CHR_MSWHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [77] = new Character { Name = "Ms. Whatever", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival_2", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv3", NameIndex = "CHR_MSKNOWWHY", CustomNameIndex = "CHR_MSKNOWWHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [78] = new Character { Name = "Ms. Whatever (elite)", Path = "characters/sor4_enemies/msy/chrsor4msy_12survival_2_elite", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msyv3", NameIndex = "CHR_MSKNOWWHY", CustomNameIndex = "CHR_MSKNOWWHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [79] = new Character { Name = "--- GALSIA ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [80] = new Character { Name = "Galsia", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", NameIndex = "CHR_GALSIA", CustomNameIndex = "CHR_GALSIA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [81] = new Character { Name = "Joseph", Path = "characters/sor4_enemies/galsia/chrsor4_l0_joseph", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4joseph", NameIndex = "CHR_JOSEPH", CustomNameIndex = "CHR_JOSEPH", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [82] = new Character { Name = "B.T.", Path = "characters/sor4_enemies/galsia/chrsor4_l3_bt", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4bt", NameIndex = "CHR_BT", CustomNameIndex = "CHR_BT", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [83] = new Character { Name = "Brash", Path = "characters/sor4_enemies/galsia/chrsor4_l4_brash", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4brash", NameIndex = "CHR_BRASH", CustomNameIndex = "CHR_BRASH", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [84] = new Character { Name = "Garam", Path = "characters/sor4_enemies/galsia/chrsor4_l6_garam", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4garam", NameIndex = "CHR_GARAM", CustomNameIndex = "CHR_GARAM", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [85] = new Character { Name = "Jonathan", Path = "characters/sor4_enemies/galsia/chrsor4_l7_jonathan", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4jonathan", NameIndex = "CHR_JONATHAN", CustomNameIndex = "CHR_JONATHAN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [86] = new Character { Name = "Jonathan (elite)", Path = "characters/sor4_enemies/galsia/chrsor4_l7_jonathan_elite", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4jonathan", NameIndex = "CHR_JONATHAN", CustomNameIndex = "CHR_JONATHAN_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [87] = new Character { Name = "Surger", Path = "characters/sor4_enemies/galsia/chrsor4_l8_surger", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4surger", NameIndex = "CHR_SURGER", CustomNameIndex = "CHR_SURGER", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [88] = new Character { Name = "B.T. (boss)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_bt_boss", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4bt", NameIndex = "CHR_GALSIA", CustomNameIndex = "CHR_GALSIA_BTBOSS", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [89] = new Character { Name = "Galsia (Nora)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsiamaso", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", NameIndex = "CHR_GALSIA", CustomNameIndex = "CHR_GALSIA_NORA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [90] = new Character { Name = "Galsiaaaaa", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsiasuper", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", NameIndex = "CHR_GALSIASUPER", CustomNameIndex = "CHR_GALSIASUPER", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [91] = new Character { Name = "Galsia (Stage 2 hostage)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_lowstruggle", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", NameIndex = "CHR_GALSIA", CustomNameIndex = "CHR_GALSIA_HOSTAGE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [92] = new Character { Name = "--- SIGNAL ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [93] = new Character { Name = "Y. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l0_signal_y", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_y", NameIndex = "CHR_SIGNAL_Y", CustomNameIndex = "CHR_SIGNAL_Y", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [94] = new Character { Name = "G. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l1_signal_g", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_g", NameIndex = "CHR_SIGNAL_G", CustomNameIndex = "CHR_SIGNAL_G", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [95] = new Character { Name = "R. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l3_signal_r", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_r", NameIndex = "CHR_SIGNAL_R", CustomNameIndex = "CHR_SIGNAL_R", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [96] = new Character { Name = "D. Signal", Path = "characters/sor4_enemies/signal/chrsor4_l4_signal_d", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_d", NameIndex = "CHR_SIGNAL_D", CustomNameIndex = "CHR_SIGNAL_D", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [97] = new Character { Name = "D. Signal (elite)", Path = "characters/sor4_enemies/signal/chrsor4_l4_signal_d_elite", Thumbnail = "animatedsprites/sor4/enemies/signal/sprsor4signal_d", NameIndex = "CHR_SIGNAL_D", CustomNameIndex = "CHR_SIGNAL_D_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [98] = new Character { Name = "--- DONOVAN ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [99] = new Character { Name = "Donovan", Path = "characters/sor4_enemies/donovan/chrsor4_l0_donovan", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4donovan", NameIndex = "CHR_DONOVAN", CustomNameIndex = "CHR_DONOVAN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [100] = new Character { Name = "Altet", Path = "characters/sor4_enemies/donovan/chrsor4_l1_altet", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4altet", NameIndex = "CHR_ALTET", CustomNameIndex = "CHR_ALTET", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [101] = new Character { Name = "Gudden", Path = "characters/sor4_enemies/donovan/chrsor4_l2_gudden", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4gudden", NameIndex = "CHR_GUDDEN", CustomNameIndex = "CHR_GUDDEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [102] = new Character { Name = "Z", Path = "characters/sor4_enemies/donovan/chrsor4_l3_z", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4z", NameIndex = "CHR_Z", CustomNameIndex = "CHR_Z", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [103] = new Character { Name = "Z (elite)", Path = "characters/sor4_enemies/donovan/chrsor4_l3_z_elite", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4z", NameIndex = "CHR_Z", CustomNameIndex = "CHR_Z_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [104] = new Character { Name = "--- DYLAN ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [105] = new Character { Name = "Dylan", Path = "characters/sor4_enemies/dylan/chrsor4_l0_dylan", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4dylan", NameIndex = "CHR_DYLAN", CustomNameIndex = "CHR_DYLAN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [106] = new Character { Name = "Kevin", Path = "characters/sor4_enemies/dylan/chrsor4_l3_kevin", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4kevin", NameIndex = "CHR_KEVIN", CustomNameIndex = "CHR_KEVIN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [107] = new Character { Name = "Francis", Path = "characters/sor4_enemies/dylan/chrsor4_l4_francis", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4francis", NameIndex = "CHR_FRANCIS", CustomNameIndex = "CHR_FRANCIS", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [108] = new Character { Name = "Brandon", Path = "characters/sor4_enemies/dylan/chrsor4_l5_brandon", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4brandon", NameIndex = "CHR_BRANDON", CustomNameIndex = "CHR_BRANDON", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [109] = new Character { Name = "Brandon (elite)", Path = "characters/sor4_enemies/dylan/chrsor4_l5_brandon_elite", Thumbnail = "animatedsprites/sor4/enemies/dylan/sprsor4brandon", NameIndex = "CHR_BRANDON", CustomNameIndex = "CHR_BRANDON_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [110] = new Character { Name = "--- DIAMOND ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [111] = new Character { Name = "Diamond", Path = "characters/sor4_enemies/diamond/chrsor4_l0_diamond", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4diamond", NameIndex = "CHR_DIAMOND", CustomNameIndex = "CHR_DIAMOND", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [112] = new Character { Name = "Ruby", Path = "characters/sor4_enemies/diamond/chrsor4_l1_ruby", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", NameIndex = "CHR_RUBY", CustomNameIndex = "CHR_RUBY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [113] = new Character { Name = "Garnet", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", NameIndex = "CHR_GARNET", CustomNameIndex = "CHR_GARNET", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [114] = new Character { Name = "Garnet (elite)", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet_elite", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", NameIndex = "CHR_GARNET", CustomNameIndex = "CHR_GARNET_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [115] = new Character { Name = "Pyrop", Path = "characters/sor4_enemies/diamond/chrsor4_l4_pyrop", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", NameIndex = "CHR_PYROP", CustomNameIndex = "CHR_PYROP", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [116] = new Character { Name = "Saphyr", Path = "characters/sor4_enemies/diamond/chrsor4_l5_saphyr", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4saphyr", NameIndex = "CHR_SAPHYR", CustomNameIndex = "CHR_SAPHYR", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [117] = new Character { Name = "--- BIKER GIRLS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [118] = new Character { Name = "Sugar", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l0_sugar", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4sugar", NameIndex = "CHR_SUGAR", CustomNameIndex = "CHR_SUGAR", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [119] = new Character { Name = "Honey", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l1_honey", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4honey", NameIndex = "CHR_HONEY", CustomNameIndex = "CHR_HONEY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [120] = new Character { Name = "Candy", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l2_janet", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4janet", NameIndex = "CHR_CANDY", CustomNameIndex = "CHR_CANDY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [121] = new Character { Name = "Candy (elite)", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l2_janet_elite", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4janet", NameIndex = "CHR_CANDY", CustomNameIndex = "CHR_CANDY_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [122] = new Character { Name = "Caramel", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l3_georgia", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4georgia", NameIndex = "CHR_CARAMEL", CustomNameIndex = "CHR_CARAMEL", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [123] = new Character { Name = "--- KICKBOXERS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [124] = new Character { Name = "Raven", Path = "characters/sor4_enemies/raven/chrsor4raven_l0_raven", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4raven", NameIndex = "CHR_RAVEN", CustomNameIndex = "CHR_RAVEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [125] = new Character { Name = "Condor", Path = "characters/sor4_enemies/raven/chrsor4raven_l1_condor", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4condor", NameIndex = "CHR_CONDOR", CustomNameIndex = "CHR_CONDOR", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [126] = new Character { Name = "Sparrow", Path = "characters/sor4_enemies/raven/chrsor4raven_l2_sparrow", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4sparrow", NameIndex = "CHR_SPARROW", CustomNameIndex = "CHR_SPARROW", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [127] = new Character { Name = "Sparrow (elite)", Path = "characters/sor4_enemies/raven/chrsor4raven_l2_sparrow_elite", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4sparrow", NameIndex = "CHR_SPARROW", CustomNameIndex = "CHR_SPARROW_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [128] = new Character { Name = "Pheasant", Path = "characters/sor4_enemies/raven/chrsor4raven_l4_pheasant", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4pheasant", NameIndex = "CHR_PHEASANT", CustomNameIndex = "CHR_PHEASANT", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [129] = new Character { Name = "--- BOMBER GIRLS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [130] = new Character { Name = "Victoria", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l1_victoria", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4victoria", NameIndex = "CHR_VICTORIA", CustomNameIndex = "CHR_VICTORIA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [131] = new Character { Name = "Victoria (elite)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l1_victoria_elite", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4victoria", NameIndex = "CHR_VICTORIA", CustomNameIndex = "CHR_VICTORIA_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [132] = new Character { Name = "Elizabeth", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l2_toxyne", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4elizabeth", NameIndex = "CHR_ELIZABETH", CustomNameIndex = "CHR_ELIZABETH", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [133] = new Character { Name = "Margaret", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", NameIndex = "CHR_MARGARET", CustomNameIndex = "CHR_MARGARET", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [134] = new Character { Name = "Margaret (flashbang)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffiestun", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", NameIndex = "CHR_MARGARET", CustomNameIndex = "CHR_MARGARET_FLASH", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [135] = new Character { Name = "Margaret (non-attacking)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie_turret", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", NameIndex = "CHR_MARGARET", CustomNameIndex = "CHR_MARGARET_NON", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [136] = new Character { Name = "Anne", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l4_anne", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4anne", NameIndex = "CHR_ANNE", CustomNameIndex = "CHR_ANNE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [137] = new Character { Name = "--- GUNMEN ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [138] = new Character { Name = "Gold", Path = "characters/sor4_enemies/gold/chrsor4_l0_gold", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4gold", NameIndex = "CHR_GOLD", CustomNameIndex = "CHR_GOLD", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [139] = new Character { Name = "Silver", Path = "characters/sor4_enemies/gold/chrsor4_l1_silver", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4silver", NameIndex = "CHR_SILVER", CustomNameIndex = "CHR_SILVER", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [140] = new Character { Name = "Iron", Path = "characters/sor4_enemies/gold/chrsor4_l2_tin", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4tin", NameIndex = "CHR_IRON", CustomNameIndex = "CHR_IRON", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [141] = new Character { Name = "Iron (elite)", Path = "characters/sor4_enemies/gold/chrsor4_l2_tin_elite", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4tin", NameIndex = "CHR_IRON", CustomNameIndex = "CHR_IRON_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [142] = new Character { Name = "Bronze", Path = "characters/sor4_enemies/gold/chrsor4_l3_bronze", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4bronze", NameIndex = "CHR_BRONZE", CustomNameIndex = "CHR_BRONZE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [143] = new Character { Name = "--- POLICE ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [144] = new Character { Name = "Feroccio", Path = "characters/sor4_enemies/cop/chrsor4cop_l0_cop", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop", NameIndex = "CHR_FEROCCIO", CustomNameIndex = "CHR_FEROCCIO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [145] = new Character { Name = "Barney", Path = "characters/sor4_enemies/cop/chrsor4cop_l3_chief", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad", NameIndex = "CHR_BARNEY", CustomNameIndex = "CHR_BARNEY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [146] = new Character { Name = "Dick", Path = "characters/sor4_enemies/cop/chrsor4cop_l6_grab", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop2", NameIndex = "CHR_DICK", CustomNameIndex = "CHR_DICK", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [147] = new Character { Name = "Lou", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_badgrab", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad2", NameIndex = "CHR_LOU", CustomNameIndex = "CHR_LOU", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [148] = new Character { Name = "Barnaby", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_rookie", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copv5", NameIndex = "CHR_BARNABY", CustomNameIndex = "CHR_BARNABY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [149] = new Character { Name = "Barnaby (elite)", Path = "characters/sor4_enemies/cop/chrsor4cop_l8_rookie_elite", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copv5", NameIndex = "CHR_BARNABY", CustomNameIndex = "CHR_BARNABY_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [150] = new Character { Name = "--- SHIELDS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [151] = new Character { Name = "Murphy", Path = "characters/sor4_enemies/elite/chrsor4_l0_elite", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite", NameIndex = "CHR_MURPHY", CustomNameIndex = "CHR_MURPHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [152] = new Character { Name = "Ralphy", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegold", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", NameIndex = "CHR_RALPHY", CustomNameIndex = "CHR_RALPHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [153] = new Character { Name = "Ralphy (survival)", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegoldhalberd", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", NameIndex = "CHR_RALPHY", CustomNameIndex = "CHR_RALPHY_SURV", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [154] = new Character { Name = "Ralphy (survival elite)", Path = "characters/sor4_enemies/elite/chrsor4_l3_elitegoldhalberd_elite", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l3_gold", NameIndex = "CHR_RALPHY", CustomNameIndex = "CHR_RALPHY_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [155] = new Character { Name = "Dunphy", Path = "characters/sor4_enemies/elite/chrsor4_l4_elitedark2", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l4_dark", NameIndex = "CHR_DUNPHY", CustomNameIndex = "CHR_DUNPHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [156] = new Character { Name = "Dunphy (Electro)", Path = "characters/sor4_enemies/elite/chrsor4_l4_elitedark", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l4_dark", NameIndex = "CHR_DUNPHY", CustomNameIndex = "CHR_DUNPHY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [157] = new Character { Name = "Shadow", Path = "characters/sor4_enemies/elite/chrsor4_l5_eliteshadow", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l5_shadow", NameIndex = "CHR_SHADOW", CustomNameIndex = "CHR_SHADOW", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [158] = new Character { Name = "Sand", Path = "characters/sor4_enemies/elite/chrsor4_l6_elitelight", Thumbnail = "animatedsprites/sor4/enemies/elite/sprsor4elite_l6_light", NameIndex = "CHR_SAND", CustomNameIndex = "CHR_SAND", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [159] = new Character { Name = "--- KARATE ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [160] = new Character { Name = "Dokuja", Path = "characters/sor4_enemies/karate/chrsor4karate_l0_masa", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate_masa", NameIndex = "CHR_DOKUJA", CustomNameIndex = "CHR_DOKUJA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [161] = new Character { Name = "Goro", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", NameIndex = "CHR_GORO", CustomNameIndex = "CHR_GORO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [162] = new Character { Name = "Goro (elite)", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro_elite", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", NameIndex = "CHR_GORO", CustomNameIndex = "CHR_GORO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [163] = new Character { Name = "Tatsu", Path = "characters/sor4_enemies/karate/chrsor4karate_l6_tetsu", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate2", NameIndex = "CHR_TATSU", CustomNameIndex = "CHR_TATSU", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [164] = new Character { Name = "Tora", Path = "characters/sor4_enemies/karate/chrsor4karate_l7_tiger", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate_tiger", NameIndex = "CHR_TORA", CustomNameIndex = "CHR_TORA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [165] = new Character { Name = "--- BIG BEN ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [166] = new Character { Name = "Big Ben", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", NameIndex = "CHR_BIGBEN", CustomNameIndex = "CHR_BIGBEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [167] = new Character { Name = "Big Ben (elite)", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss_elite", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", NameIndex = "CHR_BIGBEN", CustomNameIndex = "CHR_BIGBEN_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [168] = new Character { Name = "Big Ben (Galsia slapper)", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l0_bigben", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", NameIndex = "CHR_BIGBEN", CustomNameIndex = "CHR_BIGBEN_GALSIA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [169] = new Character { Name = "Anry", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l2_anry", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4anry", NameIndex = "CHR_ANRY", CustomNameIndex = "CHR_ANRY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [170] = new Character { Name = "Gourmand", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l3_bongo", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bongo", NameIndex = "CHR_GOURMAND", CustomNameIndex = "CHR_GOURMAND", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [171] = new Character { Name = "Heart", Path = "characters/sor4_enemies/bigben/chrsor4bigben_l4_heart", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4heart", NameIndex = "CHR_HEART", CustomNameIndex = "CHR_HEART", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [172] = new Character { Name = "--- KOOBO ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [173] = new Character { Name = "Koobo", Path = "characters/sor4_enemies/koobo/chrsor4koobo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", NameIndex = "CHR_KOOBO", CustomNameIndex = "CHR_KOOBO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [174] = new Character { Name = "Koobo (less life)", Path = "characters/sor4_enemies/koobo/chrsor4koobolesslife", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", NameIndex = "CHR_KOOBO", CustomNameIndex = "CHR_KOOBO_LESS", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [175] = new Character { Name = "Baabo", Path = "characters/sor4_enemies/koobo/chrsor4baabo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", NameIndex = "CHR_BAABO", CustomNameIndex = "CHR_BAABO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [176] = new Character { Name = "Baabo (less life)", Path = "characters/sor4_enemies/koobo/chrsor4baabolesslife", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", NameIndex = "CHR_BAABO", CustomNameIndex = "CHR_BAABO_LESS", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [177] = new Character { Name = "Baabo (less life elite)", Path = "characters/sor4_enemies/koobo/chrsor4baabolesslife_elite", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4baabo", NameIndex = "CHR_BAABO", CustomNameIndex = "CHR_BAABO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [178] = new Character { Name = "Zeebo", Path = "characters/sor4_enemies/koobo/chrsor4zeebo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobov3", NameIndex = "CHR_ZEEBO", CustomNameIndex = "CHR_ZEEBO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [179] = new Character { Name = "Fuubo", Path = "characters/sor4_enemies/koobo/chrsor4fuubo", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobov4", NameIndex = "CHR_FUUBO", CustomNameIndex = "CHR_FUUBO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [180] = new Character { Name = "--- RETRO SOR1 ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [181] = new Character { Name = "Antonio SOR1", Path = "characters/sor1_enemies/chrsor1antonio", Thumbnail = "animatedsprites/sor1/enemies/sprsor1antonio", NameIndex = "CHR_SOR1_ANTONIO", CustomNameIndex = "CHR_SOR1_ANTONIO", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [182] = new Character { Name = "Antonio SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1antonio_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1antonio", NameIndex = "CHR_SOR1_ANTONIO", CustomNameIndex = "CHR_SOR1_ANTONIO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [183] = new Character { Name = "Souther SOR1", Path = "characters/sor1_enemies/chrsor1souther", Thumbnail = "animatedsprites/sor1/enemies/sprsor1souther", NameIndex = "CHR_SOR1_SOUTHER", CustomNameIndex = "CHR_SOR1_SOUTHER", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [184] = new Character { Name = "Souther SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1souther_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1souther", NameIndex = "CHR_SOR1_SOUTHER", CustomNameIndex = "CHR_SOR1_SOUTHER_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [185] = new Character { Name = "Abadede SOR1", Path = "characters/sor1_enemies/chrsor1abadede", Thumbnail = "animatedsprites/sor1/enemies/sprsor1abadede", NameIndex = "CHR_SOR1_ABADEDE", CustomNameIndex = "CHR_SOR1_ABADEDE", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [186] = new Character { Name = "Abadede SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1abadede_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1abadede", NameIndex = "CHR_SOR1_ABADEDE", CustomNameIndex = "CHR_SOR1_ABADEDE_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [187] = new Character { Name = "Bongo SOR1", Path = "characters/sor1_enemies/chrsor1bongo", Thumbnail = "animatedsprites/sor1/enemies/sprsor1bongo", NameIndex = "CHR_SOR1_BONGO", CustomNameIndex = "CHR_SOR1_BONGO", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [188] = new Character { Name = "Bongo SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1bongo_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1bongo", NameIndex = "CHR_SOR1_BONGO", CustomNameIndex = "CHR_SOR1_BONGO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [189] = new Character { Name = "Mr. X SOR1", Path = "characters/sor1_enemies/chrsor1mrx", Thumbnail = "animatedsprites/sor1/enemies/sprsor1mrx", NameIndex = "CHR_SOR1_MRX", CustomNameIndex = "CHR_SOR1_MRX", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [190] = new Character { Name = "Mr. X SOR1 (elite)", Path = "characters/sor1_enemies/chrsor1mrx_elite", Thumbnail = "animatedsprites/sor1/enemies/sprsor1mrx", NameIndex = "CHR_SOR1_MRX", CustomNameIndex = "CHR_SOR1_MRX_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [191] = new Character { Name = "--- RETRO SOR2 ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [192] = new Character { Name = "Galsia SOR2", Path = "characters/sor2_enemies/chrsor2galsia", Thumbnail = "animatedsprites/sor2/enemies/sprsor2galsia", NameIndex = "CHR_SOR2_GALSIA", CustomNameIndex = "CHR_SOR2_GALSIA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [193] = new Character { Name = "Donovan SOR2", Path = "characters/sor2_enemies/chrsor2donovan", Thumbnail = "animatedsprites/sor2/enemies/sprsor2donovan", NameIndex = "CHR_SOR2_DONOVAN", CustomNameIndex = "CHR_SOR2_DONOVAN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [194] = new Character { Name = "Y. Signal SOR2", Path = "characters/sor2_enemies/chrsor2signal", Thumbnail = "animatedsprites/sor2/enemies/sprsor2signal", NameIndex = "CHR_SOR2_SIGNAL", CustomNameIndex = "CHR_SOR2_SIGNAL", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [195] = new Character { Name = "Fog SOR2", Path = "characters/sor2_enemies/chrsor2fog", Thumbnail = "animatedsprites/sor2/enemies/sprsor2fog", NameIndex = "CHR_SOR2_FOG", CustomNameIndex = "CHR_SOR2_FOG", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [196] = new Character { Name = "Raven SOR2", Path = "characters/sor2_enemies/chrsor2raven", Thumbnail = "animatedsprites/sor2/enemies/sprsor2raven", NameIndex = "CHR_SOR2_RAVEN", CustomNameIndex = "CHR_SOR2_RAVEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [197] = new Character { Name = "Electra SOR2", Path = "characters/sor2_enemies/chrsor2electra_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2electra", NameIndex = "CHR_SOR2_ELECTRA", CustomNameIndex = "CHR_SOR2_ELECTRA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [198] = new Character { Name = "Hakuyo SOR2", Path = "characters/sor2_enemies/chrsor2hakuyo", Thumbnail = "animatedsprites/sor2/enemies/sprsor2hakuyo", NameIndex = "CHR_SOR2_HAKUYO", CustomNameIndex = "CHR_SOR2_HAKUYO", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [199] = new Character { Name = "Kusanagi SOR2", Path = "characters/sor2_enemies/chrsor2kusanagi", Thumbnail = "animatedsprites/sor2/enemies/sprsor2kusanagi", NameIndex = "CHR_SOR2_KUSANAGI", CustomNameIndex = "CHR_SOR2_KUSANAGI", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [200] = new Character { Name = "Big Ben SOR2", Path = "characters/sor2_enemies/chrsor2bigben", Thumbnail = "animatedsprites/sor2/enemies/sprsor2bigben", NameIndex = "CHR_BIGBEN", CustomNameIndex = "CHR_BIGBEN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [201] = new Character { Name = "Jack SOR2", Path = "characters/sor2_enemies/chrsor2jack", Thumbnail = "animatedsprites/sor2/enemies/sprsor2jack", NameIndex = "CHR_JACK", CustomNameIndex = "CHR_JACK", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [202] = new Character { Name = "Barbon SOR2", Path = "characters/sor2_enemies/chrsor2barbon_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2barbon", NameIndex = "CHR_SOR2_BARBON", CustomNameIndex = "CHR_SOR2_BARBON", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [203] = new Character { Name = "Barbon SOR2 (elite)", Path = "characters/sor2_enemies/chrsor2barbon_challenge_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2barbon", NameIndex = "CHR_SOR2_BARBON", CustomNameIndex = "CHR_SOR2_BARBON_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [204] = new Character { Name = "Abadede SOR2", Path = "characters/sor2_enemies/chrsor2abadede_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", NameIndex = "CHR_ABADEDE", CustomNameIndex = "CHR_ABADEDE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [205] = new Character { Name = "Abadede SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2abadede_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", NameIndex = "CHR_ABADEDE", CustomNameIndex = "CHR_ABADEDE_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [206] = new Character { Name = "Abadede SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2abadede_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2abadede", NameIndex = "CHR_ABADEDE", CustomNameIndex = "CHR_ABADEDE_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [207] = new Character { Name = "R. Bear SOR2", Path = "characters/sor2_enemies/chrsor2rbear_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2rbear", NameIndex = "CHR_SOR2_RBEAR", CustomNameIndex = "CHR_SOR2_RBEAR", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [208] = new Character { Name = "R. Bear SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2rbear_challenge_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2rbear", NameIndex = "CHR_SOR2_RBEAR", CustomNameIndex = "CHR_SOR2_RBEAR_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [209] = new Character { Name = "Zamza SOR2", Path = "characters/sor2_enemies/chrsor2zamza_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", NameIndex = "CHR_ZAMZA", CustomNameIndex = "CHR_ZAMZA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [210] = new Character { Name = "Zamza SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2zamza_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", NameIndex = "CHR_ZAMZA", CustomNameIndex = "CHR_ZAMZA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [211] = new Character { Name = "Zamza SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2zamza_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", NameIndex = "CHR_ZAMZA", CustomNameIndex = "CHR_ZAMZA_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [212] = new Character { Name = "Mr. X SOR2", Path = "characters/sor2_enemies/chrsor2mrx_challenge", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", NameIndex = "CHR_MRX", CustomNameIndex = "CHR_MRX", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [213] = new Character { Name = "Mr. X SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2mrx_challenge_survival", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", NameIndex = "CHR_MRX", CustomNameIndex = "CHR_MRX_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [214] = new Character { Name = "Mr. X SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2mrx_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/enemies/sprsor2mrx", NameIndex = "CHR_MRX", CustomNameIndex = "CHR_MRX_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [215] = new Character { Name = "Shiva SOR2", Path = "characters/sor2_enemies/chrsor2shiva_challenge", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [216] = new Character { Name = "Shiva SOR2 (survival)", Path = "characters/sor2_enemies/chrsor2shiva_challenge_survival", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [217] = new Character { Name = "Shiva SOR2 (survival elite)", Path = "characters/sor2_enemies/chrsor2shiva_challenge_survival_elite", Thumbnail = "animatedsprites/sor2/playables/sprsor2shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SURV_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [218] = new Character { Name = "--- RETRO SOR3 ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [219] = new Character { Name = "Bruce (spawn)", Path = "characters/sor3_enemies/chrsor3bruce_spawn", Thumbnail = "animatedsprites/sor3/enemies/sprsor3bruce", NameIndex = "CHR_SOR3_BRUCE", CustomNameIndex = "CHR_SOR3_BRUCE_SPAWN", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [220] = new Character { Name = "Galsia SOR3", Path = "characters/sor3_enemies/chrsor3galsia", Thumbnail = "animatedsprites/sor3/enemies/sprsor3galsia", NameIndex = "CHR_SOR3_GALSIA", CustomNameIndex = "CHR_SOR3_GALSIA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [221] = new Character { Name = "Zack/Vice SOR3", Path = "characters/sor3_enemies/chrsor3zack", Thumbnail = "animatedsprites/sor3/enemies/sprsor3zack", NameIndex = "CHR_SOR3_ZACK", CustomNameIndex = "CHR_SOR3_ZACK", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [222] = new Character { Name = "Goldie/Slum SOR3", Path = "characters/sor3_enemies/chrsor3goldie", Thumbnail = "animatedsprites/sor3/enemies/sprsor3goldie", NameIndex = "CHR_SOR3_GOLDIE", CustomNameIndex = "CHR_SOR3_GOLDIE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [223] = new Character { Name = "Tiger SOR3", Path = "characters/sor3_enemies/chrsor3tiger", Thumbnail = "animatedsprites/sor3/enemies/sprsor3tiger", NameIndex = "CHR_SOR3_TIGER", CustomNameIndex = "CHR_SOR3_TIGER", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [224] = new Character { Name = "Mona SOR3", Path = "characters/sor3_enemies/chrsor3monalisa", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", NameIndex = "CHR_SOR3_MONA", CustomNameIndex = "CHR_SOR3_MONA", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [225] = new Character { Name = "Mona SOR3 (elite)", Path = "characters/sor3_enemies/chrsor3monalisa_elite", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", NameIndex = "CHR_SOR3_MONA", CustomNameIndex = "CHR_SOR3_MONA_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [226] = new Character { Name = "Lisa SOR3", Path = "characters/sor3_enemies/chrsor3lisamona", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", NameIndex = "CHR_SOR3_LISA", CustomNameIndex = "CHR_SOR3_LISA", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [227] = new Character { Name = "Lisa SOR3 (less life)", Path = "characters/sor3_enemies/chrsor3lisamonalesslife", Thumbnail = "animatedsprites/sor3/enemies/sprsor3monalisa", NameIndex = "CHR_SOR3_LISA", CustomNameIndex = "CHR_SOR3_LISA_LESS", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = true },
+            [228] = new Character { Name = "Yamato SOR3", Path = "characters/sor3_enemies/chrsor3yamato", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", NameIndex = "CHR_SOR3_YAMATO", CustomNameIndex = "CHR_SOR3_YAMATO", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [229] = new Character { Name = "Yamato SOR3 (elite)", Path = "characters/sor3_enemies/chrsor3yamato_elite", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", NameIndex = "CHR_SOR3_YAMATO", CustomNameIndex = "CHR_SOR3_YAMATO_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [230] = new Character { Name = "Yamato SOR3 (clone)", Path = "characters/sor3_enemies/chrsor3yamatoclone", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", NameIndex = "CHR_SOR3_YAMATO", CustomNameIndex = "CHR_SOR3_YAMATO_CLONE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = true },
+            [231] = new Character { Name = "Bruce SOR3", Path = "characters/sor3_enemies/chrsor3bruce", Thumbnail = "animatedsprites/sor3/enemies/sprsor3bruce", NameIndex = "CHR_SOR3_BRUCE", CustomNameIndex = "CHR_SOR3_BRUCE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [232] = new Character { Name = "Robo X", Path = "characters/sor3_enemies/chrsor3robotx", Thumbnail = "animatedsprites/sor3/enemies/sprsor3robotx", NameIndex = "CHR_SOR3_ROBOX", CustomNameIndex = "CHR_SOR3_ROBOX", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [233] = new Character { Name = "--- ALLIES ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [234] = new Character { Name = "Galsia (ally)", Path = "characters/sor4_enemies/galsia/chrsor4_l0_galsia_ally", Thumbnail = "animatedsprites/sor4/enemies/galsia/sprsor4galsia", NameIndex = "CHR_GALSIA", CustomNameIndex = "CHR_GALSIA_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [235] = new Character { Name = "Donovan (ally)", Path = "characters/sor4_enemies/donovan/chrsor4_l0_donovan_ally", Thumbnail = "animatedsprites/sor4/enemies/donovan/sprsor4donovan", NameIndex = "CHR_DONOVAN", CustomNameIndex = "CHR_DONOVAN_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [236] = new Character { Name = "Dick (ally)", Path = "characters/sor4_enemies/cop/chrsor4cop_l6_grab_ally", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4cop2", NameIndex = "CHR_DICK", CustomNameIndex = "CHR_DICK_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [237] = new Character { Name = "Koobo (ally)", Path = "characters/sor4_enemies/koobo/chrsor4koobolesslife_ally", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", NameIndex = "CHR_KOOBO", CustomNameIndex = "CHR_KOOBO_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [238] = new Character { Name = "Big Ben (ally)", Path = "characters/sor4_enemies/bigben/chrsor4bigbenboss_ally", Thumbnail = "animatedsprites/sor4/enemies/bigben/sprsor4bigben", NameIndex = "CHR_BIGBEN", CustomNameIndex = "CHR_BIGBEN_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [239] = new Character { Name = "Garnet (ally)", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet_ally", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", NameIndex = "CHR_GARNET", CustomNameIndex = "CHR_GARNET_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [240] = new Character { Name = "Caramel (ally)", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l3_georgia_ally", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4georgia", NameIndex = "CHR_CARAMEL", CustomNameIndex = "CHR_CARAMEL_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [241] = new Character { Name = "Condor (ally)", Path = "characters/sor4_enemies/raven/chrsor4raven_l1_condor_ally", Thumbnail = "animatedsprites/sor4/enemies/raven/sprsor4condor", NameIndex = "CHR_CONDOR", CustomNameIndex = "CHR_CONDOR_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [242] = new Character { Name = "Goro (ally)", Path = "characters/sor4_enemies/karate/chrsor4karate_l3_goro_ally", Thumbnail = "animatedsprites/sor4/enemies/karate/sprsor4karate", NameIndex = "CHR_GORO", CustomNameIndex = "CHR_GORO_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [243] = new Character { Name = "Margaret (ally)", Path = "characters/sor4_enemies/victoria/chrsor4victoria_l3_steffie_ally", Thumbnail = "animatedsprites/sor4/enemies/victoria/sprsor4margaret", NameIndex = "CHR_MARGARET", CustomNameIndex = "CHR_MARGARET_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [244] = new Character { Name = "Gold (ally)", Path = "characters/sor4_enemies/gold/chrsor4_l0_gold_ally", Thumbnail = "animatedsprites/sor4/enemies/gold/sprsor4gold", NameIndex = "CHR_GOLD", CustomNameIndex = "CHR_GOLD_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [245] = new Character { Name = "Stiletto (ally)", Path = "characters/sor4_enemies/nora/chrsor4stiletto_ally", Thumbnail = "animatedsprites/sor4/enemies/nora/sprsor4stiletto", NameIndex = "CHR_QUEEN", CustomNameIndex = "CHR_QUEEN_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [246] = new Character { Name = "Commissioner (ally)", Path = "characters/sor4_enemies/commisser/chrsor4commisser_survival_ally", Thumbnail = "animatedsprites/sor4/enemies/commisser/sprsor4commisser", NameIndex = "CHR_COMMISSER", CustomNameIndex = "CHR_COMMISSER_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [247] = new Character { Name = "Barbon (ally)", Path = "characters/sor4_enemies/barbon/chrsor4barbonsurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", NameIndex = "CHR_BARBON", CustomNameIndex = "CHR_BARBON_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [248] = new Character { Name = "Mr. Y (ally)", Path = "characters/sor4_enemies/mry/chrsor4mrysurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/mry/sprsor4mry", NameIndex = "CHR_MRY", CustomNameIndex = "CHR_MRY_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [249] = new Character { Name = "Ms. Y (ally)", Path = "characters/sor4_enemies/msy/chrsor4msysurvival_ally", Thumbnail = "animatedsprites/sor4/enemies/msy/sprsor4msy", NameIndex = "CHR_MSY", CustomNameIndex = "CHR_MSY_ALLY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [250] = new Character { Name = "--- DOPPELGANGERS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [251] = new Character { Name = "Break (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4axel_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4axel", NameIndex = "CHR_SOR4_BREAK", CustomNameIndex = "CHR_SOR4_BREAK", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [252] = new Character { Name = "Blaze (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4blaze_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4blaze", NameIndex = "CHR_SOR4_BLAZE", CustomNameIndex = "CHR_SOR4_BLAZE_DOPPEL", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [253] = new Character { Name = "Adam (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4adam_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4adam", NameIndex = "CHR_SOR4_ADAM", CustomNameIndex = "CHR_SOR4_ADAM_DOPPEL", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [254] = new Character { Name = "Floyd (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4floyd_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4floyd", NameIndex = "CHR_SOR4_FLOYD", CustomNameIndex = "CHR_SOR4_FLOYD_DOPPEL", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [255] = new Character { Name = "Cherry (doppelganger)", Path = "characters/sor4_enemies/doppelgangers/chrsor4cherry_boss", Thumbnail = "animatedsprites/sor4/playables/sprsor4cherry", NameIndex = "CHR_SOR4_CHERRY", CustomNameIndex = "CHR_SOR4_CHERRY_DOPPEL", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [256] = new Character { Name = "--- MISCELLANEOUS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [257] = new Character { Name = "Shiva (boss spirit)", Path = "characters/sor4_enemies/shiva/chrsor4shivadouble", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_BOSS_SPIRIT", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [258] = new Character { Name = "Shiva (special forward)", Path = "characters/sor4_playables/chrsor4shivaspecialforward", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SPECFWD", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [259] = new Character { Name = "Shiva (air special 1)", Path = "characters/sor4_playables/chrsor4shivaairspecial1", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SPECAIR1", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [260] = new Character { Name = "Shiva (air special 2)", Path = "characters/sor4_playables/chrsor4shivaairspecial2", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SPECAIR2", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [261] = new Character { Name = "Shiva (ultra)", Path = "characters/sor4_playables/chrsor4shivaultra", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_ULTRA", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [262] = new Character { Name = "Shiva (double survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivadoublesurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_DOUBLE", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [263] = new Character { Name = "Barney (alt)", Path = "characters/sor4_enemies/cop/chrsor4cop_l7_bad", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad", NameIndex = "CHR_BARNEY", CustomNameIndex = "CHR_BARNEY_ALT", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [264] = new Character { Name = "Koobo (Koobig)", Path = "characters/sor4_enemies/koobo/chrsor4koobig", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", NameIndex = "CHR_KOOBIG", CustomNameIndex = "CHR_KOOBIG", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
         };
-
-        public static Dictionary<int, Item> itemDictionary = new Dictionary<int, Item>
+        public static Dictionary<int, Item> itemDictionary = new()
         {
             [0] = new Item { Name = "--- PICKUPS ---", Path = "n/a", Thumbnail = "", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
             [1] = new Item { Name = "Star", Path = "objects/pickup_star", Thumbnail = "animatedsprites/sor4/pickups/sprstarobj/starobj0000", IsPickup = true, IsWeapon = false, IsGolden = false, IsExcluded = false },
@@ -389,8 +402,8 @@ namespace SOR4_Replacer
             [47] = new Item { Name = "Lightsaber", Path = "objects/pickup_laser_sabre", Thumbnail = "animatedsprites/sor4/weapons/lightsaber/lightsaber_blade", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
             [48] = new Item { Name = "Morning Star", Path = "objects/pickup_fleau", Thumbnail = "animatedsprites/sor4/weapons/fleau", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
             [49] = new Item { Name = "Nailed Bat", Path = "objects/pickup_nailed_bat", Thumbnail = "animatedsprites/sor4/weapons/naileddown_bat/naileddown_bat", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
-            [50] = new Item { Name = "Pool Queue", Path = "objects/pickup_pool_queue", Thumbnail = "animatedsprites/sor4/weapons/canne_billard/canne_billard_normal", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
-            [51] = new Item { Name = "Pool Queue (broken)", Path = "objects/pickup_pool_queue_broken", Thumbnail = "animatedsprites/sor4/weapons/canne_billard/canne_break", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
+            [50] = new Item { Name = "Pool Cue", Path = "objects/pickup_pool_queue", Thumbnail = "animatedsprites/sor4/weapons/canne_billard/canne_billard_normal", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
+            [51] = new Item { Name = "Pool Cue (broken)", Path = "objects/pickup_pool_queue_broken", Thumbnail = "animatedsprites/sor4/weapons/canne_billard/canne_break", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
             [52] = new Item { Name = "Pufferfish", Path = "objects/pickup_fugu", Thumbnail = "animatedsprites/sor4/weapons/fugu/fugu_ground_2", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
             [53] = new Item { Name = "Road Sign", Path = "objects/pickup_roadsign", Thumbnail = "animatedsprites/sor4/weapons/road_sign/road_sign_2", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
             [54] = new Item { Name = "Sai", Path = "objects/pickup_sai", Thumbnail = "animatedsprites/sor4/weapons/sai/sai_1", IsPickup = false, IsWeapon = true, IsGolden = false, IsExcluded = false },
@@ -429,7 +442,7 @@ namespace SOR4_Replacer
             [87] = new Item { Name = "Training Spawner 6", Path = "objects/pickup_trainingspawner6", Thumbnail = "animatedsprites/sor4/pickups/spawner1_ground", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
             [88] = new Item { Name = "Walkie Talkie", Path = "objects/pickup_talkie_walkie", Thumbnail = "animatedsprites/sor4/weapons/talkie_military", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
         };
-        public static Dictionary<int, Destroyable> destroyableDictionary = new Dictionary<int, Destroyable>
+        public static Dictionary<int, Destroyable> destroyableDictionary = new()
         {
             [0] = new Destroyable { Name = "--- BREAKABLES ---", Path = "n/a", Thumbnail = "", IsBreakable = false, IsDestructive = false, IsUnbreakable = false, IsExcluded = true },
             [1] = new Destroyable { Name = "Arcade Machine (Bar)", Path = "objects/object_arcade_bar", Thumbnail = "animatedsprites/sor4/destroyables/sprarcade/arcade_bar/arcade_bar_posing1", IsBreakable = true, IsDestructive = false, IsUnbreakable = false, IsExcluded = false },
@@ -518,8 +531,7 @@ namespace SOR4_Replacer
             [84] = new Destroyable { Name = "Factory Bomb", Path = "objects/survival/object_factory_bomb", Thumbnail = "animatedsprites/sor4/destroyables/factory_bomb/factory_bomb01", IsBreakable = true, IsDestructive = true, IsUnbreakable = false, IsExcluded = false },
             [85] = new Destroyable { Name = "Toxic Barrel", Path = "objects/object_barrel_toxic", Thumbnail = "animatedsprites/sor4/destroyables/sprbarrel_toxic/bidon_toxic_step1", IsBreakable = true, IsDestructive = true, IsUnbreakable = false, IsExcluded = false },
         };
-
-        public static Dictionary<int, Level> levelDictionary = new Dictionary<int, Level>
+        public static Dictionary<int, Level> levelDictionary = new()
         {
             [0] = new Level { Name = "--- STORY ---", Path = "n/a", Thumbnail = "", IsStory = false, IsChallenge = false, IsBossRush = false, IsBattle = false, IsTraining = false, IsSurvival = false, IsExcluded = true },
             [1] = new Level { Name = "Stage 1-1", Path = "levels/main_campaign/lvl_stage1_1", Thumbnail = "decors/main_campaign/stage_1/lvl_1/png/ul15_0", IsStory = true, IsChallenge = false, IsBossRush = false, IsBattle = false, IsTraining = false, IsSurvival = false, IsExcluded = false },
@@ -618,37 +630,47 @@ namespace SOR4_Replacer
             [94] = new Level { Name = "Survival - SOR3 Temple", Path = "levels/survival/lvl_biome_retro_sor3temple", Thumbnail = "decors/survival/retro/sor3/temple/sor3temple_bg02", IsStory = false, IsChallenge = false, IsBossRush = false, IsBattle = false, IsTraining = false, IsSurvival = true, IsExcluded = false },
         };
 
-        public Dictionary<string, int> characterPathToIndex = new Dictionary<string, int>();
-        public Dictionary<string, int> itemPathToIndex = new Dictionary<string, int>();
-        public Dictionary<string, int> destroyablePathToIndex = new Dictionary<string, int>();
-        public Dictionary<string, int> levelPathToIndex = new Dictionary<string, int>();
+        public Dictionary<string, int> characterPathToIndex = new();
+        public Dictionary<string, int> itemPathToIndex = new();
+        public Dictionary<string, int> destroyablePathToIndex = new();
+        public Dictionary<string, int> levelPathToIndex = new();
+
+        public CharacterClass characterClassCopy;
+        public Dictionary<string, CharacterClass> characterCollection = new();
+        public Dictionary<string, Dictionary<string, string>> nameReference = new();
+        public Dictionary<string, string> originalNameReference = new();
 
         // internal variables
-        public Dictionary<string, string> changeList = new Dictionary<string, string>();
-        public Dictionary<string, bool> changeTo = new Dictionary<string, bool>();
-        public Dictionary<string, string> itemChangeList = new Dictionary<string, string>();
-        public Dictionary<string, bool> itemChangeTo = new Dictionary<string, bool>();
-        public Dictionary<string, string> destroyableChangeList = new Dictionary<string, string>();
-        public Dictionary<string, bool> destroyableChangeTo = new Dictionary<string, bool>();
-        public Dictionary<string, string> levelChangeList = new Dictionary<string, string>();
-        public Dictionary<string, bool> levelChangeTo = new Dictionary<string, bool>();
+        public Dictionary<int, int> changeList = new();
+        public Dictionary<int, bool> changeTo = new();
+        public Dictionary<int, int> itemChangeList = new();
+        public Dictionary<int, bool> itemChangeTo = new();
+        public Dictionary<int, int> destroyableChangeList = new();
+        public Dictionary<int, bool> destroyableChangeTo = new();
+        public Dictionary<int, int> levelChangeList = new();
+        public Dictionary<int, bool> levelChangeTo = new();
 
+        public Dictionary<int, CharacterClass> characterCustomizationInMemory = new();
+        public Dictionary<int, CharacterClass> characterCustomizationQueue = new();
+        public Dictionary<string, string> customCharacterNames = new();
+        public GameplayConfigDataClass originalGCD = new();
 
         // images
-        public readonly Dictionary<string, FileStream> DataFiles = new Dictionary<string, FileStream>();
+        public readonly Dictionary<string, FileStream> DataFiles = new();
 
 
-        public string bigfile_v5_md5hash = "5e09e0fbb6c351009aae725696afa7fc";
-        public string bigfile_v7_md5hash = "ed5e0d281ad5bf730879733550f62c0a";
-        public int gameVer = 7;
+        public int gameVer = 713648;
         public string backupLogicState = "none";
         public string gameDir;
         public string bigfilePath;
+        public string backup_filename;
+        public string gameVerString;
 
-        DataTable swapTable = new DataTable();
-        DataTable itemSwapTable = new DataTable();
-        DataTable destroyableSwapTable = new DataTable();
-        DataTable levelSwapTable = new DataTable();
+        public DataTable swapTable = new();
+        public DataTable itemSwapTable = new();
+        public DataTable destroyableSwapTable = new();
+        public DataTable levelSwapTable = new();
+        public DataTable customTable = new();
 
         public string CreateBackup()
         {
@@ -661,16 +683,6 @@ namespace SOR4_Replacer
                 if (CheckBigfile(bigfilePath))
                 {
                     originalBigfilePath = bigfilePath;
-                    string backup_filename;
-                    switch (gameVer)
-                    {
-                        case 5:
-                            backup_filename = "bigfile_rep_backup";
-                            break;
-                        default:
-                            backup_filename = "bigfile_rep7_backup";
-                            break;
-                    }
                     // create backup of original bigfile if it doesn't exist
                     if (!CheckBigfile(Path.Combine(gameDir, backup_filename))) filename = backup_filename;
                     // above function changes bigfilePath to backup path for some reason, change it back to main bigfile's path
@@ -707,26 +719,41 @@ namespace SOR4_Replacer
             {
                 bigfilePath = thispath;
                 gameDir = Path.GetDirectoryName(thispath);
-                FileStream file = new FileStream(thispath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                FileStream file = new(thispath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 MD5 md5 = new MD5CryptoServiceProvider();
                 byte[] retVal = md5.ComputeHash(file);
                 file.Close();
 
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
                 for (int i = 0; i < retVal.Length; i++) sb.Append(retVal[i].ToString("x2"));
-                if (sb.ToString() == bigfile_v7_md5hash)
+                string bigfileHash = sb.ToString();
+
+                switch (bigfileHash)
                 {
-                    gameVer = 7;
-                    return true;
-                }
-                else if (sb.ToString() == bigfile_v5_md5hash)
-                {
-                    gameVer = 5;
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    case "624173c8c4865011fbf95abd8c5a1e15":
+                        // v7-s r13648
+                        gameVer = 713648;
+                        gameVerString = "7-s r13648";
+                        backup_filename = "bigfile_rep7_13648_backup";
+                        return true;
+                    case "ed5e0d281ad5bf730879733550f62c0a":
+                        // v7
+                        gameVer = 7;
+                        gameVerString = "7";
+                        backup_filename = "bigfile_rep7_backup";
+                        return true;
+                    case "5e09e0fbb6c351009aae725696afa7fc":
+                        // v5
+                        gameVer = 5;
+                        gameVerString = "5";
+                        backup_filename = "bigfile_rep_backup";
+                        return true;
+                    default:
+                        // should be the currently supported version by the Swapper
+                        gameVer = 713648;
+                        gameVerString = "7-s r13648";
+                        backup_filename = "bigfile_rep7_13648_backup";
+                        return false;
                 }
             }
             else
@@ -743,8 +770,14 @@ namespace SOR4_Replacer
                 case 5:
                     backup_filename = "bigfile_rep_backup";
                     break;
-                default:
+                case 7:
                     backup_filename = "bigfile_rep7_backup";
+                    break;
+                case 713648:
+                    backup_filename = "bigfile_rep7_13648_backup";
+                    break;
+                default:
+                    backup_filename = "bigfile_rep7_13648_backup";
                     break;
             }
             string backupPath = Path.Combine(gameDir, backup_filename);
@@ -759,107 +792,233 @@ namespace SOR4_Replacer
             }
         }
 
-        public void AddToList(MainWindow mainwindow, string assetClass, int orig, int replace, string mode = "alldata")
+        public void AddToList(MainWindow mainwindow, string assetClass, int orig, int replace, bool fromLoad = false)
         {
+            // if (mode == "alldata") graphics+data, else graphics only
             if (orig != replace)
             {
                 Bitmap origThumb = mainwindow.thumbnailslib.getThumbnail(assetClass, orig);
                 Bitmap newThumb = mainwindow.thumbnailslib.getThumbnail(assetClass, replace);
+                DataTable thistable = new();
+                string origName = "";
+                string newName = "";
                 DataRow row;
+                bool goAhead = false;
+                dynamic panel = mainwindow.swaplistpanel;
+                dynamic swapperscreen = mainwindow.swapper;
+                dynamic randomizerscreen = mainwindow.randomizer;
+                int changedCount = 0;
 
                 switch (assetClass)
                 {
                     case "character":
-                        row = swapTable.NewRow();
-                        row["delete"] = "\u2716";
-                        row["origThumb"] = origThumb;
-                        row["origName"] = characterDictionary[orig].Name;
-                        row["spacer"] = "\u2794";
-                        row["replaceThumb"] = newThumb;
-                        row["replaceName"] = characterDictionary[replace].Name;
-                        row["origKey"] = orig;
-                        row["rowIndex"] = swapTable.Rows.Count;
-                        swapTable.Rows.Add(row);
-
-                        changeList[characterDictionary[orig].Path] = characterDictionary[replace].Path;
-                        changeTo[characterDictionary[replace].Path] = true;
-                        mainwindow.swaplistpanel.labelReplaceCount.Text = (swapTable.Rows.Count).ToString();
-                        mainwindow.swaplistpanel.labelReplaceUniqueCount.Text = changeTo.Count().ToString();
-
-                        mainwindow.hasNoPending = false;
-                        mainwindow.container.labelPending.Visible = true;
-                        mainwindow.swapper.btnShowList.Enabled = true;
-                        mainwindow.randomizer.btnShowList.Enabled = true;
+                        thistable = swapTable;
+                        origName = characterDictionary[orig].Name;
+                        newName = characterDictionary[replace].Name;
+                        changeList[orig] = replace;
+                        changeTo[replace] = true;
+                        changedCount = changeTo.Count;
+                        customCharacterNames[characterDictionary[orig].CustomNameIndex] = bigfileClass.characterCollection[replace].Name;
+                        if (characterCustomizationInMemory.ContainsKey(orig))
+                        {
+                            characterCustomizationInMemory.Remove(orig);
+                        }
+                        if (characterCustomizationQueue.ContainsKey(orig) && !fromLoad)
+                        {
+                            int[] customcount = RemoveFromTable(mainwindow, "customCharacter", orig);
+                            mainwindow.charactercustomizerpanel.labelReplaceCount.Text = customcount[0].ToString();
+                        }
+                        if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == orig)
+                        {
+                            if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
+                            {
+                                mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
+                            }
+                            else
+                            {
+                                mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
+                            }
+                            mainwindow.charactercustomizerscreen.characterList.SelectedIndex = orig;
+                        }
+                        goAhead = true;
                         break;
                     case "item":
-                        row = itemSwapTable.NewRow();
-                        row["delete"] = "\u2716";
-                        row["origThumb"] = origThumb;
-                        row["origName"] = itemDictionary[orig].Name;
-                        row["spacer"] = "\u2794";
-                        row["replaceThumb"] = newThumb;
-                        row["replaceName"] = itemDictionary[replace].Name;
-                        row["origKey"] = orig;
-                        row["rowIndex"] = itemSwapTable.Rows.Count;
-                        itemSwapTable.Rows.Add(row);
+                        thistable = itemSwapTable;
+                        origName = itemDictionary[orig].Name;
+                        newName = itemDictionary[replace].Name;
+                        itemChangeList[orig] = replace;
+                        itemChangeTo[replace] = true;
+                        changedCount = itemChangeTo.Count;
 
-                        itemChangeList[itemDictionary[orig].Path] = itemDictionary[replace].Path;
-                        itemChangeTo[itemDictionary[replace].Path] = true;
-                        mainwindow.swaplistitempanel.labelReplaceCount.Text = (itemSwapTable.Rows.Count).ToString();
-                        mainwindow.swaplistitempanel.labelReplaceUniqueCount.Text = itemChangeTo.Count().ToString();
-
-                        mainwindow.hasNoPending = false;
-                        mainwindow.container.labelPending.Visible = true;
-                        mainwindow.swapperitems.btnShowList.Enabled = true;
-                        mainwindow.randomizeritems.btnShowList.Enabled = true;
+                        panel = mainwindow.swaplistitempanel;
+                        swapperscreen = mainwindow.swapperitems;
+                        randomizerscreen = mainwindow.randomizeritems;
+                        goAhead = true;
                         break;
                     case "destroyable":
-                        row = destroyableSwapTable.NewRow();
-                        row["delete"] = "\u2716";
-                        row["origThumb"] = origThumb;
-                        row["origName"] = destroyableDictionary[orig].Name;
-                        row["spacer"] = "\u2794";
-                        row["replaceThumb"] = newThumb;
-                        row["replaceName"] = destroyableDictionary[replace].Name;
-                        row["origKey"] = orig;
-                        row["rowIndex"] = destroyableSwapTable.Rows.Count;
-                        destroyableSwapTable.Rows.Add(row);
+                        thistable = destroyableSwapTable;
+                        origName = destroyableDictionary[orig].Name;
+                        newName = destroyableDictionary[replace].Name;
+                        destroyableChangeList[orig] = replace;
+                        destroyableChangeTo[replace] = true;
+                        changedCount = destroyableChangeTo.Count;
 
-                        destroyableChangeList[destroyableDictionary[orig].Path] = destroyableDictionary[replace].Path;
-                        destroyableChangeTo[destroyableDictionary[replace].Path] = true;
-                        mainwindow.swaplistdestroyablepanel.labelReplaceCount.Text = (destroyableSwapTable.Rows.Count).ToString();
-                        mainwindow.swaplistdestroyablepanel.labelReplaceUniqueCount.Text = destroyableChangeTo.Count().ToString();
-
-                        mainwindow.hasNoPending = false;
-                        mainwindow.container.labelPending.Visible = true;
-                        mainwindow.swapperdestroyables.btnShowList.Enabled = true;
-                        mainwindow.randomizerdestroyables.btnShowList.Enabled = true;
+                        panel = mainwindow.swaplistdestroyablepanel;
+                        swapperscreen = mainwindow.swapperdestroyables;
+                        randomizerscreen = mainwindow.randomizerdestroyables;
+                        goAhead = true;
                         break;
                     case "level":
-                        row = levelSwapTable.NewRow();
-                        row["delete"] = "\u2716";
-                        row["origThumb"] = origThumb;
-                        row["origName"] = levelDictionary[orig].Name;
-                        row["spacer"] = "\u2794";
-                        row["replaceThumb"] = newThumb;
-                        row["replaceName"] = levelDictionary[replace].Name;
-                        row["origKey"] = orig;
-                        row["rowIndex"] = levelSwapTable.Rows.Count;
-                        levelSwapTable.Rows.Add(row);
+                        thistable = levelSwapTable;
+                        origName = levelDictionary[orig].Name;
+                        newName = levelDictionary[replace].Name;
+                        levelChangeList[orig] = replace;
+                        levelChangeTo[replace] = true;
+                        changedCount = levelChangeTo.Count;
 
-                        levelChangeList[levelDictionary[orig].Path] = levelDictionary[replace].Path;
-                        levelChangeTo[levelDictionary[replace].Path] = true;
-                        mainwindow.swaplistlevelpanel.labelReplaceCount.Text = (levelSwapTable.Rows.Count).ToString();
-                        mainwindow.swaplistlevelpanel.labelReplaceUniqueCount.Text = levelChangeTo.Count().ToString();
-
-                        mainwindow.hasNoPending = false;
-                        mainwindow.container.labelPending.Visible = true;
-                        mainwindow.swapperlevels.btnShowList.Enabled = true;
-                        mainwindow.randomizerlevels.btnShowList.Enabled = true;
+                        panel = mainwindow.swaplistlevelpanel;
+                        swapperscreen = mainwindow.swapperlevels;
+                        randomizerscreen = mainwindow.randomizerlevels;
+                        goAhead = true;
                         break;
                 }
-                bigfileClass.AddSwap(assetClass, orig, replace);
 
+                if (goAhead)
+                {
+                    row = thistable.NewRow();
+                    row["delete"] = "\u2716";
+                    row["origThumb"] = origThumb;
+                    row["origName"] = origName;
+                    row["spacer"] = "\u2794";
+                    row["replaceThumb"] = newThumb;
+                    row["replaceName"] = newName;
+                    row["origKey"] = orig;
+                    row["replaceKey"] = replace;
+                    row["rowIndex"] = thistable.Rows.Count;
+                    thistable.Rows.Add(row);
+
+                    mainwindow.hasNoPending = false;
+                    mainwindow.container.labelPending.Visible = true;
+                    panel.labelReplaceCount.Text = (thistable.Rows.Count).ToString();
+                    panel.labelReplaceUniqueCount.Text = changedCount.ToString();
+                    swapperscreen.btnShowList.Enabled = true;
+                    randomizerscreen.btnShowList.Enabled = true;
+                }
+            }
+        }
+
+        public void AddCustom(MainWindow mainwindow, string assetClass, int assetKey, CharacterClass characterDetails)
+        {
+            Bitmap origThumb = mainwindow.thumbnailslib.getThumbnail(assetClass, assetKey);
+            DataRow row;
+            bool goAhead = false;
+
+            // check for differences before proceeding
+
+            // 2. iterate and compare every item in the class
+            // if a difference is found, go ahead, else remove from queue
+            int targetKey = assetKey;
+            if (changeList.ContainsKey(assetKey)) targetKey = changeList[assetKey];
+            var originalClass = bigfileClass.characterCollection[targetKey];
+            if (originalClass.NameIndex != characterDetails.NameIndex) goAhead = true;
+            if (originalClass.Health != characterDetails.Health) goAhead = true;
+            if (originalClass.Speed.X != characterDetails.Speed.X) goAhead = true;
+            if (originalClass.Speed.Y != characterDetails.Speed.Y) goAhead = true;
+            if (originalClass.IsBoss != characterDetails.IsBoss) goAhead = true;
+            if (originalClass.DespawnsAfterDeath != characterDetails.DespawnsAfterDeath) goAhead = true;
+            if (originalClass.Shader != characterDetails.Shader) goAhead = true;
+            if (originalClass.Team != characterDetails.Team) goAhead = true;
+
+            // 1. check if character name is different from the original, if not then don't go ahead and remove from queue
+            if (characterDetails.Name != characterDetails.NewName)
+            {
+                goAhead = true;
+
+                // if character has CustomNameIndex and CustomName != CustomNameIndex
+                // AND if NewName != nameReference[CustomNameIndex]
+                // add set NewNameIndex to CustomNameIndex
+                // AND set NewName to nameReference[CustomNameIndex]
+                customCharacterNames[characterDictionary[assetKey].CustomNameIndex] = characterDetails.NewName;
+           }
+            else
+            {
+                customCharacterNames[characterDictionary[targetKey].CustomNameIndex] = characterDetails.NewName;
+            }
+
+
+            int movectr = 0;
+            foreach (var move in originalClass.Moveset)
+            {
+                int hitctr = 0;
+                foreach (var hit in move.Hits)
+                {
+                    var inputDetails = characterDetails.Moveset[movectr].Hits[hitctr];
+                    if (inputDetails.Damage != hit.Damage) goAhead = true;
+                    if (inputDetails.Hitstop != hit.Hitstop) goAhead = true;
+                    if (inputDetails.Hitstun != hit.Hitstun) goAhead = true;
+                    hitctr++;
+                }
+                movectr++;
+            }
+            // add or remove from the queue and table
+            if (goAhead)
+            {
+                DataRow[] dataRows = customTable.Select("origKey = " + assetKey);
+                if (dataRows.Count() == 0)
+                {
+                    row = customTable.NewRow();
+                    row["delete"] = "\u2716";
+                    row["origThumb"] = origThumb;
+                    row["origName"] = characterDictionary[assetKey].Name;
+                    if (changeList.ContainsKey(assetKey))
+                    {
+                        row["spacer"] = "\u2794";
+                        row["replaceThumb"] = mainwindow.thumbnailslib.getThumbnail("character", changeList[assetKey]);
+                        row["replaceName"] = characterDictionary[changeList[assetKey]].Name;
+                    }
+                    else
+                    {
+                        row["spacer"] = "";
+                        row["replaceThumb"] = mainwindow.thumbnailslib.getThumbnail("placeholder", 0);
+                        row["replaceName"] = "";
+                    }
+                    row["origKey"] = assetKey;
+                    row["rowIndex"] = customTable.Rows.Count;
+
+                    customTable.Rows.Add(row);
+                }
+                else
+                {
+                    // get rowIndex of origKey and maybe update it
+                }
+
+                characterCustomizationQueue[assetKey] = characterDetails;
+                
+                mainwindow.charactercustomizerpanel.labelReplaceCount.Text = (customTable.Rows.Count).ToString();
+
+                mainwindow.hasNoPending = false;
+                mainwindow.container.labelPending.Visible = true;
+                mainwindow.charactercustomizerscreen.btnShowList.Enabled = true;
+                mainwindow.BringToFront();
+            }
+            else
+            {
+                // find the index of the row where this custom is stored and remove that row
+                foreach (System.Windows.Forms.DataGridViewRow customRow in mainwindow.charactercustomizerpanel.dataGridView1.Rows)
+                {
+                    try
+                    {
+                        if ((int)customRow.Cells[3].Value == assetKey)
+                        {
+                            RemoveFromTable(mainwindow, "customCharacter", assetKey);
+                            break;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
         }
 
@@ -872,6 +1031,7 @@ namespace SOR4_Replacer
             swapTable.Columns.Add("replaceThumb", typeof(Bitmap));
             swapTable.Columns.Add("replaceName", typeof(string));
             swapTable.Columns.Add("origKey", typeof(int));
+            swapTable.Columns.Add("replaceKey", typeof(int));
             swapTable.Columns.Add("rowIndex", typeof(int));
             mainwindow.swaplistpanel.dataGridView1.DataSource = swapTable;
 
@@ -882,6 +1042,7 @@ namespace SOR4_Replacer
             itemSwapTable.Columns.Add("replaceThumb", typeof(Bitmap));
             itemSwapTable.Columns.Add("replaceName", typeof(string));
             itemSwapTable.Columns.Add("origKey", typeof(int));
+            itemSwapTable.Columns.Add("replaceKey", typeof(int));
             itemSwapTable.Columns.Add("rowIndex", typeof(int));
             mainwindow.swaplistitempanel.dataGridView2.DataSource = itemSwapTable;
 
@@ -892,6 +1053,7 @@ namespace SOR4_Replacer
             destroyableSwapTable.Columns.Add("replaceThumb", typeof(Bitmap));
             destroyableSwapTable.Columns.Add("replaceName", typeof(string));
             destroyableSwapTable.Columns.Add("origKey", typeof(int));
+            destroyableSwapTable.Columns.Add("replaceKey", typeof(int));
             destroyableSwapTable.Columns.Add("rowIndex", typeof(int));
             mainwindow.swaplistdestroyablepanel.dataGridView2.DataSource = destroyableSwapTable;
 
@@ -902,8 +1064,19 @@ namespace SOR4_Replacer
             levelSwapTable.Columns.Add("replaceThumb", typeof(Bitmap));
             levelSwapTable.Columns.Add("replaceName", typeof(string));
             levelSwapTable.Columns.Add("origKey", typeof(int));
+            levelSwapTable.Columns.Add("replaceKey", typeof(int));
             levelSwapTable.Columns.Add("rowIndex", typeof(int));
             mainwindow.swaplistlevelpanel.dataGridView2.DataSource = levelSwapTable;
+
+            customTable.Columns.Add("delete", typeof(string));
+            customTable.Columns.Add("origThumb", typeof(Bitmap));
+            customTable.Columns.Add("origName", typeof(string));
+            customTable.Columns.Add("spacer", typeof(string));
+            customTable.Columns.Add("replaceThumb", typeof(Bitmap));
+            customTable.Columns.Add("replaceName", typeof(string));
+            customTable.Columns.Add("origKey", typeof(int));
+            customTable.Columns.Add("rowIndex", typeof(int));   
+            mainwindow.charactercustomizerpanel.dataGridView1.DataSource = customTable;
         }
 
         public void FilterSwapTable(string mode, string datatype, string lookup)
@@ -925,80 +1098,178 @@ namespace SOR4_Replacer
             }
         }
 
-        public int[] RemoveFromTable(string assetClass, int index, string changeListKey)
+        public int[] RemoveFromTable(MainWindow mainwindow, string assetClass, int origKey)
         {
             int[] returnCount = new int[2];
+            DataRow[] swapRows;
             switch (assetClass)
             {
                 case "character":
-                    changeList.Remove(changeListKey);
-                    swapTable.Rows.RemoveAt(index);
+                    changeList.Remove(origKey);
+
+                    // fetch row index
+                    swapRows = swapTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            swapTable.Rows.RemoveAt(rowIndex);
+
+                            if (characterCustomizationQueue.ContainsKey(origKey))
+                            {
+                                int[] customcount = RemoveFromTable(mainwindow, "customCharacter", origKey);
+                                mainwindow.charactercustomizerpanel.labelReplaceCount.Text = customcount[0].ToString();
+                            }
+                            if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == origKey)
+                            {
+                                if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
+                                {
+                                    mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
+                                }
+                                else
+                                {
+                                    mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
+                                }
+                                characterCustomizationInMemory.Remove(origKey);
+                                mainwindow.charactercustomizerscreen.characterList.SelectedIndex = origKey;
+                                characterCustomizationInMemory.Remove(origKey);
+                            }
+                        }
+                    }
+
                     // re-index row numbers to allow removal
                     for (int i = 0; i < swapTable.Rows.Count; i++)
                     {
                         swapTable.Rows[i]["rowIndex"] = i;
                     }
 
+                    // reset unique list
                     changeTo.Clear();
-                    foreach (KeyValuePair<string, string> pair in changeList)
+                    foreach (KeyValuePair<int, int> pair in changeList)
                     {
                         if (!changeTo.ContainsKey(pair.Value)) changeTo[pair.Value] = true;
                     }
                     returnCount = new int[2] { swapTable.Rows.Count, changeTo.Count() };
                     break;
                 case "item":
-                    itemChangeList.Remove(changeListKey);
-                    itemSwapTable.Rows.RemoveAt(index);
+                    itemChangeList.Remove(origKey);
+
+                    // fetch row index
+                    swapRows = itemSwapTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            itemSwapTable.Rows.RemoveAt(rowIndex);
+                        }
+                    }
+
                     // re-index row numbers to allow removal
                     for (int i = 0; i < itemSwapTable.Rows.Count; i++)
                     {
                         itemSwapTable.Rows[i]["rowIndex"] = i;
                     }
 
+                    // reset unique list
                     itemChangeTo.Clear();
-                    foreach (KeyValuePair<string, string> pair in itemChangeList)
+                    foreach (KeyValuePair<int, int> pair in itemChangeList)
                     {
                         if (!itemChangeTo.ContainsKey(pair.Value)) itemChangeTo[pair.Value] = true;
                     }
                     returnCount = new int[2] { itemSwapTable.Rows.Count, itemChangeTo.Count() };
                     break;
                 case "destroyable":
-                    destroyableChangeList.Remove(changeListKey);
-                    destroyableSwapTable.Rows.RemoveAt(index);
+                    destroyableChangeList.Remove(origKey);
+
+                    // fetch row index
+                    swapRows = destroyableSwapTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            destroyableSwapTable.Rows.RemoveAt(rowIndex);
+                        }
+                    }
+
                     // re-index row numbers to allow removal
                     for (int i = 0; i < destroyableSwapTable.Rows.Count; i++)
                     {
                         destroyableSwapTable.Rows[i]["rowIndex"] = i;
                     }
 
+                    // reset unique list
                     destroyableChangeTo.Clear();
-                    foreach (KeyValuePair<string, string> pair in destroyableChangeList)
+                    foreach (KeyValuePair<int, int> pair in destroyableChangeList)
                     {
                         if (!destroyableChangeTo.ContainsKey(pair.Value)) destroyableChangeTo[pair.Value] = true;
                     }
                     returnCount = new int[2] { destroyableSwapTable.Rows.Count, destroyableChangeTo.Count() };
                     break;
                 case "level":
-                    levelChangeList.Remove(changeListKey);
-                    levelSwapTable.Rows.RemoveAt(index);
+                    levelChangeList.Remove(origKey);
+
+                    // fetch row index
+                    swapRows = levelSwapTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            levelSwapTable.Rows.RemoveAt(rowIndex);
+                        }
+                    }
+
                     // re-index row numbers to allow removal
                     for (int i = 0; i < levelSwapTable.Rows.Count; i++)
                     {
                         levelSwapTable.Rows[i]["rowIndex"] = i;
                     }
 
+                    // reset unique list
                     levelChangeTo.Clear();
-                    foreach (KeyValuePair<string, string> pair in levelChangeList)
+                    foreach (KeyValuePair<int, int> pair in levelChangeList)
                     {
                         if (!levelChangeTo.ContainsKey(pair.Value)) levelChangeTo[pair.Value] = true;
                     }
                     returnCount = new int[2] { levelSwapTable.Rows.Count, levelChangeTo.Count() };
                     break;
+                case "customCharacter":
+                    characterCustomizationQueue.Remove(origKey);
+                    characterCustomizationInMemory.Remove(origKey);
+
+                    // reset name
+                    string customNameIndex = characterDictionary[origKey].CustomNameIndex;
+                    int targetKey = origKey;
+                    if (changeList.ContainsKey(origKey)) targetKey = changeList[origKey];
+                    CharacterClass origData = bigfileClass.characterCollection[targetKey];
+                    customCharacterNames[customNameIndex] = bigfileClass.customCharacterNames[origData.NameIndex];
+
+                    // fetch row index
+                    swapRows = customTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            customTable.Rows.RemoveAt(rowIndex);
+                        }
+                    }
+
+                    // re-index row numbers to allow removal
+                    for (int i = 0; i < customTable.Rows.Count; i++)
+                    {
+                        customTable.Rows[i]["rowIndex"] = i;
+                    }
+                    returnCount = new int[2] { customTable.Rows.Count, 0 };
+                    break;
             }
             return returnCount;
         }
 
-        public void ClearTable(string assetClass)
+        public void ClearTable(string assetClass, dynamic panel = null)
         {
             switch (assetClass)
             {
@@ -1006,21 +1277,67 @@ namespace SOR4_Replacer
                     swapTable.Clear();
                     changeList.Clear();
                     changeTo.Clear();
+                    if (panel != null)
+                    {
+                        panel.labelReplaceCount.Text = "0";
+                        panel.labelReplaceUniqueCount.Text = "0";
+                    }
                     break;
                 case "item":
                     itemSwapTable.Clear();
                     itemChangeList.Clear();
                     itemChangeTo.Clear();
+                    if (panel != null)
+                    {
+                        panel.labelReplaceCount.Text = "0";
+                        panel.labelReplaceUniqueCount.Text = "0";
+                    }
                     break;
                 case "destroyable":
                     destroyableSwapTable.Clear();
                     destroyableChangeList.Clear();
                     destroyableChangeTo.Clear();
+                    if (panel != null)
+                    {
+                        panel.labelReplaceCount.Text = "0";
+                        panel.labelReplaceUniqueCount.Text = "0";
+                    }
                     break;
                 case "level":
                     levelSwapTable.Clear();
                     levelChangeList.Clear();
                     levelChangeTo.Clear();
+                    if (panel != null)
+                    {
+                        panel.labelReplaceCount.Text = "0";
+                        panel.labelReplaceUniqueCount.Text = "0";
+                    }
+                    break;
+                case "customCharacter":
+                    customTable.Clear();
+                    characterCustomizationInMemory.Clear();
+                    customCharacterNames.Clear();
+                    // character names
+                    foreach (KeyValuePair<int, CharacterClass> charClass in bigfileClass.characterCollection)
+                    {
+                        string nameFromOriginalIndex;
+                        if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
+                        {
+                            nameFromOriginalIndex = bigfileClass.customCharacterNames[charClass.Value.NameIndex];
+                            charClass.Value.Name = nameFromOriginalIndex;
+                            charClass.Value.NewName = nameFromOriginalIndex;
+                            charClass.Value.SwapNameIndex = characterDictionary[charClass.Key].CustomNameIndex;
+                        }
+                        else
+                        {
+                            nameFromOriginalIndex = charClass.Value.NameIndex;
+                        }
+                        customCharacterNames[charClass.Value.NameIndex] = nameFromOriginalIndex;
+                    }
+                    if (panel != null)
+                    {
+                        panel.labelReplaceCount.Text = "0";
+                    }
                     break;
             }
         }

@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Swaps, you know? Many things?")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("honganqi Productions (not really)")]
-[assembly: AssemblyProduct("SOR4 Character Swapper")]
+[assembly: AssemblyProduct("SOR4 Swapper")]
 [assembly: AssemblyCopyright("Copyright © 2021 honganqi")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.1.5.0")]
-[assembly: AssemblyFileVersion("3.1.5.0")]
+[assembly: AssemblyVersion("4.2.0.0")]
+[assembly: AssemblyFileVersion("4.2.0.0")]

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class RandomizerDestroyables : Form
     {
@@ -85,7 +85,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("destroyable");
+            _mainwindow.ClearSwaps("destroyable", "swap");
         }
 
         private void Randomizer_MouseDown(object sender, MouseEventArgs e)

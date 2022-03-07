@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class Info
     {
@@ -35,7 +35,6 @@
             this.labelValidBigfile = new System.Windows.Forms.Label();
             this.labelBigfileLocationInfo = new System.Windows.Forms.Label();
             this.ofdBrowseBigfile = new System.Windows.Forms.OpenFileDialog();
-            this.btnExtractSwaps = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnRestoreBigfile
@@ -90,7 +89,6 @@
             this.labelBackupMade.Name = "labelBackupMade";
             this.labelBackupMade.Size = new System.Drawing.Size(498, 15);
             this.labelBackupMade.TabIndex = 62;
-            this.labelBackupMade.Text = "A \"bigfile_rep_backup\" file will be created upon swapping for the first time.";
             this.labelBackupMade.Visible = false;
             this.labelBackupMade.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelBackupMade_MouseDown);
             this.labelBackupMade.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelBackupMade_MouseMove);
@@ -127,29 +125,11 @@
             this.ofdBrowseBigfile.Filter = "SOR4 bigfile|bigfile";
             this.ofdBrowseBigfile.Title = "Location of \"bigfile\"";
             // 
-            // btnExtractSwaps
-            // 
-            this.btnExtractSwaps.BackColor = System.Drawing.SystemColors.Control;
-            this.btnExtractSwaps.Enabled = false;
-            this.btnExtractSwaps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExtractSwaps.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnExtractSwaps.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnExtractSwaps.Location = new System.Drawing.Point(166, 61);
-            this.btnExtractSwaps.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.btnExtractSwaps.Name = "btnExtractSwaps";
-            this.btnExtractSwaps.Size = new System.Drawing.Size(114, 23);
-            this.btnExtractSwaps.TabIndex = 66;
-            this.btnExtractSwaps.Text = "Extract swap list";
-            this.btnExtractSwaps.UseVisualStyleBackColor = false;
-            this.btnExtractSwaps.Visible = false;
-            this.btnExtractSwaps.Click += new System.EventHandler(this.btnExtractSwaps_Click);
-            // 
             // Info
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 173);
-            this.Controls.Add(this.btnExtractSwaps);
             this.Controls.Add(this.btnRestoreBigfile);
             this.Controls.Add(this.labelLoadedSwapFile);
             this.Controls.Add(this.labelLoadedSwap);
@@ -176,6 +156,5 @@
         public System.Windows.Forms.Label labelValidBigfile;
         public System.Windows.Forms.Label labelBigfileLocationInfo;
         private System.Windows.Forms.OpenFileDialog ofdBrowseBigfile;
-        public System.Windows.Forms.Button btnExtractSwaps;
     }
 }

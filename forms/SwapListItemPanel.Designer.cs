@@ -1,5 +1,5 @@
 ﻿
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     partial class SwapListItemPanel
     {
@@ -52,6 +52,7 @@ namespace SOR4_Replacer
             this.replaceThumb = new System.Windows.Forms.DataGridViewImageColumn();
             this.replaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.origKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.replaceKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rowIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -153,6 +154,7 @@ namespace SOR4_Replacer
             this.replaceThumb,
             this.replaceName,
             this.origKey,
+            this.replaceKey,
             this.rowIndex});
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
@@ -169,7 +171,7 @@ namespace SOR4_Replacer
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 60;
             this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView2.Size = new System.Drawing.Size(402, 348);
+            this.dataGridView2.Size = new System.Drawing.Size(402, 520);
             this.dataGridView2.TabIndex = 49;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseLeave);
@@ -272,6 +274,14 @@ namespace SOR4_Replacer
             this.origKey.Visible = false;
             this.origKey.Width = 125;
             // 
+            // replaceKey
+            // 
+            this.replaceKey.DataPropertyName = "replaceKey";
+            this.replaceKey.HeaderText = "replaceKey";
+            this.replaceKey.Name = "replaceKey";
+            this.replaceKey.ReadOnly = true;
+            this.replaceKey.Visible = false;
+            // 
             // rowIndex
             // 
             this.rowIndex.DataPropertyName = "rowIndex";
@@ -284,7 +294,7 @@ namespace SOR4_Replacer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 463);
+            this.ClientSize = new System.Drawing.Size(440, 582);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.labelSortListReplacements);
             this.Controls.Add(this.labelSortListOriginal);
@@ -322,6 +332,7 @@ namespace SOR4_Replacer
         private System.Windows.Forms.DataGridViewImageColumn replaceThumb;
         private System.Windows.Forms.DataGridViewTextBoxColumn replaceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn origKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn replaceKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn rowIndex;
     }
 }

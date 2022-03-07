@@ -6,10 +6,12 @@ using System.Linq;
 using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
-using SOR4CharacterExplorer;
+using SOR4GameExplorer;
+using System.Net.Http;
+using System.Globalization;
+using System.Threading.Tasks;
 
-
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class MainWindow : Form
     {
@@ -47,8 +49,18 @@ namespace SOR4_Replacer
         public RandomizerLevels randomizerlevels;
         public RandomizerPresets randomizerpresets;
         public Instructions instructions;
+        public DifficultyScreen difficultyscreen;
+        public OwnerDetails ownerdetailsscreen;
+        public CustomizerCharacters charactercustomizerscreen;
+        public CustomizerLevels levelcustomizerscreen;
+        public CharacterCustomizerPanel charactercustomizerpanel;
         public string screenmode = "characters";
         public string functionmode = "swapper";
+
+        public bool updateAvailable = false;
+        string updateurl = "https://raw.githubusercontent.com/honganqi/SOR4CharacterSwapper/main/latest.json";
+        //string updateurl = "http://localhost/sor4/sor4swapper_versioncheck.json";
+        string downloadURL = "";
 
         public MainWindow()
         {
@@ -138,12 +150,41 @@ namespace SOR4_Replacer
                 TopLevel = false,
                 TopMost = true
             };
+            difficultyscreen = new DifficultyScreen(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
+            ownerdetailsscreen = new OwnerDetails(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
+            charactercustomizerscreen = new CustomizerCharacters(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
+            levelcustomizerscreen = new CustomizerLevels(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
+            charactercustomizerpanel = new CharacterCustomizerPanel(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
             container.panelInfo.Controls.Add(info);
             info.Show();
             panelInstructions.Controls.Add(instructions);
             instructions.Show();
             panelSwapList.Controls.Add(swaplistpanel);
             swaplistpanel.Show();
+            container.panelDifficulty.Controls.Add(difficultyscreen);
+            difficultyscreen.Show();
+            container.panelOwner.Controls.Add(ownerdetailsscreen);
+            ownerdetailsscreen.Show();
             panelLeft.BackColor = Color.FromArgb(33, 33, 33);
             btnMinimize.BackColor = Color.FromArgb(33, 33, 33);
             btnClose.BackColor = Color.FromArgb(33, 33, 33);
@@ -155,6 +196,7 @@ namespace SOR4_Replacer
             {
                 swapper.characterList.Items.Insert(asset.Key, asset.Value.Name);
                 swapper.replacementComboBox.Items.Insert(asset.Key, asset.Value.Name);
+                charactercustomizerscreen.characterList.Items.Insert(asset.Key, asset.Value.Name);
                 classlib.characterPathToIndex[asset.Value.Path] = asset.Key;
             }
 
@@ -179,51 +221,67 @@ namespace SOR4_Replacer
                 classlib.levelPathToIndex[asset.Value.Path] = asset.Key;
             }
 
-            Stream thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.bmc.png");
+            Stream thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.bmc.png");
             Bitmap thumbBitmap = new Bitmap(thumbStream);
             container.imgBMCSupport.Image = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.sflogo.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.sflogo.png");
             thumbBitmap = new Bitmap(thumbStream);
             container.imgSF.Image = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.youtube.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.youtube.png");
             thumbBitmap = new Bitmap(thumbStream);
             container.imgYoutube.Image = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.twitch.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.twitch.png");
             thumbBitmap = new Bitmap(thumbStream);
             container.imgTwitch.Image = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.open.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.open.png");
             thumbBitmap = new Bitmap(thumbStream);
             btnOpenBigfile.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.random.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.random.png");
             thumbBitmap = new Bitmap(thumbStream);
             btnShowRandomPanel.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.load.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.swapper.png");
             thumbBitmap = new Bitmap(thumbStream);
-            btnLoad.BackgroundImage = thumbBitmap;
+            btnShowSwapperPanel.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.save.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.customize.png");
             thumbBitmap = new Bitmap(thumbStream);
-            btnSave.BackgroundImage = thumbBitmap;
+            btnShowCustomizer.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.help.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.load.png");
+            thumbBitmap = new Bitmap(thumbStream);
+            btnLoadSwap.BackgroundImage = thumbBitmap;
+
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.difficulty.png");
+            thumbBitmap = new Bitmap(thumbStream);
+            btnDifficultyPanel.BackgroundImage = thumbBitmap;
+
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.author.png");
+            thumbBitmap = new Bitmap(thumbStream);
+            btnOwnerPanel.BackgroundImage = thumbBitmap;
+
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.save.png");
+            thumbBitmap = new Bitmap(thumbStream);
+            btnSaveSwap.BackgroundImage = thumbBitmap;
+
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.help.png");
             thumbBitmap = new Bitmap(thumbStream);
             btnInstructions.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.exit.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.exit.png");
             thumbBitmap = new Bitmap(thumbStream);
             btnClose.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.min.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.min.png");
             thumbBitmap = new Bitmap(thumbStream);
             btnMinimize.BackgroundImage = thumbBitmap;
 
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Replacer.img.listshadow.png");
+            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.listshadow.png");
             thumbBitmap = new Bitmap(thumbStream);
             imgListShadow.BackgroundImage = thumbBitmap;
 
@@ -250,28 +308,40 @@ namespace SOR4_Replacer
                 classlib.bigfilePath = Path.Combine(classlib.gameDir, "bigfile");
                 swapper.characterList.Enabled = true;
                 swapper.replacementComboBox.Enabled = true;
-                swapper.btnSetItem.Enabled = true;
+                //swapper.btnSetItem.Enabled = true;
                 randomizer.btnRandomize.Enabled = true;
                 randomizer.btnRandomizeEverybody.Enabled = true;
 
                 thumbnailslib.InitializeThumbnails(classlib.gameDir);
                 if (classlib.CheckBigfile(classlib.bigfilePath))
                 {
-                    info.labelValidBigfile.Text = "original v7 bigfile";
+                    info.labelValidBigfile.Text = $"original v{classlib.gameVerString} bigfile";
                     info.labelValidBigfile.ForeColor = Color.ForestGreen;
-                    if (File.Exists(Path.Combine(classlib.gameDir, "bigfile_rep_backup")))
+                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
                     {
-                        info.labelBackupMade.Visible = false;
+                        string backup_filename = classlib.CreateBackup();
+                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
+                        info.labelBackupMade.Visible = true;
                     }
                     else
                     {
-                        info.labelBackupMade.Visible = true;
+                        info.labelBackupMade.Visible = false;
                     }
                 }
                 else
                 {
-                    info.labelValidBigfile.Text = "modded v7 bigfile";
+                    info.labelValidBigfile.Text = $"modded v{classlib.gameVerString} bigfile";
                     info.labelValidBigfile.ForeColor = Color.Crimson;
+                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
+                    {
+                        string backup_filename = classlib.CreateBackup();
+                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
+                        info.labelBackupMade.Visible = true;
+                    }
+                    else
+                    {
+                        info.labelBackupMade.Visible = false;
+                    }
                     //labelBackupMade.Text = "A backup named \"bigfile_custom_backup\" will be made.";
                     info.labelBackupMade.Visible = false;
                 }
@@ -281,29 +351,211 @@ namespace SOR4_Replacer
 
                 info.labelBigfileLocationInfo.Text = "Loaded file:\n" + classlib.bigfilePath;
                 classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
-                classlib.bigfileClass.OutStuff();
+
+                Initialize();
+
                 ResetForm();
             }
+
+            CheckUpdate(updateurl);
         }
 
+        public async void CheckUpdate(string url)
+        {
+            List<string> onlineVer = new();
+            List<string> currentVer = new();
+            var client = new HttpClient();
+            var request = client.GetAsync(url);
+
+            Task timeout = Task.Delay(3000);
+            await Task.WhenAny(timeout, request);
+
+            try
+            {
+                HttpResponseMessage response = request.Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var page = response.Content.ReadAsStringAsync();
+                    var queryResult = Newtonsoft.Json.JsonConvert.DeserializeObject<Library.VersionClass>(page.Result);
+
+                    if ((queryResult != null) && (queryResult.ReleaseDate != null))
+                    {
+                        DateTime releaseDate = DateTime.Parse(queryResult.ReleaseDate).ToUniversalTime();
+                        string onlineVerString = queryResult.Version;
+                        string currentVerString = Application.ProductVersion;
+                        downloadURL = queryResult.DownloadURL;
+                        if (onlineVerString.CompareTo(currentVerString) > 0)
+                        {
+                            List<string> versionSplit = onlineVerString.Split('.').ToList();
+                            if (versionSplit[3] == "0") versionSplit.RemoveAt(3);
+                            if (versionSplit[2] == "0") versionSplit.RemoveAt(2);
+                            onlineVer.Add(string.Join(".", versionSplit));
+                            onlineVer.Add(releaseDate.ToLocalTime().ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern));
+                            container.btnUpdateNotif.Text = "v" + onlineVer[0] + " is now available!\nGET IT NOW!";
+                            if (queryResult.Description != "")
+                            {
+                                ToolTip updateTooltip = new();
+                                updateTooltip.SetToolTip(container.btnUpdateNotif, "Download from: " + queryResult.DownloadURL + "\n\n" + queryResult.Description);
+                            }
+
+                            versionSplit = new(currentVerString.Split('.').ToList());
+                            if (versionSplit[3] == "0") versionSplit.RemoveAt(3);
+                            if (versionSplit[2] == "0") versionSplit.RemoveAt(2);
+                            currentVer.Add(string.Join(".", versionSplit));
+                            currentVer.Add(releaseDate.ToLocalTime().ToString(CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern));
+                            container.btnUpdateNotif.Show();
+                        }
+                    }
+                }
+                else
+                {
+                    switch (response.StatusCode)
+                    {
+                        case System.Net.HttpStatusCode.NotFound:
+                            throw new Exception("The update file was not found on the server.");
+                        case System.Net.HttpStatusCode.BadRequest:
+                            throw new Exception("");
+                        case System.Net.HttpStatusCode.InternalServerError:
+                            throw new Exception("");
+                        case System.Net.HttpStatusCode.MethodNotAllowed:
+                            throw new Exception("");
+                        case System.Net.HttpStatusCode.Forbidden:
+                            throw new Exception("");
+                    }
+                }
+            }
+            catch (HttpRequestException)
+            {
+                throw;
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine(err.Message);
+            }
+
+        }
+
+        public void GetUpdate()
+        {
+            if (downloadURL != "") System.Diagnostics.Process.Start(downloadURL);
+        }
+
+        private void Initialize()
+        {
+            string originalBigfilePath = classlib.bigfilePath;
+            string backupFilename = Path.Combine(classlib.gameDir, classlib.backup_filename);
+
+            if (File.Exists(backupFilename))
+            {
+                bigfileClass.bigfilePath = backupFilename;
+            }
+            classlib.characterCustomizationInMemory = new();
+
+            bigfileClass.Initialize();
+
+
+            // initialize shader combobox in customizer
+            string[] shaderStrings = { "Normal", "Shiva Double", "Elite", "Motion Blur", "Doppelganger" };
+            int shaderComboIndex = 0;
+            foreach (var item in bigfileClass.shaderStrings)
+            {
+                charactercustomizerscreen.cmbShader.Items.Add(shaderStrings[shaderComboIndex++]);
+            }
+
+            // add levels to level customizer
+            foreach (var levelClass in Library.levelDictionary)
+            {
+                if (levelClass.Value.Path != "n/a")
+                {
+                    levelcustomizerscreen.dgvLevelSettings.Rows.Add(levelClass.Value.Name, bigfileClass.levelCollection[levelClass.Key].Teams, levelClass.Key);
+                }
+            }
+
+            // if CheckBigFile fails, probably modded
+            // reassign bigfilePath to backup to fetch all original data
+            if (classlib.CheckBigfile(classlib.bigfilePath))
+            {
+                bigfileClass.bigfilePath = classlib.bigfilePath;
+            }
+            else
+            if (File.Exists(backupFilename))
+            {
+                bigfileClass.bigfilePath = backupFilename;
+            }
+
+            // character names
+            foreach (KeyValuePair<int, CharacterClass> charClass in classlib.bigfileClass.characterCollection)
+            {
+                string customNameIndex = Library.characterDictionary[charClass.Key].CustomNameIndex;
+                string nameFromOriginalIndex;
+                if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
+                {
+                    nameFromOriginalIndex = classlib.bigfileClass.customCharacterNames[charClass.Value.NameIndex];
+                }
+                else
+                {
+                    nameFromOriginalIndex = charClass.Value.NameIndex;
+                }
+                charClass.Value.Name = nameFromOriginalIndex;
+                charClass.Value.NewName = nameFromOriginalIndex;
+                charClass.Value.SwapNameIndex = customNameIndex;
+                classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
+            }
+            int lastDiffIndex = 0;
+            foreach (KeyValuePair<int, DifficultyClass> asset in bigfileClass.difficultyCollection)
+            {
+                if (asset.Key <= 5)
+                {
+                    difficultyscreen.cmbDifficultyCollection.Items.Insert(asset.Key, asset.Value.Name);
+                    lastDiffIndex = asset.Key;
+                }
+            }
+            difficultyscreen.difficultyJustArrived = true;
+            difficultyscreen.txtDifficultyName.Text = "CUSTOM";
+            Dictionary<string, CharacterClass> globalCharacterSettings = new()
+            { 
+                ["playables"] = new()
+                {
+                    MoveSpeed = 100
+                },
+                ["enemies"] = new()
+                {
+                    MoveSpeed = 100
+                }
+            };
+            difficultyscreen.LoadSettings(bigfileClass.difficultyCollection[lastDiffIndex], bigfileClass.gameplayConfigData, globalCharacterSettings);
+            difficultyscreen.cmbDifficultyCollection.SelectedIndex = lastDiffIndex;
+            difficultyscreen.difficultyJustArrived = false;
+            difficultyscreen.txtDifficultyName.Text = "CUSTOM";
+
+            classlib.bigfilePath = originalBigfilePath;
+        }
 
         public void ResetForm()
         {
             if (classlib.CheckBigfile(classlib.bigfilePath) || File.Exists(classlib.bigfilePath))
             {
                 // load buttons in a specific order to simulate tabs
-                btnLoad.Visible = true;
-                btnShowRandomPanel.Visible = true;
-                info.btnRestoreBigfile.Visible = true;
-                info.btnExtractSwaps.Visible = true;
-                container.btnCharPanel.Visible = true;
-                container.panelDivider.Visible = true;
-                container.btnItemPanel.Visible = true;
-                container.btnDestroyablesPanel.Visible = true;
-                //container.btnPresetsPanel.Visible = true;
-                container.btnLevelPanel.Visible = true;
-                container.btnStartReplace.Visible = true;
-                container.btnClearAllSwaps.Visible = true;
+                //3.Visible = true;
+                btnLoadSwap.Show();
+                btnSaveSwap.Show();
+                btnShowSwapperPanel.Show();
+                btnShowRandomPanel.Show();
+                btnShowCustomizer.Show();
+                btnDifficultyPanel.Show();
+                btnOwnerPanel.Show();
+                info.btnRestoreBigfile.Show();
+                if (functionmode != "custom")
+                {
+                    container.panelDivider.Show();
+                    container.btnCharPanel.Show();
+                    container.btnItemPanel.Show();
+                    container.btnDestroyablesPanel.Show();
+                    container.btnLevelPanel.Show();
+                    //container.btnPresetsPanel.Visible = true;
+                }
+                container.btnStartReplace.Show();
+                container.btnClearAllSwaps.Show();
 
                 // maybe reselect the thumbnail after a reset?
                 if (swapper.characterList.SelectedIndex > -1) thumbnailslib.getThumbnail("character", swapper.characterList.SelectedIndex);
@@ -326,21 +578,19 @@ namespace SOR4_Replacer
                 if (classlib.CheckBigfile(Path.Combine(classlib.gameDir, "bigfile")))
                 {
                     info.btnRestoreBigfile.Enabled = false;
-                    info.btnExtractSwaps.Enabled = false;
+                    //info.btnExtractSwaps.Enabled = false;
                 }
                 else
                 {
                     info.btnRestoreBigfile.Enabled = true;
-                    info.btnExtractSwaps.Enabled = true;
+                    //info.btnExtractSwaps.Enabled = true;
                 }
 
                 if ((classlib.changeList.Count > 0) || (classlib.itemChangeList.Count > 0) || (classlib.destroyableChangeList.Count > 0) || (classlib.levelChangeList.Count > 0))
                 {
-                    btnSave.Enabled = true;
-                    btnSave.Visible = true;
                     container.btnStartReplace.Enabled = true;
                     container.btnClearAllSwaps.Enabled = true;
-                    container.labelPending.Visible = true;
+                    container.labelPending.Show();
                     if (classlib.changeList.Count > 0)
                     {
                         swapper.btnShowList.Enabled = true;
@@ -403,11 +653,10 @@ namespace SOR4_Replacer
                 }
                 else
                 {
-                    btnSave.Enabled = false;
-                    btnSave.Visible = false;
                     container.btnStartReplace.Enabled = false;
+                    container.btnStartReplace.Enabled = true;
                     container.btnClearAllSwaps.Enabled = false;
-                    container.labelPending.Visible = false;
+                    container.labelPending.Hide();
                     hasNoPending = true;
                 }
             }
@@ -423,22 +672,22 @@ namespace SOR4_Replacer
 
             if (classlib.CheckBigfile(classlib.bigfilePath))
             {
-                Console.WriteLine("is legit");
                 bigfileClass.bigfilePath = classlib.bigfilePath;
             }
             // reassign bigfilePath to backup to fetch all original characters
             else
-            if (File.Exists(Path.Combine(classlib.gameDir, "bigfile_rep7_backup")))
+            if (File.Exists(Path.Combine(classlib.gameDir, "bigfile_rep7_13648_backup")))
             {
-                bigfileClass.bigfilePath = Path.Combine(classlib.gameDir, "bigfile_rep7_backup");
+                bigfileClass.bigfilePath = Path.Combine(classlib.gameDir, "bigfile_rep7_13648_backup");
             }
 
-            if (bigfileClass.CommitChanges()) 
+            Swaps swaps = GetValuesFromUI(true);
+            if (bigfileClass.CommitChanges(swaps))
             {
                 info.labelValidBigfile.Text = "modded v7 bigfile";
                 info.labelValidBigfile.ForeColor = Color.Crimson;
                 info.btnRestoreBigfile.Enabled = true;
-                info.btnExtractSwaps.Enabled = true;
+                //info.btnExtractSwaps.Enabled = true;
                 hasNoPending = true;
                 container.labelPending.Visible = false;
                 MessageBox.Show("Swaps have been applied!\n\nYou will need to restart the game if it is currently running." + createdBackup, "Awesomeness unlocked!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -450,15 +699,55 @@ namespace SOR4_Replacer
             // return bigfilePath to true bigfile
             bigfileClass.bigfilePath = originalBigfilePath;
 
+
         }
 
-        public void ClearSwaps(string mode, bool fromAll = false)
+        public Swaps GetValuesFromUI(bool applyChanges = false)
+        {
+            // GameplayConfigData, Difficulty, and Global Character Settings
+            GameplayConfigDataClass gcd = difficultyscreen.GetGCDValues();
+            DifficultyClass difficulty = difficultyscreen.GetDifficultyValues();
+            Dictionary<string, CharacterClass> generalCharacterCollection = difficultyscreen.GetGlobalCharacterValues();
+
+            // Author
+            Author author = ownerdetailsscreen.GetValues(applyChanges);
+
+            // Level Customizer
+            Dictionary<int, LevelClass> levelCustomizationQueue = levelcustomizerscreen.GetValues();
+
+            Swaps swaps = new();
+            swaps.gameplayConfigDataSave = gcd;
+            swaps.difficulty = difficulty;
+            swaps.globalCharacterSettings = generalCharacterCollection;
+            swaps.author = author;
+            swaps.levelCustomizationQueue = levelCustomizationQueue;
+            swaps.changeList = classlib.changeList;
+            swaps.itemChangeList = classlib.itemChangeList;
+            swaps.destroyableChangeList = classlib.destroyableChangeList;
+            swaps.levelChangeList = classlib.levelChangeList;
+            swaps.characterCustomizationQueue = classlib.characterCustomizationQueue;
+            swaps.customCharacterNamesQueue = classlib.customCharacterNames;
+            return swaps;
+        }
+
+        public void ClearSwaps(string mode, string function, bool fromAll = false)
         {
             bool goAhead = false;
             if (mode == "destroyable") mode = "breakable";
+            string promptString = "";
+            string[] list = { "character", "item", "destroyable", "level" };
+            switch (function)
+            {
+                case "swap":
+                    promptString = "swap selections";
+                    break;
+                case "custom":
+                    promptString = "customizations";
+                    break;
+            }
             if (fromAll == false)
             {
-                DialogResult resetAsk = MessageBox.Show("Are you sure you want to clear your " + mode + " swap selections?", "Reset " + mode + " swaps", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult resetAsk = MessageBox.Show("Are you sure you want to clear your " + mode + " " + promptString + "?", "Reset " + mode + " " + promptString, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (resetAsk == DialogResult.Yes) goAhead = true;
             }
             else
@@ -467,15 +756,18 @@ namespace SOR4_Replacer
             }
             if (mode == "all")
             {
-                string[] list = { "character", "item", "destroyable", "level" };
-                foreach (string item in list) ClearSwaps(item, true);
+                foreach (string item in list) ClearSwaps(item, function, true);
             } else
             {
                 if (mode == "breakable") mode = "destroyable";
                 if (goAhead == true)
                 {
+                    if (function == "custom")
+                    {
+                        mode = "custom" + mode.Substring(0, 1).ToUpper() + mode.Substring(1);
+                    }
                     classlib.ClearTable(mode);
-                    bigfileClass.ResetSwaps(mode);
+                    //bigfileClass.ResetSwaps(mode);
                     info.labelLoadedSwapFile.Text = "";
                     info.labelLoadedSwap.Visible = false;
                     info.labelLoadedSwapFile.Visible = false;
@@ -505,90 +797,19 @@ namespace SOR4_Replacer
                             swapperlevels.btnClearSwapList.Enabled = false;
                             randomizerlevels.btnClearSwapList.Enabled = false;
                             break;
+                        case "customCharacter":
+                            charactercustomizerpanel.labelReplaceCount.Text = "0";
+                            charactercustomizerscreen.btnClearSwapList.Enabled = false;
+                            break;
                     }
                     ResetForm();
                 }
             }
-
         }
 
         public void btnInstructionsClose()
         {
             panelInstructions.Visible = false;
-        }
-
-        private bool SaveToSwapFile(bool autosave = false)
-        {
-            string settingsFileName;
-            if (autosave == true)
-            {
-                settingsFileName = "bigfile_swap_autosave.swap";
-            }
-            else
-            {
-                settingsFileName = "bigfile_swapper_settings_" + DateTime.Now.ToString("yyyyMMdd") + ".swap";
-            }
-            string[] lines = new string[0];
-            string[] charLines = new string[0];
-            string[] itemLines = new string[0];
-            string[] destroyableLines = new string[0];
-            string[] levelLines = new string[0];
-            int changeCount = 0;
-            if (classlib.changeList.Count() > 0)
-            {
-                charLines = classlib.changeList.Select(item => string.Format("{0}:{1}", classlib.characterPathToIndex[item.Key], classlib.characterPathToIndex[item.Value])).ToArray();
-                changeCount += classlib.changeList.Count();
-            }
-            if (classlib.itemChangeList.Count() > 0)
-            {
-                itemLines = classlib.itemChangeList.Select(item => string.Format("i{0}:i{1}", classlib.itemPathToIndex[item.Key], classlib.itemPathToIndex[item.Value])).ToArray();
-                changeCount += classlib.itemChangeList.Count();
-            }
-            if (classlib.destroyableChangeList.Count() > 0)
-            {
-                destroyableLines = classlib.destroyableChangeList.Select(item => string.Format("d{0}:d{1}", classlib.destroyablePathToIndex[item.Key], classlib.destroyablePathToIndex[item.Value])).ToArray();
-                changeCount += classlib.destroyableChangeList.Count();
-            }
-            if (classlib.levelChangeList.Count() > 0)
-            {
-                levelLines = classlib.levelChangeList.Select(item => string.Format("l{0}:l{1}", classlib.levelPathToIndex[item.Key], classlib.levelPathToIndex[item.Value])).ToArray();
-                changeCount += classlib.levelChangeList.Count();
-            }
-
-            lines = new string[changeCount];
-
-            int counter = 0;
-            charLines.CopyTo(lines, counter);
-            counter += charLines.Count();
-            itemLines.CopyTo(lines, counter);
-            counter += itemLines.Count();
-            destroyableLines.CopyTo(lines, counter);
-            counter += destroyableLines.Count();
-            levelLines.CopyTo(lines, counter);
-
-            // Displays a SaveFileDialog so the user can save the Image
-            // assigned to Button2.
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "Swapper Settings|*.swap";
-            saveFileDialog1.Title = "Save Settings";
-            saveFileDialog1.FileName = settingsFileName;
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                // If the file name is not an empty string open it for saving.
-                if (saveFileDialog1.FileName != "")
-                {
-                    // Saves the Image via a FileStream created by the OpenFile method.
-                    FileStream settingsFile = (FileStream)saveFileDialog1.OpenFile();
-                    settingsFileName = saveFileDialog1.FileName;
-                    settingsFile.Close();
-                }
-                File.WriteAllLines(Path.Combine(classlib.gameDir, settingsFileName), lines);
-                return true;
-            }
-            else
-            {
-                return false;
-            }            
         }
 
         public void ToggleSwapList(bool fullwidth)
@@ -607,41 +828,31 @@ namespace SOR4_Replacer
 
         public void ToggleShowHideListLabels(bool show)
         {
+            Control[] controls = {
+                swapper.btnShowList, swapperitems.btnShowList, swapperdestroyables.btnShowList, swapperlevels.btnShowList,
+                randomizer.btnShowList, randomizeritems.btnShowList, randomizerdestroyables.btnShowList, randomizerlevels.btnShowList,
+                charactercustomizerscreen.btnShowList
+            };
             if (show == true)
             {
                 Width = fullWindowWidth;
-                swapper.btnShowList.Text = "Hide list";
-                swapperitems.btnShowList.Text = "Hide list";
-                swapperdestroyables.btnShowList.Text = "Hide list";
-                swapperlevels.btnShowList.Text = "Hide list";
-                randomizer.btnShowList.Text = "Hide list";
-                randomizeritems.btnShowList.Text = "Hide list";
-                randomizerdestroyables.btnShowList.Text = "Hide list";
-                randomizerlevels.btnShowList.Text = "Hide list";
-                swapper.btnShowList.Enabled = true;
-                swapperitems.btnShowList.Enabled = true;
-                swapperdestroyables.btnShowList.Enabled = true;
-                swapperlevels.btnShowList.Enabled = true;
-                randomizer.btnShowList.Enabled = true;
-                randomizeritems.btnShowList.Enabled = true;
-                randomizerdestroyables.btnShowList.Enabled = true;
-                randomizerlevels.btnShowList.Enabled = true;
+
+                foreach (Control ctrlname in controls)
+                {
+                    ctrlname.Text = "Hide list";
+                    ctrlname.Enabled = true;
+                }
             }
             else
             {
-                swapper.btnShowList.Text = "Show list";
-                swapperitems.btnShowList.Text = "Show list";
-                swapperdestroyables.btnShowList.Text = "Show list";
-                swapperlevels.btnShowList.Text = "Show list";
-                randomizer.btnShowList.Text = "Show list";
-                randomizeritems.btnShowList.Text = "Show list";
-                randomizerdestroyables.btnShowList.Text = "Show list";
-                randomizerlevels.btnShowList.Text = "Show list";
-
+                foreach (Control ctrlname in controls)
+                {
+                    ctrlname.Text = "Show list";
+                }
             }
         }
 
-        private bool ReadSwapFile(string settingsFileName)
+        private bool ReadSwapFileOld(string settingsFileName)
         {
             // get bigfile MD5 hash to compare if original
             string[] lines = File.ReadAllLines(settingsFileName);
@@ -694,7 +905,6 @@ namespace SOR4_Replacer
                 if (categories.Value.Count() > 0)
                 {
                     classlib.ClearTable(categories.Key);
-                    bigfileClass.ResetSwaps(categories.Key);
                     foreach (KeyValuePair<int, int> pair in categories.Value)
                     {
                         if (pair.Key != pair.Value) classlib.AddToList(this, categories.Key, pair.Key, pair.Value);
@@ -718,19 +928,19 @@ namespace SOR4_Replacer
                 classlib.gameDir = Path.GetDirectoryName(bigfilePath);
                 swapper.characterList.Enabled = true;
                 swapper.replacementComboBox.Enabled = true;
-                swapper.btnSetItem.Enabled = true;
+                //swapper.btnSetItem.Enabled = true;
                 randomizer.btnRandomize.Enabled = true;
                 randomizer.btnRandomizeEverybody.Enabled = true;
                 if (classlib.CheckBigfile(bigfilePath))
                 {
-                    if (!File.Exists(Path.Combine(classlib.gameDir, "bigfile_rep_backup")))
+                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
                     {
-                        //labelBackupMade.Text = "A backup named \"bigfile_rep_backup\" does not exist yet. One will be created upon swapping for the first time.";
+                        string backup_filename = classlib.CreateBackup();
+                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
                         info.labelBackupMade.Visible = true;
                     }
                     else
                     {
-                        //labelBackupMade.Text = "A backup named \"bigfile_rep_backup\" already exists and will not be overwritten until changes are made.";
                         info.labelBackupMade.Visible = false;
                     }
                 }
@@ -747,11 +957,15 @@ namespace SOR4_Replacer
 
                 if (File.Exists(bigfilePath))
                 {
+                    classlib.bigfilePath = bigfilePath;
                     Properties.Settings.Default.bigfilePath = classlib.bigfilePath;
                     Properties.Settings.Default.Save();
                 }
                 info.labelBigfileLocationInfo.Text = "Loaded file:\n" + bigfilePath;
                 info.labelValidBigfile.Visible = true;
+                bigfileClass = classlib.bigfileClass;
+                classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
+                Initialize();
                 ResetForm();
                 container.panelInfo.Controls.Clear();
                 container.panelInfo.Controls.Add(info);
@@ -759,109 +973,50 @@ namespace SOR4_Replacer
             }
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
-        {
-            if (ofdLoadDialog.ShowDialog() == DialogResult.OK)
-            {
-                bool pushthrough = true;
-
-                if (classlib.changeList.Count > 0)
-                {
-                    pushthrough = false;
-                    DialogResult cont = MessageBox.Show("All unsaved changes will be lost. Continue?", "Load swap file", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (cont == DialogResult.Yes) pushthrough = true;
-                }
-
-                if (pushthrough == true)
-                {
-                    string settingsFilename = ofdLoadDialog.FileName;
-                    if (ReadSwapFile(settingsFilename) == true)
-                    {
-                        info.labelLoadedSwapFile.Text = Path.GetFileName(ofdLoadDialog.FileName);
-                        info.labelLoadedSwap.Visible = true;
-                        info.labelLoadedSwapFile.Visible = true;
-                        swapper.btnClearSwapList.Enabled = true;
-                        swapper.btnClearSwapList.Visible = true;
-                        randomizer.btnClearSwapList.Enabled = true;
-                        randomizer.btnClearSwapList.Visible = true;
-                    }
-                }
-                ResetForm();
-            }
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            SaveToSwapFile();
-        }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnShowRandomPanel_Click(object sender, EventArgs e)
+        private void btnCustomize_Click(object sender, EventArgs e)
         {
-            container.panelMain.Controls.Clear();
-            switch (functionmode)
-            {
-                case "swapper":
-                    btnShowRandomPanel.Text = "Swapper";
-                    functionmode = "randomizer";
-                    container.btnPresetsPanel.Visible = true;
-                    switch (screenmode)
-                    {
-                        case "characters":
-                            container.panelMain.Controls.Add(randomizer);
-                            randomizer.Show();
-                            break;
-                        case "items":
-                            container.panelMain.Controls.Add(randomizeritems);
-                            randomizeritems.Show();
-                            break;
-                        case "destroyables":
-                            container.panelMain.Controls.Add(randomizerdestroyables);
-                            randomizerdestroyables.Show();
-                            break;
-                        case "levels":
-                            container.panelMain.Controls.Add(randomizerlevels);
-                            randomizerlevels.Show();
-                            break;
-                    }
-                    break;
-                case "randomizer":
-                    btnShowRandomPanel.Text = "Randomizer";
-                    functionmode = "swapper";
-                    container.btnPresetsPanel.Visible = false;
-                    if (screenmode == "presets")
-                    {
-                        screenmode = "characters";
-                        container.SwitchTabs(screenmode);
-                    }
-                    switch (screenmode)
-                    {
-                        case "characters":
-                            container.panelMain.Controls.Add(swapper);
-                            swapper.Show();
-                            break;
-                        case "items":
-                            container.panelMain.Controls.Add(swapperitems);
-                            swapperitems.Show();
-                            break;
-                        case "destroyables":
-                            container.panelMain.Controls.Add(swapperdestroyables);
-                            swapperdestroyables.Show();
-                            break;
-                        case "levels":
-                            container.panelMain.Controls.Add(swapperlevels);
-                            swapperlevels.Show();
-                            break;
-                    }
-                    break;
-            }
+            ChangeFunction("custom");
         }
 
-        public void ExecuteRandomPreset(int preset)
+        private void btnShowSwapperPanel_Click(object sender, EventArgs e)
+        {
+            ChangeFunction("swapper");
+        }
+
+        private void btnShowRandomPanel_Click(object sender, EventArgs e)
+        {
+            ChangeFunction("randomizer");
+        }
+
+        private void btnDifficultyPanel_Click(object sender, EventArgs e)
+        {
+            btnInstructionsClose();
+            container.panelDifficulty.Visible = true;
+            container.panelDifficulty.BringToFront();
+        }
+
+        public void ChangeFunction(string functionmode)
+        {
+            this.functionmode = functionmode;
+            btnInstructionsClose();
+            container.panelDifficulty.Hide();
+            container.panelOwner.Hide();
+            if (functionmode == "custom")
+            {
+                labelDisplayList.Text = "CUSTOMIZATION List";
+            }
+            else
+            {
+                labelDisplayList.Text = "REPLACEMENT List";
+            }
+            container.SwitchTabs(screenmode);
+        }
+        public void ExecuteRandomPreset(int preset, bool battleRoyaleMode)
         {
             string questionString = "";
             switch (preset)
@@ -1063,6 +1218,50 @@ namespace SOR4_Replacer
                         // RandomizeLevels("survival");
                         break;
                 }
+
+                if (battleRoyaleMode)
+                {
+                    int teamIterator = 3;
+                    foreach (KeyValuePair<int, Library.Character> charData in Library.characterDictionary)
+                    {
+                        if (charData.Value.Path != "n/a")
+                        {
+                            int assetKey = charData.Key;
+                            int targetKey = assetKey;
+
+                            // initialize characterClass with original character's original attributes
+                            CharacterClass characterClass = new(bigfileClass.characterCollection[assetKey]);
+
+                            // if character is found in swap list, change characterClass into swap target's original attributes
+                            if (classlib.changeList.ContainsKey(assetKey)) {
+                                targetKey = classlib.changeList[assetKey];
+                                characterClass = new(bigfileClass.characterCollection[targetKey]);
+                            }
+
+                            // if character is found in customization list
+                            if (classlib.characterCustomizationQueue.ContainsKey(assetKey))
+                            {
+                                characterClass = new(classlib.characterCustomizationQueue[assetKey]);
+                            }
+
+                            characterClass.Team = teamIterator;
+
+                            // if character has an entry in "memory" but not yet added to list
+                            if (!classlib.characterCustomizationInMemory.ContainsKey(assetKey))
+                            {
+                                classlib.characterCustomizationInMemory[assetKey] = characterClass;
+                            }
+                            classlib.AddCustom(this, "character", assetKey, characterClass);
+                            foreach (DataGridViewRow dr in levelcustomizerscreen.dgvLevelSettings.Rows)
+                            {
+                                dr.Cells["teams"].Value = true;
+                            }
+                            teamIterator++;
+                        }
+
+                    }
+                    
+                }
                 ResetForm();
                 MessageBox.Show("Randomization complete.\n\nHit \"Apply changes\" if you want to try it out in the game. You may also visit the tabs and \"Show list\" if you want to check the swaps.", "Preset Randomization complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -1074,11 +1273,11 @@ namespace SOR4_Replacer
 
         public void RandomizePeople(string target)
         {
-            Random randomObj = new Random();
+            Random randomObj = new();
             int randomValue;
 
             List<int> randomList = Library.characterDictionary.Keys.ToList();
-            List<int> bossList = new List<int>(randomList);
+            List<int> bossList = new(randomList);
             List<int> minibossList = new List<int>(randomList);
             List<int> regularplusList = new List<int>(randomList);
 
@@ -1127,7 +1326,7 @@ namespace SOR4_Replacer
                     minibossList.Remove(asset.Key);
                     regularplusList.Remove(asset.Key);
                 }
-                if (classlib.changeList.ContainsKey(asset.Value.Path)) randomList.Remove(asset.Key);
+                if (classlib.changeList.ContainsKey(asset.Key)) randomList.Remove(asset.Key);
                 if (!asset.Value.IsBoss) bossList.Remove(asset.Key);
                 if (!asset.Value.IsMiniboss || (asset.Value.IsMiniboss && !asset.Value.ReplaceRegs)) minibossList.Remove(asset.Key);
                 if (!asset.Value.IsRegularPlus) regularplusList.Remove(asset.Key);
@@ -1146,7 +1345,7 @@ namespace SOR4_Replacer
                     (!randomizer.checkIgnoreMiniboss.Checked || (randomizer.checkIgnoreMiniboss.Checked && !character.Value.IsMiniboss)) &&
                     (!randomizer.checkIgnoreRegularplus.Checked || (randomizer.checkIgnoreRegularplus.Checked && !character.Value.IsRegularPlus)) &&
                     !character.Value.IsExcluded &&
-                    !classlib.changeList.ContainsKey(character.Value.Path)
+                    !classlib.changeList.ContainsKey(character.Key)
                     )
                 {
                     if (character.Value.IsBoss)
@@ -1187,7 +1386,6 @@ namespace SOR4_Replacer
                         if (minibossList.Count() > 0)
                         {
                             randomValue = randomObj.Next(0, minibossList.Count());
-                            Console.WriteLine("randomValue: " + randomValue + ", count: " + minibossList.Count());
                             classlib.AddToList(this, "character", character.Key, minibossList[randomValue]);
                             if (!randomizer.allowDuplicates.Checked)
                             {
@@ -1226,11 +1424,11 @@ namespace SOR4_Replacer
 
         public void RandomizeItems(string target)
         {
-            Random randomObj = new Random();
+            Random randomObj = new();
             int randomValue;
 
             List<int> randomList = Library.itemDictionary.Keys.ToList();
-            List<int> goldenList = new List<int>(randomList);
+            List<int> goldenList = new (randomList);
 
             // remove all characters based on conditions
             foreach (KeyValuePair<int, Library.Item> asset in Library.itemDictionary)
@@ -1241,7 +1439,7 @@ namespace SOR4_Replacer
                 if (asset.Value.IsGolden && (randomizeritems.checkIgnoreGolden.Checked || randomizeritems.checkGoldToGold.Checked))
                     randomList.Remove(asset.Key);
                 if (asset.Value.IsExcluded) randomList.Remove(asset.Key);
-                if (classlib.itemChangeList.ContainsKey(asset.Value.Path)) randomList.Remove(asset.Key);
+                if (classlib.itemChangeList.ContainsKey(asset.Key)) randomList.Remove(asset.Key);
                 if (!asset.Value.IsGolden) goldenList.Remove(asset.Key);
             }
 
@@ -1257,27 +1455,27 @@ namespace SOR4_Replacer
                     ((target == "pickups") && asset.Value.IsPickup) ||
                     ((target == "weapons") && asset.Value.IsWeapon) &&
                     !asset.Value.IsExcluded &&
-                    !classlib.itemChangeList.ContainsKey(asset.Value.Path)
+                    !classlib.itemChangeList.ContainsKey(asset.Key)
                     )
                 {
-                    if (asset.Value.IsGolden)
+                    if (asset.Value.IsGolden && !randomizeritems.checkIgnoreGolden.Checked && randomizeritems.checkGoldToGold.Checked)
                     {
-                        if (!randomizeritems.checkIgnoreGolden.Checked && randomizeritems.checkGoldToGold.Checked)
+                        randomValue = randomObj.Next(0, goldenList.Count());
+                        classlib.AddToList(this, "item", asset.Key, goldenList[randomValue]);
+                        if (!randomizeritems.allowDuplicates.Checked)
                         {
-                            randomValue = randomObj.Next(0, goldenList.Count());
-                            classlib.AddToList(this, "item", asset.Key, goldenList[randomValue]);
-                            if (!randomizeritems.allowDuplicates.Checked)
-                            {
-                                randomList.Remove(goldenList[randomValue]);
-                                goldenList.RemoveAt(randomValue);
-                            }
+                            randomList.Remove(goldenList[randomValue]);
+                            goldenList.RemoveAt(randomValue);
                         }
                     }
                     else
                     {
-                        randomValue = randomObj.Next(0, randomList.Count());
-                        classlib.AddToList(this, "item", asset.Key, randomList[randomValue]);
-                        if (!randomizeritems.allowDuplicates.Checked) randomList.RemoveAt(randomValue);
+                        if (randomList.Count > 0)
+                        {
+                            randomValue = randomObj.Next(0, randomList.Count());
+                            classlib.AddToList(this, "item", asset.Key, randomList[randomValue]);
+                            if (!randomizeritems.allowDuplicates.Checked) randomList.RemoveAt(randomValue);
+                        }
                     }
                 }
             }
@@ -1286,7 +1484,7 @@ namespace SOR4_Replacer
 
         public void RandomizeDestroyables(string target)
         {
-            Random randomObj = new Random();
+            Random randomObj = new();
             int randomValue;
 
             List<int> randomList = Library.destroyableDictionary.Keys.ToList();
@@ -1428,6 +1626,202 @@ namespace SOR4_Replacer
         private void labelAuthor_MouseMove(object sender, MouseEventArgs e)
         {
             //MoveWindow(e);
+        }
+
+        private void btnOwnerPanel_Click(object sender, EventArgs e)
+        {
+            btnInstructionsClose();
+            container.panelOwner.Visible = true;
+            container.panelOwner.BringToFront();
+        }
+
+        private void SaveSettings(string filename)
+        {
+            Swaps swaps = GetValuesFromUI(false);
+            swaps.Save(Application.ProductVersion, filename);
+            info.labelLoadedSwapFile.Text = Path.GetFileName(filename);
+            info.labelLoadedSwap.Text = "Swap list saved:";
+            info.labelLoadedSwap.Visible = true;
+            info.labelLoadedSwapFile.Visible = true;
+        }
+
+        private void btnSaveSwap_Click(object sender, EventArgs e)
+        {
+            string settingsFileName = "bigfile_swapper_settings_" + DateTime.Now.ToString("yyyyMMdd") + ".swap";
+            SaveFileDialog fd = new SaveFileDialog
+            {
+                Filter = "Swapper Settings|*.swap",
+                Title = "Save Settings",
+                FileName = settingsFileName
+            };
+            if (fd.ShowDialog() == DialogResult.OK)
+            {
+                // If the file name is not an empty string open it for saving.
+                if (fd.FileName != "")
+                {
+                    SaveSettings(fd.FileName);
+                }
+            }
+            
+        }
+
+        private void btnLoadSwap_Click(object sender, EventArgs e)
+        {
+            if (ofdLoadDialog.ShowDialog() == DialogResult.OK)
+            {
+                bool pushthrough_v4 = false;
+                DialogResult cont = MessageBox.Show("All unsaved changes will be lost. Continue?", "Load swap file", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (cont == DialogResult.Yes)
+                {
+                    string settingsFilename = ofdLoadDialog.FileName;
+                    Swaps swapSettings = new(settingsFilename);
+
+                    classlib.ClearTable("character", swaplistpanel);
+                    classlib.ClearTable("item", swaplistitempanel);
+                    classlib.ClearTable("destroyable", swaplistdestroyablepanel);
+                    classlib.ClearTable("level", swaplistlevelpanel);
+                    classlib.ClearTable("customCharacter", charactercustomizerpanel);
+
+                    // character names
+                    foreach (KeyValuePair<int, CharacterClass> charClass in classlib.bigfileClass.characterCollection)
+                    {
+                        string customNameIndex = Library.characterDictionary[charClass.Key].CustomNameIndex;
+                        string nameFromOriginalIndex;
+                        if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
+                        {
+                            nameFromOriginalIndex = classlib.bigfileClass.customCharacterNames[charClass.Value.NameIndex];
+                        }
+                        else
+                        {
+                            nameFromOriginalIndex = charClass.Value.NameIndex;
+                        }
+                        classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
+                    }
+
+                    string currentVerString = Application.ProductVersion;
+                    string swapVerString = "";
+                    List<string> currentVer = new();
+                    List<string> swapVer = new();
+                    try
+                    {
+                        Dictionary<string, string> settings = swapSettings.Load();
+                        if (settings != null)
+                        {
+                            if (settings.ContainsKey("appversion"))
+                            {
+                                swapVerString = settings["appversion"];
+                                if (settings["appversion"] == currentVerString)
+                                {
+                                    pushthrough_v4 = true;
+                                }
+                                else
+                                {
+                                    List<string> versionSplit = currentVerString.Split('.').ToList();
+                                    if (versionSplit[3] == "0") versionSplit.RemoveAt(3);
+                                    if (versionSplit[2] == "0") versionSplit.RemoveAt(2);
+                                    currentVer.Add(string.Join(".", versionSplit));
+
+                                    versionSplit = new(swapVerString.Split('.').ToList());
+                                    if (versionSplit[3] == "0") versionSplit.RemoveAt(3);
+                                    if (versionSplit[2] == "0") versionSplit.RemoveAt(2);
+                                    swapVer.Add(string.Join(".", versionSplit));
+
+                                    cont = MessageBox.Show($"The swap file you loaded is for a different version of SOR4 Swapper (v.{swapVer[0]}). You are currently using v.{currentVer[0]}. \n\nDo you want to continue?", "Version", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (cont == DialogResult.Yes) pushthrough_v4 = true;
+                                }
+                            }
+
+                            if (pushthrough_v4 == true)
+                            {
+                                Dictionary<string, Dictionary<int, int>> swapList = swapSettings.PullSwaps();
+                                foreach (KeyValuePair<string, Dictionary<int, int>> swapKeyValuePair in swapList)
+                                {
+                                    // needs to be copy and not reference of swaps
+                                    // since we're still reading the swaps but already adding to them
+                                    Dictionary<int, int> swapContents = new(swapKeyValuePair.Value);
+                                    foreach (KeyValuePair<int, int> swap in swapContents)
+                                    {
+                                        classlib.AddToList(this, swapKeyValuePair.Key, swap.Key, swap.Value, true);
+                                    }
+                                }
+
+                                Dictionary<int, CharacterClass> customList = swapSettings.characterCustomizationQueue;
+                                if (customList != null)
+                                {
+                                    foreach (KeyValuePair<int, CharacterClass> customCharacter in customList)
+                                    {
+                                        // customCharacter.Value = class of customized (and replaced) character
+                                        classlib.AddCustom(this, "character", customCharacter.Key, customCharacter.Value);
+                                        classlib.characterCustomizationInMemory[customCharacter.Key] = customCharacter.Value;
+                                        classlib.customCharacterNames[customCharacter.Value.NameIndex] = customCharacter.Value.NewName;
+                                    }
+                                }
+
+                                // add levels to level customizer
+                                foreach (DataGridViewRow leveldr in levelcustomizerscreen.dgvLevelSettings.Rows)
+                                {
+                                    int levelKey = (int)leveldr.Cells["origKey"].Value;
+                                    if (swapSettings.levelCustomizationQueue != null)
+                                    {
+                                        if (swapSettings.levelCustomizationQueue.ContainsKey(levelKey))
+                                        {
+                                            leveldr.Cells["teams"].Value = swapSettings.levelCustomizationQueue[levelKey].Teams;
+                                        }
+                                    }
+                                }
+
+                                // very special condition for pre-4.2 and EnemySpeedMultiplier==0, reset to default of 100
+                                // anything pre-v4.0 will not have difficulty anyway and will load default
+                                if (swapVer.Count > 0 && ((swapVer[0] == "4.0") || (swapVer[0] == "4.1")) && (swapSettings.difficulty.EnemySpeedMultiplier == 0))
+                                {
+                                    swapSettings.difficulty.EnemySpeedMultiplier = 100;
+                                }
+                                if (swapSettings.gameplayConfigDataSave != null)
+                                {
+                                    difficultyscreen.LoadSettings(swapSettings.difficulty, swapSettings.gameplayConfigDataSave, swapSettings.globalCharacterSettings);
+                                }
+                                else
+                                {
+                                    difficultyscreen.LoadSettings(swapSettings.difficulty, bigfileClass.gameplayConfigData, swapSettings.globalCharacterSettings);
+                                }
+                                
+                                ownerdetailsscreen.LoadSettings(swapSettings.author);
+                                info.labelLoadedSwapFile.Text = Path.GetFileName(settingsFilename);
+                                info.labelLoadedSwap.Visible = true;
+                                info.labelLoadedSwapFile.Visible = true;
+                                swapper.btnClearSwapList.Enabled = true;
+                                swapper.btnClearSwapList.Visible = true;
+                                randomizer.btnClearSwapList.Enabled = true;
+                                randomizer.btnClearSwapList.Visible = true;
+                                ResetForm();
+                            }
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        List<string> versionSplit = currentVerString.Split('.').ToList();
+                        if (versionSplit[3] == "0") versionSplit.RemoveAt(3);
+                        if (versionSplit[2] == "0") versionSplit.RemoveAt(2);
+                        currentVer.Add(string.Join(".", versionSplit));
+                        cont = MessageBox.Show($"The swap file you loaded is for a version of SOR4 Swapper older than v4.0. You are currently using v.{currentVer[0]}. \n\nDo you want to continue?", "Version", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (cont == DialogResult.Yes)
+                        {
+                            if (ReadSwapFileOld(settingsFilename) == true)
+                            {
+                                info.labelLoadedSwapFile.Text = Path.GetFileName(settingsFilename);
+                                info.labelLoadedSwap.Text = "Swap list loaded:";
+                                info.labelLoadedSwap.Visible = true;
+                                info.labelLoadedSwapFile.Visible = true;
+                                swapper.btnClearSwapList.Enabled = true;
+                                swapper.btnClearSwapList.Visible = true;
+                                randomizer.btnClearSwapList.Enabled = true;
+                                randomizer.btnClearSwapList.Visible = true;
+                                ResetForm();
+                            }
+                        }
+                    }
+                }
+            }
         }
 
     }

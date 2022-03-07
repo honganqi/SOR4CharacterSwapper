@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class RandomizerLevels
     {

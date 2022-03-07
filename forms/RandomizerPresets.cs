@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class RandomizerPresets : Form
     {
@@ -22,6 +22,7 @@ namespace SOR4_Replacer
         public string chaosFourTooltipText = "";
         public string chaosFiveTooltipText = "";
         public string chaosSixTooltipText = "";
+        public string battleRoyaleTooltipText = "";
 
 
         public RandomizerPresets(MainWindow mainwindow)
@@ -107,42 +108,57 @@ namespace SOR4_Replacer
                 "   Boss Rush: not included in randomization\n" +
                 "   Survival Levels: not randomized";
 
+            battleRoyaleTooltipText = "CHARACTERS:\n" +
+                "   Bosses: not randomized\n" +
+                "   Minibosses: isolated in the \"miniboss\" pool\n" +
+                "   Regular+: mixed with all characters\n" +
+                "ITEMS:\n" +
+                "   Pickups: not randomized\n" +
+                "   Weapons: not randomized\n" +
+                "BREAKABLES: breakables are randomized in 2 separate pools, Breakables and Destructive\n" +
+                "LEVELS:\n" +
+                "   Story Levels: not randomized\n" +
+                "   Boss Rush: not included in randomization\n" +
+                "   Survival Levels: not randomized";
+
             toolTipChaosOne.SetToolTip(btnChaosOne, chaosOneTooltipText);
             toolTipChaosTwo.SetToolTip(btnChaosTwo, chaosTwoTooltipText);
             toolTipChaosThree.SetToolTip(btnChaosThree, chaosThreeTooltipText);
             toolTipChaosFour.SetToolTip(btnChaosFour, chaosFourTooltipText);
             toolTipChaosFive.SetToolTip(btnChaosFive, chaosFiveTooltipText);
             toolTipChaosSix.SetToolTip(btnChaosSix, chaosSixTooltipText);
+            ToolTip toolTipBattleRoyale = new();
+            toolTipBattleRoyale.SetToolTip(chkBattleRoyale, battleRoyaleTooltipText);
         }
 
         private void btnChaosOne_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(1);
+            _mainwindow.ExecuteRandomPreset(1, chkBattleRoyale.Checked);
         }
 
         private void btnChaosTwo_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(2);
+            _mainwindow.ExecuteRandomPreset(2, chkBattleRoyale.Checked);
         }
         private void btnChaosThree_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(3);
+            _mainwindow.ExecuteRandomPreset(3, chkBattleRoyale.Checked);
         }
         private void btnChaosFour_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(4);
+            _mainwindow.ExecuteRandomPreset(4, chkBattleRoyale.Checked);
         }
         private void btnChaosFive_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(5);
+            _mainwindow.ExecuteRandomPreset(5, chkBattleRoyale.Checked);
         }
         private void btnChaosSix_Click(object sender, EventArgs e)
         {
-            _mainwindow.ExecuteRandomPreset(6);
+            _mainwindow.ExecuteRandomPreset(6, chkBattleRoyale.Checked);
         }
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("character");
+            _mainwindow.ClearSwaps("character", "swap");
         }
 
         private void Randomizer_MouseDown(object sender, MouseEventArgs e)

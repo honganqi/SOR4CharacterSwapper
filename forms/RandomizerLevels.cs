@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class RandomizerLevels : Form
     {
@@ -76,7 +76,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("level");
+            _mainwindow.ClearSwaps("level", "swap");
         }
 
         private void Randomizer_MouseDown(object sender, MouseEventArgs e)

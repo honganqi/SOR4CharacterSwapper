@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class Instructions : Form
     {
@@ -21,7 +21,8 @@ namespace SOR4_Replacer
 
         private void btnInstructionsClose_Click(object sender, EventArgs e)
         {
-            _mainwindow.btnInstructionsClose();
+            System.Diagnostics.Process.Start("https://www.youtube.com/watch?v=w1_efI2H4Hg&list=PLTUnVIy4j6R4lpdbGYYIFbMD18eUzETU5");
+            //_mainwindow.btnInstructionsClose();
         }
     }
 }

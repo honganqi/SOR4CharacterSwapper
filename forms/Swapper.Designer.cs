@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class Swapper
     {
@@ -93,6 +93,7 @@
             // 
             // btnSetItem
             // 
+            this.btnSetItem.Enabled = false;
             this.btnSetItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSetItem.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSetItem.Location = new System.Drawing.Point(432, 27);
@@ -124,9 +125,9 @@
             this.labelReplacementList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelReplacementList.Location = new System.Drawing.Point(223, 11);
             this.labelReplacementList.Name = "labelReplacementList";
-            this.labelReplacementList.Size = new System.Drawing.Size(73, 13);
+            this.labelReplacementList.Size = new System.Drawing.Size(125, 13);
             this.labelReplacementList.TabIndex = 36;
-            this.labelReplacementList.Text = "Replacement";
+            this.labelReplacementList.Text = "Replacement Character";
             // 
             // characterList
             // 
@@ -148,9 +149,9 @@
             this.labelCharacterList.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCharacterList.Location = new System.Drawing.Point(9, 11);
             this.labelCharacterList.Name = "labelCharacterList";
-            this.labelCharacterList.Size = new System.Drawing.Size(49, 13);
+            this.labelCharacterList.Size = new System.Drawing.Size(101, 13);
             this.labelCharacterList.TabIndex = 34;
-            this.labelCharacterList.Text = "Original";
+            this.labelCharacterList.Text = "Original Character";
             // 
             // btnShowList
             // 

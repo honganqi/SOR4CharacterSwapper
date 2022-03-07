@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class SwapListPanel : Form
     {
@@ -23,34 +17,26 @@ namespace SOR4_Replacer
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
-                // 1. get hidden INT value of replaced character
-                int changed = Int32.Parse(dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString());
-
-                // 2. check if changed character showed in the table really exists in the changeList
-                if (classlib.changeList.ContainsKey(Library.characterDictionary[changed].Path))
+                if (e.ColumnIndex == 0)
                 {
-                    // 3. remove the character from the changeList
-                    classlib.bigfileClass.RemoveSwap("character", changed);
-                    //classlib.changeList.Remove(Library.characterDictionary[changed].Path);
+                    // 1. get hidden INT value of replaced character
+                    int changed = Int32.Parse(dataGridView1.Rows[e.RowIndex].Cells["hiddenIndex"].Value.ToString());
 
-                    // 4. remove the character from the table, clear the table, then refresh
-                    int[] swapcount = classlib.RemoveFromTable("character", (int)dataGridView1.Rows[e.RowIndex].Cells[7].Value, Library.characterDictionary[changed].Path);
-                    if (swapcount[0] > 0)
+                    // 2. check if changed character showed in the table really exists in the changeList
+                    if (classlib.changeList.ContainsKey(changed))
                     {
+                        // 4. remove the character from the table, clear the table, then refresh
+                        int[] swapcount = classlib.RemoveFromTable(_mainwindow, "character", changed);
                         labelReplaceCount.Text = swapcount[0].ToString();
-                    }
-                    if (swapcount[1] > 0)
-                    {
                         labelReplaceUniqueCount.Text = swapcount[0].ToString();
                     }
-
-                    // 5. check if changeList still has any content
-                    if (classlib.changeList.Count > 0)
-                    {
-
-                    }
+                }
+                else
+                {
+                    _mainwindow.swapper.characterList.SelectedIndex = (int)dataGridView1.Rows[e.RowIndex].Cells["hiddenIndex"].Value;
+                    _mainwindow.swapper.replacementComboBox.SelectedIndex = (int)dataGridView1.Rows[e.RowIndex].Cells["replaceKey"].Value;
                 }
             }
             _mainwindow.ResetForm();

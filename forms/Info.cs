@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class Info : Form
     {
@@ -33,16 +33,24 @@ namespace SOR4_Replacer
         private void btnRestoreBigfile_Click(object sender, EventArgs e)
         {
             string backup_filename;
-            int gameVer;
+            string gameVer;
             switch (classlib.gameVer)
             {
                 case 5:
-                    gameVer = 5;
+                    gameVer = "5";
                     backup_filename = "bigfile_rep_backup";
                     break;
-                default:
-                    gameVer = 7;
+                case 7:
+                    gameVer = "7";
                     backup_filename = "bigfile_rep7_backup";
+                    break;
+                case 713648:
+                    gameVer = "7-s r13648";
+                    backup_filename = "bigfile_rep7_13648_backup";
+                    break;
+                default:
+                    gameVer = "7-s r13648";
+                    backup_filename = "bigfile_rep7_13648_backup";
                     break;
             }
             string backupPath = Path.Combine(classlib.gameDir, backup_filename);
@@ -129,18 +137,6 @@ namespace SOR4_Replacer
         private void labelLoadedSwapFile_MouseMove(object sender, MouseEventArgs e)
         {
             //_mainwindow.MoveWindow(e);
-        }
-
-        private void btnExtractSwaps_Click(object sender, EventArgs e)
-        {
-            DialogResult cont = MessageBox.Show("All unsaved changes will be lost. Continue?", "Load swap file", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (cont == DialogResult.Yes)
-            {
-                classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
-                Dictionary<string, Dictionary<int, int>> swapData = classlib.bigfileClass.ExportSwap();
-                _mainwindow.RefreshSwapList(swapData);
-            }
-
         }
     }
 }

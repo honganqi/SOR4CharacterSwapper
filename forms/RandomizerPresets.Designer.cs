@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class RandomizerPresets
     {
@@ -43,6 +43,7 @@
             this.toolTipChaosFive = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipChaosSix = new System.Windows.Forms.ToolTip(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.chkBattleRoyale = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnChaosTwo
@@ -148,11 +149,22 @@
             this.label2.TabIndex = 65;
             this.label2.Text = "Hover over the buttons for details";
             // 
+            // chkBattleRoyale
+            // 
+            this.chkBattleRoyale.AutoSize = true;
+            this.chkBattleRoyale.Location = new System.Drawing.Point(342, 56);
+            this.chkBattleRoyale.Name = "chkBattleRoyale";
+            this.chkBattleRoyale.Size = new System.Drawing.Size(92, 17);
+            this.chkBattleRoyale.TabIndex = 66;
+            this.chkBattleRoyale.Text = "Battle Royale";
+            this.chkBattleRoyale.UseVisualStyleBackColor = true;
+            // 
             // RandomizerPresets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 162);
+            this.ClientSize = new System.Drawing.Size(520, 200);
+            this.Controls.Add(this.chkBattleRoyale);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnChaosFour);
             this.Controls.Add(this.btnChaosThree);
@@ -187,5 +199,6 @@
         private System.Windows.Forms.ToolTip toolTipChaosFive;
         private System.Windows.Forms.ToolTip toolTipChaosSix;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox chkBattleRoyale;
     }
 }

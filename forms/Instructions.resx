@@ -117,26 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>Usage
-- To get started, load your game's "bigfile" into the app. It's usually in "C:\Program Files (x86)\Steam\steamapps\common\Streets of Rage 4\data".
-- You can swap or randomize characters, items (pickups), breakables, and levels by going to their respective tabs.
-- Once you're done adding your swaps, randomizing or after loading a swap file, click on "Apply changes".
-- You may use "Save settings" if you want to back up or share a swap list you made. You can use "Load settings" button to load the swaps into the app.
-- After applying swaps for the first time, a backup named "bigfile_rep7_backup" will be created automatically in the same folder. This will be needed by the app to allow you to restore your bigfile.
-- If you have a modified bigfile containing swaps, you can extract those swaps and save them onto a swap file by clicking on "Extract swap list" then showing the list and clicking on "Save swap list".
-
-Randomizer
- - You may randomize your swaps for surprise games. e.g. Clicking on "Enemies only" in the Characters tab will randomize enemies only and clicking on "Everybody" will randomize everybody including playable characters. Click on "Apply changes" if you're settled with the list or "Clear list" and randomize again if you want.
- - The "Ignore" checkboxes are there if you want the randomizer to ignore them during randomization. The "Swap boss with boss only" checkbox needs to be checked if you want to prevent softlocks. Bosses who replace regular enemies may not disappear like regular ones and you may not be able to proceed with your game. You may choose to disable these settings at your own risk but these are perfectly safe and won't damage your copy of the game.
- - Characters and items in the swap list will be ignored by the randomizer. e.g. If you manually swapped Galsia into Goro, Galsia will be ignored in the randomization.
- - You do not have to close the app when you run the game and you can execute swaps while the game is running, but you have to restart the game for the changes to take effect.
- - If you want to randomize again without closing the app, click on the "Clear list" button before doing so to remove all the characters in the list.
-
-Notes
-- The author of this software will not be liable to any damage to your game installation. If you lose your backup, you can simply go to Steam and validate your installation to restore it.
-- This app is intended to be used for entertainment purposes only. If you are not having fun with this, please restore your files, delete this app, and purge it from your memory.
-- TL;DR Please back up your bigfile before doing this and enjoy!
-</value>
-  </data>
 </root>

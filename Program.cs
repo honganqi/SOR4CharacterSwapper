@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Globalization;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     static class Program
     {
@@ -15,16 +16,9 @@ namespace SOR4_Replacer
         [STAThread]
         static void Main()
         {
-            if (File.Exists("SOR4SwapExplorer.dll"))
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainWindow());
-            }
-            else
-            {
-                MessageBox.Show("The file \"SOR4SwapExplorer.dll\" was not found. Please include it in the same folder with this program.", "DLL missing", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainWindow());
         }
     }
 }

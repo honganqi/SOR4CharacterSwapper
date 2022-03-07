@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 using System.Windows.Forms;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class Container : Form
     {
@@ -78,136 +75,153 @@ namespace SOR4_Replacer
 
         public void SwitchTabs(string screen)
         {
-            List<Button> buttons = new List<Button>
+            List<Button> buttons = new()
             {
                 btnCharPanel,
                 btnItemPanel,
                 btnDestroyablesPanel,
                 btnLevelPanel,
-                btnPresetsPanel,
             };
-            Button btnTo = btnCharPanel;
-
-            panelMain.Controls.Clear();
-            _mainwindow.panelSwapList.Controls.Clear();
+            Button btnTo = new();
+            Form targetForm = new();
+            Form listPanelToSwitchTo = new();
 
             switch (screen)
             {
                 case "characters":
                     btnTo = btnCharPanel;
-                    _mainwindow.panelSwapList.Controls.Add(_mainwindow.swaplistpanel);
-                    _mainwindow.swaplistpanel.Show();
+                    listPanelToSwitchTo = _mainwindow.swaplistpanel;
                     switch (_mainwindow.functionmode)
                     {
                         case "swapper":
-                            panelMain.Controls.Add(_mainwindow.swapper);
-                            _mainwindow.swapper.BringToFront();
-                            _mainwindow.swapper.Show();
+                            targetForm = _mainwindow.swapper;
                             break;
                         case "randomizer":
-                            panelMain.Controls.Add(_mainwindow.randomizer);
-                            _mainwindow.randomizer.BringToFront();
-                            _mainwindow.randomizer.Show();
+                            targetForm = _mainwindow.randomizer;
+                            break;
+                        case "custom":
+                            listPanelToSwitchTo = _mainwindow.charactercustomizerpanel;
+                            targetForm = _mainwindow.charactercustomizerscreen;
                             break;
                     }
                     break;
                 case "items":
                     btnTo = btnItemPanel;
-                    _mainwindow.panelSwapList.Controls.Add(_mainwindow.swaplistitempanel);
-                    _mainwindow.swaplistitempanel.Show();
+                    listPanelToSwitchTo = _mainwindow.swaplistitempanel;
                     switch (_mainwindow.functionmode)
                     {
                         case "swapper":
-                            panelMain.Controls.Add(_mainwindow.swapperitems);
-                            _mainwindow.swapperitems.BringToFront();
-                            _mainwindow.swapperitems.Show();
+                            targetForm = _mainwindow.swapperitems;
                             break;
                         case "randomizer":
-                            panelMain.Controls.Add(_mainwindow.randomizeritems);
-                            _mainwindow.randomizeritems.BringToFront();
-                            _mainwindow.randomizeritems.Show();
+                            targetForm = _mainwindow.randomizeritems;
+                            break;
+                        case "custom":
+                            listPanelToSwitchTo = _mainwindow.charactercustomizerpanel;
+                            targetForm = _mainwindow.charactercustomizerscreen;
                             break;
                     }
                     break;
 
                 case "destroyables":
                     btnTo = btnDestroyablesPanel;
-                    _mainwindow.panelSwapList.Controls.Add(_mainwindow.swaplistdestroyablepanel);
-                    _mainwindow.swaplistdestroyablepanel.Show();
+                    listPanelToSwitchTo = _mainwindow.swaplistdestroyablepanel;
                     switch (_mainwindow.functionmode)
                     {
                         case "swapper":
-                            panelMain.Controls.Add(_mainwindow.swapperdestroyables);
-                            _mainwindow.swapperdestroyables.BringToFront();
-                            _mainwindow.swapperdestroyables.Show();
+                            targetForm = _mainwindow.swapperdestroyables;
                             break;
                         case "randomizer":
-                            panelMain.Controls.Add(_mainwindow.randomizerdestroyables);
-                            _mainwindow.randomizerdestroyables.BringToFront();
-                            _mainwindow.randomizerdestroyables.Show();
+                            targetForm = _mainwindow.randomizerdestroyables;
+                            break;
+                        case "custom":
+                            listPanelToSwitchTo = _mainwindow.charactercustomizerpanel;
+                            targetForm = _mainwindow.charactercustomizerscreen;
                             break;
                     }
                     break;
 
                 case "levels":
                     btnTo = btnLevelPanel;
-                    _mainwindow.panelSwapList.Controls.Add(_mainwindow.swaplistlevelpanel);
-                    _mainwindow.swaplistlevelpanel.Show();
+                    listPanelToSwitchTo = _mainwindow.swaplistlevelpanel;
                     switch (_mainwindow.functionmode)
                     {
                         case "swapper":
-                            panelMain.Controls.Add(_mainwindow.swapperlevels);
-                            _mainwindow.swapperlevels.BringToFront();
-                            _mainwindow.swapperlevels.Show();
+                            targetForm = _mainwindow.swapperlevels;
                             break;
                         case "randomizer":
-                            panelMain.Controls.Add(_mainwindow.randomizerlevels);
-                            _mainwindow.randomizerlevels.BringToFront();
-                            _mainwindow.randomizerlevels.Show();
+                            targetForm = _mainwindow.randomizerlevels;
+                            break;
+                        case "custom":
+                            listPanelToSwitchTo = _mainwindow.charactercustomizerpanel;
+                            targetForm = _mainwindow.levelcustomizerscreen;
                             break;
                     }
                     break;
                 case "presets":
                     btnTo = btnPresetsPanel;
-                    //_mainwindow.panelSwapList.Controls.Add(_mainwindow.swaplistlevelpanel);
-                    //_mainwindow.swaplistlevelpanel.Show();
-                    panelMain.Controls.Add(_mainwindow.randomizerpresets);
-                    _mainwindow.randomizerpresets.BringToFront();
-                    _mainwindow.randomizerpresets.Show();
-                    /*
-                    switch (_mainwindow.functionmode)
-                    {
-                        case "swapper":
-                            panelMain.Controls.Add(_mainwindow.swapperlevels);
-                            _mainwindow.swapperlevels.BringToFront();
-                            _mainwindow.swapperlevels.Show();
-                            break;
-                        case "randomizer":
-                            panelMain.Controls.Add(_mainwindow.randomizerlevels);
-                            _mainwindow.randomizerlevels.BringToFront();
-                            _mainwindow.randomizerlevels.Show();
-                            break;
-                    }
-                    */
+                    targetForm = _mainwindow.randomizerpresets;
                     break;
+            }
+
+            if (_mainwindow.functionmode == "randomizer")
+            {
+                btnPresetsPanel.Show();
+            }
+            else
+            {
+                btnPresetsPanel.Hide();
             }
 
             foreach (Button button in buttons)
             {
-                button.ForeColor = SystemColors.ControlDarkDark;
-                button.FlatAppearance.MouseOverBackColor = default(Color);
-                button.FlatAppearance.MouseDownBackColor = default(Color);
+                if (
+                    (_mainwindow.functionmode == "custom" && button != btnCharPanel)
+                    && (_mainwindow.functionmode == "custom" && button != btnLevelPanel)
+                    )
+                {
+                    button.Hide();
+                }
+                else
+                {
+                    button.Show();
+                    if (button == btnTo)
+                    {
+                        btnTo.ForeColor = SystemColors.ControlText;
+                        btnTo.FlatAppearance.MouseOverBackColor = btnCharPanel.BackColor;
+                        btnTo.FlatAppearance.MouseDownBackColor = btnCharPanel.BackColor;
+                    }
+                    else
+                    {
+                        button.ForeColor = SystemColors.ControlDarkDark;
+                        button.FlatAppearance.MouseOverBackColor = default;
+                        button.FlatAppearance.MouseDownBackColor = default;
+                    }
+
+                }
             }
-            btnTo.ForeColor = SystemColors.ControlText;
-            btnTo.FlatAppearance.MouseOverBackColor = btnCharPanel.BackColor;
-            btnTo.FlatAppearance.MouseDownBackColor = btnCharPanel.BackColor;
 
             _mainwindow.screenmode = screen;
 
-            // simulate tabs
-            panelDivider.BringToFront();
-            btnTo.BringToFront();
-            panelMain.BringToFront();
+            if (panelMain.Controls.Find(targetForm.Name, true).FirstOrDefault() == null)
+            {
+                panelMain.Controls.Clear();
+                panelMain.Controls.Add(targetForm);
+                targetForm.Show();
+                panelDivider.BringToFront();
+                btnTo.BringToFront();
+                panelMain.BringToFront();
+
+                if (listPanelToSwitchTo.Name != "")
+                {
+                    if (panelMain.Controls.Find(listPanelToSwitchTo.Name, true).FirstOrDefault() == null)
+                    {
+                        _mainwindow.panelSwapList.Controls.Clear();
+                        _mainwindow.panelSwapList.Controls.Add(listPanelToSwitchTo);
+                        listPanelToSwitchTo.Show();
+                    }
+                }
+            }
         }
 
         private void btnCharPanel_Click(object sender, EventArgs e)
@@ -230,14 +244,24 @@ namespace SOR4_Replacer
             if (_mainwindow.screenmode != "levels") SwitchTabs("levels");
         }
 
-        private void btnClearAllSwaps_Click(object sender, EventArgs e)
-        {
-            _mainwindow.ClearSwaps("all");
-        }
-
         private void btnPresetsPanel_Click(object sender, EventArgs e)
         {
             if (_mainwindow.screenmode != "presets") SwitchTabs("presets");
+        }
+
+        private void btnClearAllSwaps_Click(object sender, EventArgs e)
+        {
+            _mainwindow.ClearSwaps("all", "swap");
+        }
+
+        private void btnClearAllCustomizations_Click(object sender, EventArgs e)
+        {
+            _mainwindow.ClearSwaps("all", "custom");
+        }
+
+        private void btnUpdateNotif_Click(object sender, EventArgs e)
+        {
+            _mainwindow.GetUpdate();
         }
     }
 }

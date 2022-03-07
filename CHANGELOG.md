@@ -2,6 +2,106 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.0 - 2022/02/28 01:10:59 GMT+08:00
+### Added
+* Added a "Customizer" section for characters and tons of
+related features
+* Added a "CUSTOMIZATION List" panel which shows when the
+user is on the Customizer screen and has chosen to show it
+* Added QOL (quality-of-life) for swaps where if you click on
+a swap on the swaps panel, it will preselect the originals and
+the replacements accordingly
+* Added a button which appears if an update is available.
+Clicking on it will bring you to the download page. This button
+will show you what the latest version is if it is newer than
+the one you're currently using.
+* Added "Enemy Speed Multiplier" field in the Difficulty section
+* Added "swap saved" with the filename after saving a swap file
+* Added placeholder text to all the fields in the Author section
+* Added "Enemy Speedhack Multiplier" in the Difficulty screen
+which affects how some enemies speeds change depending on the
+situation
+* Added a "Reset" button in the Difficulty section which resets
+values to their default values based on your selected difficulty
+* Added change markers to values in the Difficulty section to
+indicate values which have changed from their default values
+### Changed
+* Changed button sizes and their layouts on the main window
+to accommodate more
+* The way the Swap List Panel now switches to the list of
+customized characters when in the Customization screen and,
+like before, the list of replacements when in the Swapper and
+Randomizer screens
+* Separated the Swapper and the Randomizer access buttons
+* Custom difficulty is now permanently enabled
+* Changed the Date/Time field in the Author section to save in
+the UTC (Coordinated Universal Time) and would display the
+date and time in the user's timezone and locale format
+* The app now creates a backup upon launching the app for the
+first time and if the opened bigfile is the currently supported
+version by the app
+* Added tooltips to various textboxes
+* Transferred Ralphy and Dunphy from Regular to Regular+
+### Fixed
+* Fixed the Life Up Score fields not getting included in the 
+Save Swap function
+* Loading a swap file with custom Score Life Up requirements
+will now load those numbers in the user interface
+* Fixed a bug where it would still show that one swap was still
+in the Swap List Panel if all swaps in a list were removed when
+there was at least one item before
+* Fixed the thumbnails of Deputy and Lieutenant incorrectly
+swapped with each other
+* Fixed the issue where the replacement counter is not reset to
+0 before loading the lists if the "Clear List" button was
+clicked or anything triggers it (like loading a swap file with
+swap lists)
+* Fixed the wrong display count of unique replacements when
+a swap is removed
+
+## 4.1.0 - 2021/12/25 02:06 GMT+08:00
+### Added
+* Added inputs in the Difficulty screen to enable modifying
+the score requirement for extra lives in Stage Select
+and Arcade game modes
+* Added warning upon launching the app indicating the absence
+of original copies of the "bigfile" and
+"bigfile_rep7_13648_backup" files. If both are missing or modded,
+it is suggested to get an original copies by having Steam
+verify your game files.
+### Fixed
+* Made the app work properly with "v7-s r13648"
+
+## 4.0.0 - 2021/11/10 23:26 GMT+08:00
+### Added
+* Added "Difficulty" category which lets you create and customize
+new difficulty settings
+* Added "Swap Author" category which lets you add additional 
+ownership information to the mod you're creating
+* Most of the "Swap Author" details will appear in-game
+* Added a thumbnail for Barnaby (Elite) (thanks, Bragdras!)
+### Changed
+* The Load and Save buttons are now next to each other
+* Swap files are now saved in binary file format
+* The Load function will accept both old and new Swap formats
+* Changed the "How-To" screen contents into a link to YouTube
+tutorials
+* Changed "Electra" (the yellow SOR4 Nora) to "Belle"
+* Made the application taller to accomodate the new features
+### Fixed
+* Randomizer: Golden weapons are now included in the
+randomization when the "Ignore" and "Isolate" checkboxes are
+unchecked (thanks, VGamer!)
+* Fixed Stiletto's and Queen's mistaken identities which almost
+caused the end of the world
+### Removed
+* Removed the "Save Swap List" button from the List of
+Replacements panel
+* Removed the "Extract swap list" button
+* Made it so that only the EXE file is needed to run
+the Swapper; no more DLL files
+
+
 ## 3.1.5 - 2021/09/03 15:33 GMT+08:00
 ### Fixed
 * REALLY, REALLY fixed the randomizer including (retro) bosses

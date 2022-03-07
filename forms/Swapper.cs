@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using System.Reflection;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class Swapper : Form
     {
@@ -59,6 +52,17 @@ namespace SOR4_Replacer
                 {
                     cmb.SelectedIndex = -1;
                 }
+                else
+                {
+                    if ((replacementComboBox.SelectedIndex != -1) && (Library.characterDictionary[replacementComboBox.SelectedIndex].Path != "n/a"))
+                    {
+                        btnSetItem.Enabled = true;
+                    }
+                    else
+                    {
+                        btnSetItem.Enabled = false;
+                    }
+                }
             }
         }
 
@@ -72,6 +76,17 @@ namespace SOR4_Replacer
                 {
                     cmb.SelectedIndex = -1;
                 }
+                else
+                {
+                    if ((characterList.SelectedIndex != -1) && (Library.characterDictionary[characterList.SelectedIndex].Path != "n/a"))
+                    {
+                        btnSetItem.Enabled = true;
+                    }
+                    else
+                    {
+                        btnSetItem.Enabled = false;
+                    }
+                }
             }
         }
 
@@ -82,7 +97,7 @@ namespace SOR4_Replacer
                 int original = characterList.SelectedIndex;
                 int replace = replacementComboBox.SelectedIndex;
 
-                if (!classlib.changeList.ContainsKey(Library.characterDictionary[original].Path))
+                if (!classlib.changeList.ContainsKey(original))
                 {
                     if (original != replace)
                     {
@@ -93,8 +108,6 @@ namespace SOR4_Replacer
                         _mainwindow.swaplistpanel.dataGridView1.Visible = true;
                         _mainwindow.container.btnStartReplace.Enabled = true;
                         _mainwindow.container.btnClearAllSwaps.Enabled = true;
-                        _mainwindow.btnSave.Enabled = true;
-                        _mainwindow.btnSave.Visible = true;
 
                         classlib.AddToList(_mainwindow, "character", original, replace);
 
@@ -120,7 +133,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("character");
+            _mainwindow.ClearSwaps("character", "swap");
         }
 
         private void Swapper_MouseDown(object sender, MouseEventArgs e)

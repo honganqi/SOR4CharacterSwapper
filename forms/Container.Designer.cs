@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class Container
     {
@@ -50,6 +50,10 @@
             this.btnLevelPanel = new System.Windows.Forms.Button();
             this.btnClearAllSwaps = new System.Windows.Forms.Button();
             this.btnPresetsPanel = new System.Windows.Forms.Button();
+            this.panelDifficulty = new System.Windows.Forms.Panel();
+            this.panelOwner = new System.Windows.Forms.Panel();
+            this.btnClearAllCustomizations = new System.Windows.Forms.Button();
+            this.btnUpdateNotif = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgBMCSupport)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgSF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgYoutube)).BeginInit();
@@ -61,7 +65,7 @@
             this.labelSupport.AutoSize = true;
             this.labelSupport.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSupport.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelSupport.Location = new System.Drawing.Point(10, 400);
+            this.labelSupport.Location = new System.Drawing.Point(10, 586);
             this.labelSupport.Name = "labelSupport";
             this.labelSupport.Size = new System.Drawing.Size(86, 15);
             this.labelSupport.TabIndex = 61;
@@ -72,7 +76,7 @@
             // 
             this.imgBMCSupport.Cursor = System.Windows.Forms.Cursors.Hand;
             this.imgBMCSupport.InitialImage = null;
-            this.imgBMCSupport.Location = new System.Drawing.Point(12, 409);
+            this.imgBMCSupport.Location = new System.Drawing.Point(12, 595);
             this.imgBMCSupport.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imgBMCSupport.Name = "imgBMCSupport";
             this.imgBMCSupport.Size = new System.Drawing.Size(152, 43);
@@ -86,7 +90,7 @@
             this.panelMain.Location = new System.Drawing.Point(0, 174);
             this.panelMain.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(520, 162);
+            this.panelMain.Size = new System.Drawing.Size(520, 341);
             this.panelMain.TabIndex = 62;
             // 
             // panelInfo
@@ -103,7 +107,7 @@
             this.btnStartReplace.Enabled = false;
             this.btnStartReplace.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStartReplace.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStartReplace.Location = new System.Drawing.Point(88, 340);
+            this.btnStartReplace.Location = new System.Drawing.Point(88, 526);
             this.btnStartReplace.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.btnStartReplace.Name = "btnStartReplace";
             this.btnStartReplace.Size = new System.Drawing.Size(262, 39);
@@ -116,7 +120,7 @@
             // imgSF
             // 
             this.imgSF.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imgSF.Location = new System.Drawing.Point(413, 432);
+            this.imgSF.Location = new System.Drawing.Point(413, 618);
             this.imgSF.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imgSF.Name = "imgSF";
             this.imgSF.Size = new System.Drawing.Size(95, 20);
@@ -128,7 +132,7 @@
             // imgYoutube
             // 
             this.imgYoutube.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imgYoutube.Location = new System.Drawing.Point(371, 435);
+            this.imgYoutube.Location = new System.Drawing.Point(371, 621);
             this.imgYoutube.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imgYoutube.Name = "imgYoutube";
             this.imgYoutube.Size = new System.Drawing.Size(23, 16);
@@ -140,7 +144,7 @@
             // imgTwitch
             // 
             this.imgTwitch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.imgTwitch.Location = new System.Drawing.Point(396, 435);
+            this.imgTwitch.Location = new System.Drawing.Point(396, 621);
             this.imgTwitch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imgTwitch.Name = "imgTwitch";
             this.imgTwitch.Size = new System.Drawing.Size(15, 16);
@@ -154,7 +158,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(460, 420);
+            this.label1.Location = new System.Drawing.Point(460, 606);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 12);
             this.label1.TabIndex = 68;
@@ -164,7 +168,7 @@
             // 
             this.labelPending.AutoSize = true;
             this.labelPending.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPending.Location = new System.Drawing.Point(80, 383);
+            this.labelPending.Location = new System.Drawing.Point(80, 569);
             this.labelPending.Name = "labelPending";
             this.labelPending.Size = new System.Drawing.Size(279, 15);
             this.labelPending.TabIndex = 69;
@@ -205,7 +209,7 @@
             this.panelDivider.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelDivider.Location = new System.Drawing.Point(-3, 173);
             this.panelDivider.Name = "panelDivider";
-            this.panelDivider.Size = new System.Drawing.Size(540, 20);
+            this.panelDivider.Size = new System.Drawing.Size(540, 1);
             this.panelDivider.TabIndex = 72;
             this.panelDivider.Visible = false;
             // 
@@ -266,11 +270,60 @@
             this.btnPresetsPanel.Visible = false;
             this.btnPresetsPanel.Click += new System.EventHandler(this.btnPresetsPanel_Click);
             // 
+            // panelDifficulty
+            // 
+            this.panelDifficulty.Location = new System.Drawing.Point(0, 135);
+            this.panelDifficulty.Name = "panelDifficulty";
+            this.panelDifficulty.Size = new System.Drawing.Size(520, 382);
+            this.panelDifficulty.TabIndex = 77;
+            this.panelDifficulty.Visible = false;
+            // 
+            // panelOwner
+            // 
+            this.panelOwner.Location = new System.Drawing.Point(0, 135);
+            this.panelOwner.Name = "panelOwner";
+            this.panelOwner.Size = new System.Drawing.Size(520, 382);
+            this.panelOwner.TabIndex = 78;
+            this.panelOwner.Visible = false;
+            // 
+            // btnClearAllCustomizations
+            // 
+            this.btnClearAllCustomizations.Enabled = false;
+            this.btnClearAllCustomizations.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearAllCustomizations.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClearAllCustomizations.Location = new System.Drawing.Point(432, 205);
+            this.btnClearAllCustomizations.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.btnClearAllCustomizations.Name = "btnClearAllCustomizations";
+            this.btnClearAllCustomizations.Size = new System.Drawing.Size(76, 39);
+            this.btnClearAllCustomizations.TabIndex = 79;
+            this.btnClearAllCustomizations.Text = "Clear all customized";
+            this.btnClearAllCustomizations.UseVisualStyleBackColor = true;
+            this.btnClearAllCustomizations.Visible = false;
+            this.btnClearAllCustomizations.Click += new System.EventHandler(this.btnClearAllCustomizations_Click);
+            // 
+            // btnUpdateNotif
+            // 
+            this.btnUpdateNotif.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnUpdateNotif.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdateNotif.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnUpdateNotif.Location = new System.Drawing.Point(190, 595);
+            this.btnUpdateNotif.Name = "btnUpdateNotif";
+            this.btnUpdateNotif.Size = new System.Drawing.Size(160, 43);
+            this.btnUpdateNotif.TabIndex = 81;
+            this.btnUpdateNotif.Text = "vx.x is now available!\r\nGET IT NOW!";
+            this.btnUpdateNotif.UseVisualStyleBackColor = false;
+            this.btnUpdateNotif.Visible = false;
+            this.btnUpdateNotif.Click += new System.EventHandler(this.btnUpdateNotif_Click);
+            // 
             // Container
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 463);
+            this.ClientSize = new System.Drawing.Size(520, 652);
+            this.Controls.Add(this.btnUpdateNotif);
+            this.Controls.Add(this.panelOwner);
+            this.Controls.Add(this.panelDifficulty);
+            this.Controls.Add(this.btnClearAllCustomizations);
             this.Controls.Add(this.btnClearAllSwaps);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.btnCharPanel);
@@ -326,5 +379,9 @@
         public System.Windows.Forms.Button btnLevelPanel;
         public System.Windows.Forms.Button btnClearAllSwaps;
         public System.Windows.Forms.Button btnPresetsPanel;
+        public System.Windows.Forms.Panel panelDifficulty;
+        public System.Windows.Forms.Panel panelOwner;
+        public System.Windows.Forms.Button btnClearAllCustomizations;
+        public System.Windows.Forms.Button btnUpdateNotif;
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SOR4_Replacer.Properties {
+namespace SOR4_Swapper.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SOR4_Replacer.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SOR4_Replacer.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SOR4_Swapper.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace SOR4_Replacer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] SOR4SwapExplorer {
+        internal static byte[] SOR4GameExplorer {
             get {
-                object obj = ResourceManager.GetObject("SOR4SwapExplorer", resourceCulture);
+                object obj = ResourceManager.GetObject("SOR4GameExplorer", resourceCulture);
                 return ((byte[])(obj));
             }
         }

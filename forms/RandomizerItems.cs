@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class RandomizerItems : Form
     {
@@ -73,24 +73,9 @@ namespace SOR4_Replacer
             }
         }
 
-        private void RandomizeDestroyables()
-        {
-            Random randomObj = new Random();
-            int randomValue;
-
-            List<int> randomList = Library.destroyableDictionary.Keys.ToList();
-
-            foreach (KeyValuePair<int, Library.Destroyable> asset in Library.destroyableDictionary)
-            {
-                randomValue = randomObj.Next(0, randomList.Count());
-                classlib.AddToList(_mainwindow, "destroyable", asset.Key, randomList[randomValue]);
-                if (!allowDuplicates.Checked) randomList.RemoveAt(randomValue);
-            }
-        }
-
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("item");
+            _mainwindow.ClearSwaps("item", "swap");
         }
 
         private void checkIgnoreBoss_CheckedChanged(object sender, EventArgs e)

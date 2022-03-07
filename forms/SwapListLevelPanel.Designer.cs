@@ -1,5 +1,5 @@
 ﻿
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     partial class SwapListLevelPanel
     {
@@ -29,13 +29,13 @@ namespace SOR4_Replacer
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.labelSortListReplacements = new System.Windows.Forms.Label();
             this.labelSortListOriginal = new System.Windows.Forms.Label();
             this.labelReplaceUniqueCount = new System.Windows.Forms.Label();
@@ -52,6 +52,7 @@ namespace SOR4_Replacer
             this.replaceThumb = new System.Windows.Forms.DataGridViewImageColumn();
             this.replaceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.origKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.replaceKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.rowIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
@@ -153,15 +154,16 @@ namespace SOR4_Replacer
             this.replaceThumb,
             this.replaceName,
             this.origKey,
+            this.replaceKey,
             this.rowIndex});
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView2.DefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridView2.Location = new System.Drawing.Point(-3, 50);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
@@ -169,7 +171,7 @@ namespace SOR4_Replacer
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 60;
             this.dataGridView2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dataGridView2.Size = new System.Drawing.Size(402, 348);
+            this.dataGridView2.Size = new System.Drawing.Size(402, 520);
             this.dataGridView2.TabIndex = 49;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             this.dataGridView2.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellMouseLeave);
@@ -180,8 +182,8 @@ namespace SOR4_Replacer
             // 
             this.delete.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.delete.DataPropertyName = "delete";
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            this.delete.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            this.delete.DefaultCellStyle = dataGridViewCellStyle1;
             this.delete.HeaderText = "";
             this.delete.MinimumWidth = 6;
             this.delete.Name = "delete";
@@ -195,10 +197,10 @@ namespace SOR4_Replacer
             // 
             this.origThumb.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.origThumb.DataPropertyName = "origThumb";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.NullValue = null;
-            this.origThumb.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.NullValue = null;
+            this.origThumb.DefaultCellStyle = dataGridViewCellStyle2;
             this.origThumb.HeaderText = "Thumbnail Original";
             this.origThumb.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.origThumb.Name = "origThumb";
@@ -209,9 +211,9 @@ namespace SOR4_Replacer
             // origName
             // 
             this.origName.DataPropertyName = "origName";
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.origName.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.origName.DefaultCellStyle = dataGridViewCellStyle3;
             this.origName.HeaderText = "Change";
             this.origName.MinimumWidth = 6;
             this.origName.Name = "origName";
@@ -224,8 +226,8 @@ namespace SOR4_Replacer
             // 
             this.spacer.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.spacer.DataPropertyName = "spacer";
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            this.spacer.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            this.spacer.DefaultCellStyle = dataGridViewCellStyle4;
             this.spacer.HeaderText = "";
             this.spacer.Name = "spacer";
             this.spacer.ReadOnly = true;
@@ -237,10 +239,10 @@ namespace SOR4_Replacer
             // 
             this.replaceThumb.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.replaceThumb.DataPropertyName = "replaceThumb";
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.NullValue = null;
-            this.replaceThumb.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.NullValue = null;
+            this.replaceThumb.DefaultCellStyle = dataGridViewCellStyle5;
             this.replaceThumb.HeaderText = "New Thumbnail";
             this.replaceThumb.ImageLayout = System.Windows.Forms.DataGridViewImageCellLayout.Zoom;
             this.replaceThumb.Name = "replaceThumb";
@@ -251,9 +253,9 @@ namespace SOR4_Replacer
             // replaceName
             // 
             this.replaceName.DataPropertyName = "replaceName";
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.replaceName.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.replaceName.DefaultCellStyle = dataGridViewCellStyle6;
             this.replaceName.HeaderText = "New";
             this.replaceName.MinimumWidth = 6;
             this.replaceName.Name = "replaceName";
@@ -272,6 +274,14 @@ namespace SOR4_Replacer
             this.origKey.Visible = false;
             this.origKey.Width = 125;
             // 
+            // replaceKey
+            // 
+            this.replaceKey.DataPropertyName = "replaceKey";
+            this.replaceKey.HeaderText = "replaceKey";
+            this.replaceKey.Name = "replaceKey";
+            this.replaceKey.ReadOnly = true;
+            this.replaceKey.Visible = false;
+            // 
             // rowIndex
             // 
             this.rowIndex.DataPropertyName = "rowIndex";
@@ -284,7 +294,7 @@ namespace SOR4_Replacer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(440, 463);
+            this.ClientSize = new System.Drawing.Size(440, 582);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.labelSortListReplacements);
             this.Controls.Add(this.labelSortListOriginal);
@@ -322,6 +332,7 @@ namespace SOR4_Replacer
         private System.Windows.Forms.DataGridViewImageColumn replaceThumb;
         private System.Windows.Forms.DataGridViewTextBoxColumn replaceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn origKey;
+        private System.Windows.Forms.DataGridViewTextBoxColumn replaceKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn rowIndex;
     }
 }

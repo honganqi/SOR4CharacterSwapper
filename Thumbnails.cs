@@ -9,7 +9,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Runtime.InteropServices;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public class Thumbnails
     {

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class SwapperItems : Form
     {
@@ -82,7 +82,7 @@ namespace SOR4_Replacer
                 int original = cmbItemOriginalList.SelectedIndex;
                 int replace = cmbItemReplacementList.SelectedIndex;
 
-                if (!classlib.itemChangeList.ContainsKey(Library.itemDictionary[original].Path))
+                if (!classlib.itemChangeList.ContainsKey(original))
                 {
                     if (original != replace)
                     {
@@ -93,8 +93,6 @@ namespace SOR4_Replacer
                         _mainwindow.swaplistitempanel.dataGridView2.Visible = true;
                         _mainwindow.container.btnStartReplace.Enabled = true;
                         _mainwindow.container.btnClearAllSwaps.Enabled = true;
-                        _mainwindow.btnSave.Enabled = true;
-                        _mainwindow.btnSave.Visible = true;
 
                         classlib.AddToList(_mainwindow, "item", original, replace);
 
@@ -120,7 +118,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("item");
+            _mainwindow.ClearSwaps("item", "swap");
         }
 
         private void Swapper_MouseDown(object sender, MouseEventArgs e)

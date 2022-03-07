@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class SwapListLevelPanel : Form
     {
@@ -23,34 +23,26 @@ namespace SOR4_Replacer
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 0 && e.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
-                // 1. get hidden INT value of replaced character
-                int changed = Int32.Parse(dataGridView2.Rows[e.RowIndex].Cells[6].Value.ToString());
-
-                // 2. check if changed character showed in the table really exists in the changeList
-                if (classlib.levelChangeList.ContainsKey(Library.levelDictionary[changed].Path))
+                if (e.ColumnIndex == 0)
                 {
-                    // 3. remove the character from the changeList
-                    classlib.bigfileClass.RemoveSwap("level", changed);
-                    //classlib.changeList.Remove(Library.characterDictionary[changed].Path);
+                    // 1. get hidden INT value of replaced character
+                    int changed = int.Parse(dataGridView2.Rows[e.RowIndex].Cells["origKey"].Value.ToString());
 
-                    // 4. remove the character from the table, clear the table, then refresh
-                    int[] swapcount = classlib.RemoveFromTable("level", (int)dataGridView2.Rows[e.RowIndex].Cells[7].Value, Library.levelDictionary[changed].Path);
-                    if (swapcount[0] > 0)
+                    // 2. check if changed character showed in the table really exists in the changeList
+                    if (classlib.levelChangeList.ContainsKey(changed))
                     {
+                        // 4. remove the character from the table, clear the table, then refresh
+                        int[] swapcount = classlib.RemoveFromTable(_mainwindow, "level", changed);
                         labelReplaceCount.Text = swapcount[0].ToString();
-                    }
-                    if (swapcount[1] > 0)
-                    {
                         labelReplaceUniqueCount.Text = swapcount[0].ToString();
                     }
-
-                    // 5. check if changeList still has any content
-                    if (classlib.levelChangeList.Count > 0)
-                    {
-
-                    }
+                }
+                else
+                {
+                    _mainwindow.swapperlevels.cmbItemOriginalList.SelectedIndex = (int)dataGridView2.Rows[e.RowIndex].Cells["origKey"].Value;
+                    _mainwindow.swapperlevels.cmbItemReplacementList.SelectedIndex = (int)dataGridView2.Rows[e.RowIndex].Cells["replaceKey"].Value;
                 }
             }
             _mainwindow.ResetForm();

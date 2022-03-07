@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 using System.Reflection;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class SwapperLevels : Form
     {
@@ -82,7 +75,7 @@ namespace SOR4_Replacer
                 int original = cmbItemOriginalList.SelectedIndex;
                 int replace = cmbItemReplacementList.SelectedIndex;
 
-                if (!classlib.levelChangeList.ContainsKey(Library.levelDictionary[original].Path))
+                if (!classlib.levelChangeList.ContainsKey(original))
                 {
                     if (original != replace)
                     {
@@ -93,8 +86,6 @@ namespace SOR4_Replacer
                         _mainwindow.swaplistlevelpanel.dataGridView2.Visible = true;
                         _mainwindow.container.btnStartReplace.Enabled = true;
                         _mainwindow.container.btnClearAllSwaps.Enabled = true;
-                        _mainwindow.btnSave.Enabled = true;
-                        _mainwindow.btnSave.Visible = true;
 
                         classlib.AddToList(_mainwindow, "level", original, replace);
 
@@ -120,7 +111,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("level");
+            _mainwindow.ClearSwaps("level", "swap");
         }
 
         private void Swapper_MouseDown(object sender, MouseEventArgs e)

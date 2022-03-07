@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer.Properties {
+﻿namespace SOR4_Swapper.Properties {
     
     
     // This class allows you to handle specific events on the settings class:

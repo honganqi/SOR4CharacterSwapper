@@ -1,4 +1,4 @@
-﻿namespace SOR4_Replacer
+﻿namespace SOR4_Swapper
 {
     partial class SwapperItems
     {
@@ -126,7 +126,7 @@
             this.labelReplacementList.Name = "labelReplacementList";
             this.labelReplacementList.Size = new System.Drawing.Size(98, 13);
             this.labelReplacementList.TabIndex = 36;
-            this.labelReplacementList.Text = "Item Replacement";
+            this.labelReplacementList.Text = "Replacement Item";
             // 
             // cmbItemOriginalList
             // 
@@ -150,7 +150,7 @@
             this.labelCharacterList.Name = "labelCharacterList";
             this.labelCharacterList.Size = new System.Drawing.Size(74, 13);
             this.labelCharacterList.TabIndex = 34;
-            this.labelCharacterList.Text = "Item Original";
+            this.labelCharacterList.Text = "Original Item";
             // 
             // btnShowList
             // 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-namespace SOR4_Replacer
+namespace SOR4_Swapper
 {
     public partial class Randomizer : Form
     {
@@ -85,7 +85,7 @@ namespace SOR4_Replacer
 
         private void btnClearSwapList_Click(object sender, EventArgs e)
         {
-            _mainwindow.ClearSwaps("character");
+            _mainwindow.ClearSwaps("character", "swap");
         }
 
         private void checkIgnoreBoss_CheckedChanged(object sender, EventArgs e)
