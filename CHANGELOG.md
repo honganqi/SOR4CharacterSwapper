@@ -8,7 +8,7 @@ this file.
 characters they replaced when they are randomized and Battle
 Royale is enabled in the Levels Customizer section
 * Fixed the bug where Roo-SOR3 and Shiva-SOR3 were able to
-pick up weapons but 
+pick up weapons but weren't able to use them anyway
 * Filter in the Customizer is working now
 * Fixed issue in the Difficulty section where values are not
 loading from the difficulty they are based on
