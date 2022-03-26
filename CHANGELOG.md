@@ -2,6 +2,28 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.1 - 2022/03/26 21:36:27 GMT+08:00
+### Fixed
+* Fixed the issue where characters still had the names of the
+characters they replaced when they are randomized and Battle
+Royale is enabled in the Levels Customizer section
+* Fixed the bug where Roo-SOR3 and Shiva-SOR3 were able to
+pick up weapons but 
+* Filter in the Customizer is working now
+* Fixed issue in the Difficulty section where values are not
+loading from the difficulty they are based on
+* Fixed Move damage where values were rounded up instead of
+just being rounded off
+* Fixed the issue where, upon loading a swap file, reset buttons
+are still not enabled if a character has non-default values
+* Gave Shiva-SOR2 a different name index than Shiva-SOR4 so
+they would not share the same name when customized
+* Gave Estel (Boss) a different name index than Estel (Playable)
+so they would not share the same name when customized
+* Fixed the issue where a swap mod's Date Created value did not
+show up properly in-game even if it did in the Swapper. Before
+this fix, it used the date/time when the changes were applied.
+
 ## 4.2.0 - 2022/02/28 01:10:59 GMT+08:00
 ### Added
 * Added a "Customizer" section for characters and tons of

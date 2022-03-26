@@ -295,7 +295,7 @@ namespace SOR4_Swapper
         private void ProcessInput(object sender, EventArgs e)
         {
             Control thisControl = (Control)sender;
-            if (UInt32.TryParse(thisControl.Text, out uint inputValue))
+            if (uint.TryParse(thisControl.Text, out uint inputValue))
             {
                 int resetValue = controlsWithPreviousValues[thisControl];
                 int minValue = 0;
@@ -310,6 +310,18 @@ namespace SOR4_Swapper
                         int originalValue = 100;
                         switch (thisControl.Name)
                         {
+                            case "txtPlayerDefense":
+                                originalValue = originalDifficultyValues.Defense;
+                                break;
+                            case "txtPlayerGreen":
+                                originalValue = originalDifficultyValues.GreenHealthMultiplier;
+                                break;
+                            case "txtEnemyHP":
+                                originalValue = originalDifficultyValues.EnemyHealthMultiplier;
+                                break;
+                            case "txtEnemySpawn":
+                                originalValue = originalDifficultyValues.EnemyMultiplier;
+                                break;
                             case "txtPlayerLives":
                                 maxValue = int.MaxValue;
                                 originalValue = originalDifficultyValues.Lives;
@@ -329,6 +341,9 @@ namespace SOR4_Swapper
                             case "txtLifeUpArcade":
                                 maxValue = int.MaxValue;
                                 originalValue = originalGCD.ScoreLifeUpArcade;
+                                break;
+                            case "txtEnemyAFK":
+                                originalValue = originalDifficultyValues.EnemyAFKPercentage;
                                 break;
                             case "txtEnemyAggro":
                                 originalValue = originalDifficultyValues.AggroLimit;
@@ -560,22 +575,22 @@ namespace SOR4_Swapper
 
         private void txtLifeUp_MouseHover(object sender, EventArgs e)
         {
-            lifeUpScoreTooltip.Show("The score requirement to gain lives in Story Mode and Stage Select.", txtLifeUp, 10000);
+            lifeUpScoreTooltip.Show("The score requirement to gain lives in Story Mode and Stage Select. This will take effect regardless of difficulty.", txtLifeUp, 10000);
         }
 
         private void txtLifeUpArcade_MouseHover(object sender, EventArgs e)
         {
-            lifeUpScoreArcadeTooltip.Show("The score requirement to gain lives in Arcade Mode.", txtLifeUpArcade, 10000);
+            lifeUpScoreArcadeTooltip.Show("The score requirement to gain lives in Arcade Mode. This will take effect regardless of difficulty.", txtLifeUpArcade, 10000);
         }
 
         private void txtPlayerSpeed_MouseHover(object sender, EventArgs e)
         {
-            moveSpeedTooltip.Show("This will be ignored by customized characters whose speed values are in red (changed).", txtPlayerSpeed, 10000);
+            moveSpeedTooltip.Show("This will take effect regardless of difficulty. Also, this will be ignored by customized characters whose speed values are in red (changed).", txtPlayerSpeed, 10000);
         }
 
         private void txtEnemySpeed_MouseHover(object sender, EventArgs e)
         {
-            moveSpeedTooltip.Show("This will be ignored by customized characters whose speed values are in red (changed).", txtEnemySpeed, 10000);
+            moveSpeedTooltip.Show("This will take effect regardless of difficulty. Also, this will be ignored by customized characters whose speed values are in red (changed).", txtEnemySpeed, 10000);
         }
     }
 }

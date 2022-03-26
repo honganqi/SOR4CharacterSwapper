@@ -63,7 +63,7 @@ namespace SOR4_Swapper
 
         private void txtFilterOrig_TextChanged(object sender, EventArgs e)
         {
-            classlib.FilterSwapTable("character", "origName", txtFilterOrig.Text);
+            classlib.FilterSwapTable("customCharacter", "origName", txtFilterOrig.Text);
         }
 
         private void labelSortListOriginal_Click(object sender, EventArgs e)
@@ -74,7 +74,7 @@ namespace SOR4_Swapper
 
         private void txtFilterReplace_TextChanged(object sender, EventArgs e)
         {
-            classlib.FilterSwapTable("character", "replaceName", txtFilterReplace.Text);
+            classlib.FilterSwapTable("customCharacter", "replaceName", txtFilterReplace.Text);
         }
     }
 }

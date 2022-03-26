@@ -224,7 +224,7 @@ namespace SOR4_Swapper
             // 
             this.chkBoss.AutoSize = true;
             this.chkBoss.Enabled = false;
-            this.chkBoss.Location = new System.Drawing.Point(231, 149);
+            this.chkBoss.Location = new System.Drawing.Point(231, 150);
             this.chkBoss.Name = "chkBoss";
             this.chkBoss.Size = new System.Drawing.Size(49, 17);
             this.chkBoss.TabIndex = 79;
@@ -237,7 +237,7 @@ namespace SOR4_Swapper
             // 
             this.chkDespawn.AutoSize = true;
             this.chkDespawn.Enabled = false;
-            this.chkDespawn.Location = new System.Drawing.Point(286, 149);
+            this.chkDespawn.Location = new System.Drawing.Point(286, 150);
             this.chkDespawn.Name = "chkDespawn";
             this.chkDespawn.Size = new System.Drawing.Size(134, 17);
             this.chkDespawn.TabIndex = 80;
@@ -280,6 +280,7 @@ namespace SOR4_Swapper
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.ColumnHeadersHeight = 29;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.hit_no,
@@ -290,6 +291,7 @@ namespace SOR4_Swapper
             this.dataGridView1.Location = new System.Drawing.Point(12, 204);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.Size = new System.Drawing.Size(414, 133);
             this.dataGridView1.TabIndex = 83;
             this.dataGridView1.Visible = false;
@@ -300,6 +302,7 @@ namespace SOR4_Swapper
             // 
             this.hit_no.DataPropertyName = "hit_no";
             this.hit_no.HeaderText = "Hit #";
+            this.hit_no.MinimumWidth = 6;
             this.hit_no.Name = "hit_no";
             this.hit_no.ReadOnly = true;
             this.hit_no.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -310,6 +313,7 @@ namespace SOR4_Swapper
             // 
             this.damage.DataPropertyName = "damage";
             this.damage.HeaderText = "Damage";
+            this.damage.MinimumWidth = 6;
             this.damage.Name = "damage";
             this.damage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.damage.Width = 70;
@@ -318,6 +322,7 @@ namespace SOR4_Swapper
             // 
             this.hitstop.DataPropertyName = "hitstop";
             this.hitstop.HeaderText = "Hitstop";
+            this.hitstop.MinimumWidth = 6;
             this.hitstop.Name = "hitstop";
             this.hitstop.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.hitstop.Width = 60;
@@ -326,6 +331,7 @@ namespace SOR4_Swapper
             // 
             this.hitstun.DataPropertyName = "hitstun";
             this.hitstun.HeaderText = "Hitstun";
+            this.hitstun.MinimumWidth = 6;
             this.hitstun.Name = "hitstun";
             this.hitstun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.hitstun.Width = 60;
@@ -334,6 +340,7 @@ namespace SOR4_Swapper
             // 
             this.Reset.DataPropertyName = "reset";
             this.Reset.HeaderText = "";
+            this.Reset.MinimumWidth = 6;
             this.Reset.Name = "Reset";
             this.Reset.Text = "Reset";
             this.Reset.UseColumnTextForButtonValue = true;

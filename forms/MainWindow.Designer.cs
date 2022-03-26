@@ -46,7 +46,6 @@
             this.btnInstructions = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
             this.labelVerNum = new System.Windows.Forms.Label();
-            this.labelAuthor = new System.Windows.Forms.Label();
             this.btnMinimize = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panelContainer = new System.Windows.Forms.Panel();
@@ -290,7 +289,6 @@
             // 
             this.panelTop.BackColor = System.Drawing.Color.DimGray;
             this.panelTop.Controls.Add(this.labelVerNum);
-            this.panelTop.Controls.Add(this.labelAuthor);
             this.panelTop.Controls.Add(this.btnMinimize);
             this.panelTop.Controls.Add(this.btnClose);
             this.panelTop.Controls.Add(this.labelTitle);
@@ -312,19 +310,6 @@
             this.labelVerNum.Size = new System.Drawing.Size(27, 13);
             this.labelVerNum.TabIndex = 44;
             this.labelVerNum.Text = "v4.2";
-            // 
-            // labelAuthor
-            // 
-            this.labelAuthor.AutoSize = true;
-            this.labelAuthor.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAuthor.ForeColor = System.Drawing.Color.White;
-            this.labelAuthor.Location = new System.Drawing.Point(168, 13);
-            this.labelAuthor.Name = "labelAuthor";
-            this.labelAuthor.Size = new System.Drawing.Size(73, 13);
-            this.labelAuthor.TabIndex = 43;
-            this.labelAuthor.Text = "by honganqi";
-            this.labelAuthor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelAuthor_MouseDown);
-            this.labelAuthor.MouseMove += new System.Windows.Forms.MouseEventHandler(this.labelAuthor_MouseMove);
             // 
             // btnMinimize
             // 
@@ -433,7 +418,6 @@
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Button btnMinimize;
-        private System.Windows.Forms.Label labelAuthor;
         private System.Windows.Forms.Panel panelInstructions;
         public System.Windows.Forms.Panel panelSwapList;
         private System.Windows.Forms.Panel panelContainer;

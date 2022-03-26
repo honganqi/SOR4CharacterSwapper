@@ -78,18 +78,22 @@ namespace SOR4_Swapper
 
                     // initialize characterClass with original character's original attributes
                     CharacterClass characterClass = new(classlib.bigfileClass.characterCollection[assetKey]);
-
-                    // if character is found in swap list, change characterClass into swap target's original attributes
-                    if (classlib.changeList.ContainsKey(assetKey))
-                    {
-                        targetKey = classlib.changeList[assetKey];
-                        characterClass = new(classlib.bigfileClass.characterCollection[targetKey]);
-                    }
+                    string origName = characterClass.Name;
+                    string swapNameIndex = characterClass.NameIndex;
 
                     // if character is found in customization list
                     if (classlib.characterCustomizationQueue.ContainsKey(assetKey))
                     {
                         characterClass = new(classlib.characterCustomizationQueue[assetKey]);
+                    }
+                    else
+                    // if character is found in swap list, change characterClass into swap target's original attributes
+                    if (classlib.changeList.ContainsKey(assetKey))
+                    {
+                        targetKey = classlib.changeList[assetKey];
+                        characterClass = new(classlib.bigfileClass.characterCollection[targetKey]);
+                        characterClass.NameIndex = Library.characterDictionary[assetKey].CustomNameIndex;
+                        characterClass.Name = origName;
                     }
 
                     characterClass.Team = teamIterator;

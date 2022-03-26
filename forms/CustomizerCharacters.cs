@@ -13,6 +13,7 @@ namespace SOR4_Swapper
         private MainWindow _mainwindow;
         Library classlib;
         bool justArrived = false;
+        bool hasChanges = false;
         string tooltipNameString = "Using small letters will look awkward in the game";
         string tooltipHealthString = "A full healthbar has a value of 100";
         string tooltipSpeedXString = "Horizontal speed / X-axis\n\nIf this is red, this will be ignored by the global movement speed modifier.";
@@ -77,6 +78,7 @@ namespace SOR4_Swapper
         private void characterList_SelectedIndexChanged(object sender, EventArgs e)
         {
             justArrived = true;
+            hasChanges = false;
             ComboBox cmb = (ComboBox)sender;
             if (cmb.SelectedIndex != -1)
             {
@@ -97,6 +99,7 @@ namespace SOR4_Swapper
 
                     CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
                     CharacterClass selectedCharacterClass = new(classlib.bigfileClass.characterCollection[selectedCharacterKey]);
+
                     if (classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
                     {
                         swappedCharacterClass = new(classlib.characterCustomizationInMemory[selectedCharacterKey]);
@@ -127,8 +130,6 @@ namespace SOR4_Swapper
                     chkBoss.Checked = swappedCharacterClass.IsBoss;
                     chkDespawn.Checked = swappedCharacterClass.DespawnsAfterDeath;
                     txtTeam.Text = swappedCharacterClass.Team.ToString();
-                    
-                    //MessageBox.Show("Dude's part of the " + selectedCharacterClass.Team + " team");
 
                     if (classlib.bigfileClass.shaderStrings.Contains(swappedCharacterClass.Shader))
                     {
@@ -141,13 +142,13 @@ namespace SOR4_Swapper
 
                     // set control color based on value if custom
                     CharacterClass referenceClass = classlib.bigfileClass.characterCollection[swappedCharacterKey];
-                    txtName.ForeColor = CompareValues(txtName.Text.Trim(), swappedCharacterClass.Name);
+                    txtName.ForeColor = CompareValues(txtName.Text.Trim(), swappedCharacterClass.Name, null);
                     labelName.ForeColor = txtName.ForeColor;
-                    txtHealth.ForeColor = CompareValues(txtHealth.Text.Trim(), referenceClass.Health.ToString());
+                    txtHealth.ForeColor = CompareValues(txtHealth.Text.Trim(), referenceClass.Health.ToString(), btnHealthReset);
                     labelHealth.ForeColor = txtHealth.ForeColor;
-                    txtSpeedX.ForeColor = CompareValues(txtSpeedX.Text.Trim(), referenceClass.Speed.X.ToString());
+                    txtSpeedX.ForeColor = CompareValues(txtSpeedX.Text.Trim(), referenceClass.Speed.X.ToString(), btnSpeedXReset);
                     labelSpeedX.ForeColor = txtSpeedX.ForeColor;
-                    txtSpeedY.ForeColor = CompareValues(txtSpeedY.Text.Trim(), referenceClass.Speed.Y.ToString());
+                    txtSpeedY.ForeColor = CompareValues(txtSpeedY.Text.Trim(), referenceClass.Speed.Y.ToString(), btnSpeedYReset);
                     labelSpeedY.ForeColor = txtSpeedY.ForeColor;
                     chkBoss.ForeColor = CompareValues(chkBoss.Checked, referenceClass.IsBoss);
                     chkDespawn.ForeColor = CompareValues(chkDespawn.Checked, referenceClass.DespawnsAfterDeath);
@@ -164,7 +165,6 @@ namespace SOR4_Swapper
                     {
                         cmbMoveList.Items.Add(move.Name);
                     }
-                    btnResetMove.Enabled = false;
                 }
             }
             justArrived = false;
@@ -664,9 +664,26 @@ namespace SOR4_Swapper
             }
         }
 
-        private Color CompareValues(dynamic memoryValue, dynamic originalValue)
+        private Color CompareValues(dynamic memoryValue, dynamic originalValue, Button resetBtn = null)
         {
             Color color = memoryValue != originalValue ? Color.Red : Color.Black;
+            if (resetBtn == null)
+            {
+                resetBtn = btnResetCharacter;
+            }
+            if (memoryValue != originalValue)
+            {
+                resetBtn.Enabled = true;
+                hasChanges = true;
+            }
+            else
+            {
+                resetBtn.Enabled = false;
+            }
+            if (hasChanges)
+            {
+                btnResetCharacter.Enabled = true;
+            }
             return color;
         }
 

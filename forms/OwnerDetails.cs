@@ -17,6 +17,7 @@ namespace SOR4_Swapper
         ToolTip tooltipTitle = new();
         ToolTip tooltipURL = new();
         ToolTip tooltipDesc = new();
+        string loadedAuthorDate = "";
 
         public OwnerDetails(MainWindow mainwindow)
         {
@@ -43,6 +44,7 @@ namespace SOR4_Swapper
                 {
                     dateCreatedString = author.datecreated;
                 }
+                loadedAuthorDate = dateCreatedString;
                 txtDateCreated.Text = dateCreatedString;
                 if (author.description != null)
                 {
@@ -59,9 +61,20 @@ namespace SOR4_Swapper
             author.title = txtModTitle.Text;
             author.address = txtDownloadURL.Text;
             author.difficulty = txtRecoDiff.Text;
-            author.datecreated = DateTime.Now.ToUniversalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+            if (loadedAuthorDate != "")
+            {
+                author.datecreated = loadedAuthorDate;
+            }
+            else
+            {
+                author.datecreated = DateTime.Now.ToUniversalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+            }
             author.description = txtModDesc.Text.Replace("\r\n", "\n");
-            if (applyChanges == false) txtDateCreated.Text = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+            if (applyChanges == false)
+            {
+                author.datecreated = DateTime.Now.ToUniversalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+                txtDateCreated.Text = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+            }
             return author;
         }
 

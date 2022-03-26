@@ -189,6 +189,12 @@ namespace SOR4_Swapper
             btnMinimize.BackColor = Color.FromArgb(33, 33, 33);
             btnClose.BackColor = Color.FromArgb(33, 33, 33);
 
+            string currentVerString = Application.ProductVersion;
+            List<string> currentVersionSplit = currentVerString.Split('.').ToList();
+            if (currentVersionSplit[3] == "0") currentVersionSplit.RemoveAt(3);
+            if (currentVersionSplit[2] == "0") currentVersionSplit.RemoveAt(2);
+            labelVerNum.Text = "v" + string.Join(".", currentVersionSplit) + " by honganqi";
+
             bigfileClass = classlib.bigfileClass;
 
             // populate comboboxes with data
