@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Globalization;
 using SOR4GameExplorer;
 
 namespace SOR4_Swapper
@@ -35,16 +36,16 @@ namespace SOR4_Swapper
                 txtModTitle.Text = author.title;
                 txtDownloadURL.Text = author.address;
                 txtRecoDiff.Text = author.difficulty;
+                loadedAuthorDate = author.datecreated;
                 string dateCreatedString;
                 try
                 {
-                    dateCreatedString = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+                    dateCreatedString = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
                 }
                 catch
                 {
                     dateCreatedString = author.datecreated;
                 }
-                loadedAuthorDate = dateCreatedString;
                 txtDateCreated.Text = dateCreatedString;
                 if (author.description != null)
                 {
@@ -67,30 +68,32 @@ namespace SOR4_Swapper
             }
             else
             {
-                author.datecreated = DateTime.Now.ToUniversalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+                author.datecreated = DateTime.Now.ToUniversalTime().ToString(CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.FullDateTimePattern);
             }
             author.description = txtModDesc.Text.Replace("\r\n", "\n");
+
+            // if saving into a swap file
             if (applyChanges == false)
             {
-                author.datecreated = DateTime.Now.ToUniversalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
-                txtDateCreated.Text = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
+                author.datecreated = DateTime.Now.ToUniversalTime().ToString(CultureInfo.CreateSpecificCulture("en-US").DateTimeFormat.FullDateTimePattern);
+                txtDateCreated.Text = Convert.ToDateTime(author.datecreated).ToLocalTime().ToString(CultureInfo.CurrentCulture.DateTimeFormat.FullDateTimePattern);
             }
             return author;
         }
 
         private void txtAuthor_MouseHover(object sender, EventArgs e)
         {
-            tooltipAuthor.Show(authorTooltipString, this.txtAuthor, 10000);
+            tooltipAuthor.Show(authorTooltipString, txtAuthor, 10000);
         }
 
         private void txtModTitle_MouseHover(object sender, EventArgs e)
         {
-            tooltipTitle.Show(titleTooltipString, this.txtModTitle, 10000);
+            tooltipTitle.Show(titleTooltipString, txtModTitle, 10000);
         }
 
         private void txtDownloadURL_MouseHover(object sender, EventArgs e)
         {
-            tooltipURL.Show(urlTooltipString, this.txtDownloadURL, 10000);
+            tooltipURL.Show(urlTooltipString, txtDownloadURL, 10000);
         }
 
         private void txtRecoDiff_MouseHover(object sender, EventArgs e)
@@ -100,7 +103,7 @@ namespace SOR4_Swapper
 
         private void txtModDesc_MouseHover(object sender, EventArgs e)
         {
-            tooltipDesc.Show(descTooltipString, this.txtModDesc, 10000);
+            tooltipDesc.Show(descTooltipString, txtModDesc, 10000);
         }
     }
 }

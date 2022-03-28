@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.2 - 2022/03/28 22:14:34 GMT+08:00
+### Fixed
+* Fixed a minor but critical issue which may crash the app when
+clicking on the "Apply changes" button on a system using a
+locale (language/region) which isn't English
+
 ## 4.2.1 - 2022/03/26 21:36:27 GMT+08:00
 ### Fixed
 * Fixed the issue where characters still had the names of the

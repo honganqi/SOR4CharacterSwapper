@@ -1,6 +1,6 @@
 {
-	"version": "4.2.1.0",
-	"release_date": "2022-03-26T21:36:27",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.1.zip/download",
-	"description": "Character customization and TEAMS!! fixed bugs from 4.2"	
+	"version": "4.2.2.0",
+	"release_date": "2022-03-28T14:14:34",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.2.zip/download",
+	"description": "fixes a bug in 4.2.1 which may crash the app on a non-English system (not required if it's working on your system)"	
 }
