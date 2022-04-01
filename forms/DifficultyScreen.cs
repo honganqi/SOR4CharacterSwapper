@@ -74,6 +74,24 @@ namespace SOR4_Swapper
                     labelPlayerHitstopMinLabel.Visible = false;
                     cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
                     break;
+                case "%":
+                    txtPlayerHitstop.Text = "100";
+                    txtPlayerHitstopMin.Text = "100";
+                    txtPlayerHitstop.Enabled = true;
+                    txtPlayerHitstopMin.Enabled = true;
+                    txtPlayerHitstopMin.Visible = true;
+                    labelPlayerHitstopMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
+                case "Frames":
+                    txtPlayerHitstop.Text = "6";
+                    txtPlayerHitstopMin.Text = "6";
+                    txtPlayerHitstop.Enabled = true;
+                    txtPlayerHitstopMin.Enabled = true;
+                    txtPlayerHitstopMin.Visible = true;
+                    labelPlayerHitstopMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
                 default:
                     txtPlayerHitstop.Enabled = true;
                     txtPlayerHitstopMin.Enabled = true;
@@ -94,6 +112,24 @@ namespace SOR4_Swapper
                     txtPlayerHitstunMin.Visible = false;
                     labelPlayerHitstunMinLabel.Visible = false;
                     cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
+                    break;
+                case "%":
+                    txtPlayerHitstun.Text = "100";
+                    txtPlayerHitstunMin.Text = "100";
+                    txtPlayerHitstun.Enabled = true;
+                    txtPlayerHitstunMin.Enabled = true;
+                    txtPlayerHitstunMin.Visible = true;
+                    labelPlayerHitstunMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
+                case "Frames":
+                    txtPlayerHitstun.Text = "6";
+                    txtPlayerHitstunMin.Text = "6";
+                    txtPlayerHitstun.Enabled = true;
+                    txtPlayerHitstunMin.Enabled = true;
+                    txtPlayerHitstunMin.Visible = true;
+                    labelPlayerHitstunMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
                     break;
                 default:
                     txtPlayerHitstun.Enabled = true;
@@ -116,6 +152,24 @@ namespace SOR4_Swapper
                     labelEnemyHitstopMinLabel.Visible = false;
                     cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
                     break;
+                case "%":
+                    txtEnemyHitstop.Text = "100";
+                    txtEnemyHitstopMin.Text = "100";
+                    txtEnemyHitstop.Enabled = true;
+                    txtEnemyHitstopMin.Enabled = true;
+                    txtEnemyHitstopMin.Visible = true;
+                    labelEnemyHitstopMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
+                case "Frames":
+                    txtEnemyHitstop.Text = "6";
+                    txtEnemyHitstopMin.Text = "6";
+                    txtEnemyHitstop.Enabled = true;
+                    txtEnemyHitstopMin.Enabled = true;
+                    txtEnemyHitstopMin.Visible = true;
+                    labelEnemyHitstopMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
                 default:
                     txtEnemyHitstop.Enabled = true;
                     txtEnemyHitstopMin.Enabled = true;
@@ -137,6 +191,24 @@ namespace SOR4_Swapper
                     txtEnemyHitstunMin.Visible = false;
                     labelEnemyHitstunMinLabel.Visible = false;
                     cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
+                    break;
+                case "%":
+                    txtEnemyHitstun.Text = "100";
+                    txtEnemyHitstunMin.Text = "100";
+                    txtEnemyHitstun.Enabled = true;
+                    txtEnemyHitstunMin.Enabled = true;
+                    txtEnemyHitstunMin.Visible = true;
+                    labelEnemyHitstunMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    break;
+                case "Frames":
+                    txtEnemyHitstun.Text = "6";
+                    txtEnemyHitstunMin.Text = "6";
+                    txtEnemyHitstun.Enabled = true;
+                    txtEnemyHitstunMin.Enabled = true;
+                    txtEnemyHitstunMin.Visible = true;
+                    labelEnemyHitstunMinLabel.Visible = true;
+                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
                     break;
                 default:
                     txtEnemyHitstun.Enabled = true;
@@ -181,9 +253,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbPlayerHitstopValuesOptions.Text = "%";
+                                txtPlayerHitstop.Text = "100";
+                                txtPlayerHitstopMin.Text = "100";
                                 break;
                             case "value":
                                 cmbPlayerHitstopValuesOptions.Text = "Frames";
+                                txtPlayerHitstop.Text = "6";
+                                txtPlayerHitstopMin.Text = "6";
                                 break;
                             default:
                                 cmbPlayerHitstopValuesOptions.Text = "Default";
@@ -207,9 +283,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbPlayerHitstunValuesOptions.Text = "%";
+                                txtPlayerHitstun.Text = "100";
+                                txtPlayerHitstunMin.Text = "100";
                                 break;
                             case "value":
                                 cmbPlayerHitstunValuesOptions.Text = "Frames";
+                                txtPlayerHitstun.Text = "6";
+                                txtPlayerHitstunMin.Text = "6";
                                 break;
                             default:
                                 cmbPlayerHitstunValuesOptions.Text = "Default";
@@ -237,9 +317,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbEnemyHitstopValuesOptions.Text = "%";
+                                txtEnemyHitstop.Text = "100";
+                                txtEnemyHitstopMin.Text = "100";
                                 break;
                             case "value":
                                 cmbEnemyHitstopValuesOptions.Text = "Frames";
+                                txtEnemyHitstop.Text = "100";
+                                txtEnemyHitstopMin.Text = "6";
                                 break;
                             default:
                                 cmbEnemyHitstopValuesOptions.Text = "Default";
@@ -258,9 +342,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbEnemyHitstunValuesOptions.Text = "%";
+                                txtEnemyHitstun.Text = "100";
+                                txtEnemyHitstunMin.Text = "100";
                                 break;
                             case "value":
                                 cmbEnemyHitstunValuesOptions.Text = "Frames";
+                                txtEnemyHitstun.Text = "6";
+                                txtEnemyHitstunMin.Text = "6";
                                 break;
                             default:
                                 cmbEnemyHitstunValuesOptions.Text = "Default";

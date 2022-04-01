@@ -53,6 +53,9 @@
             this.toolTipBossIsolate = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipMinibossIsolate = new System.Windows.Forms.ToolTip(this.components);
             this.toolTipRegularplusIsolate = new System.Windows.Forms.ToolTip(this.components);
+            this.label7 = new System.Windows.Forms.Label();
+            this.checkRegularToRegular = new System.Windows.Forms.CheckBox();
+            this.checkIgnoreRegular = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnClearSwapList
@@ -253,11 +256,50 @@
             this.label6.TabIndex = 70;
             this.label6.Text = "Regular+";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(255, 142);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 73;
+            this.label7.Text = "Regular";
+            this.label7.Visible = false;
+            // 
+            // checkRegularToRegular
+            // 
+            this.checkRegularToRegular.AutoSize = true;
+            this.checkRegularToRegular.Checked = true;
+            this.checkRegularToRegular.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkRegularToRegular.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRegularToRegular.Location = new System.Drawing.Point(382, 142);
+            this.checkRegularToRegular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkRegularToRegular.Name = "checkRegularToRegular";
+            this.checkRegularToRegular.Size = new System.Drawing.Size(15, 14);
+            this.checkRegularToRegular.TabIndex = 72;
+            this.checkRegularToRegular.UseVisualStyleBackColor = true;
+            this.checkRegularToRegular.Visible = false;
+            // 
+            // checkIgnoreRegular
+            // 
+            this.checkIgnoreRegular.AutoSize = true;
+            this.checkIgnoreRegular.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkIgnoreRegular.Location = new System.Drawing.Point(331, 142);
+            this.checkIgnoreRegular.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.checkIgnoreRegular.Name = "checkIgnoreRegular";
+            this.checkIgnoreRegular.Size = new System.Drawing.Size(15, 14);
+            this.checkIgnoreRegular.TabIndex = 71;
+            this.checkIgnoreRegular.UseVisualStyleBackColor = true;
+            this.checkIgnoreRegular.Visible = false;
+            // 
             // Randomizer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 162);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.checkRegularToRegular);
+            this.Controls.Add(this.checkIgnoreRegular);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -312,5 +354,8 @@
         private System.Windows.Forms.ToolTip toolTipBossIsolate;
         private System.Windows.Forms.ToolTip toolTipMinibossIsolate;
         private System.Windows.Forms.ToolTip toolTipRegularplusIsolate;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.CheckBox checkRegularToRegular;
+        public System.Windows.Forms.CheckBox checkIgnoreRegular;
     }
 }

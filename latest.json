@@ -1,6 +1,6 @@
 {
-	"version": "4.2.2.0",
-	"release_date": "2022-03-28T14:14:34",
+	"version": "4.2.3.0",
+	"release_date": "2022-04-01T22:41:28",
 	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.2.zip/download",
-	"description": "fixes a bug in 4.2.1 which may crash the app on a non-English system (not required if it's working on your system)"	
+	"description": "MAJOR fix in difficulty settings for mods created with 4.2"
 }

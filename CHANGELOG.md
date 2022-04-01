@@ -2,6 +2,32 @@
 All notable changes to this project will be documented in
 this file.
 
+## Unreleased (still working on this)
+### Added
+* In the Randomize Characters screen, Regular enemies now have
+their own IGNORE and ISOLATE tickboxes (thanks Bragdras, VGamer)
+
+## 4.2.3 - 2022/04/02 06:41:28 GMT+08:00
+### Fixed
+* MAJOR: Values in the Difficulty screen are now based on the
+difficulty they are based on and not on a "base difficulty".
+For example, from 4.2 to 4.2.2, Mania+ enemy HP values would be
+125% and spawn multiplier would be 200%. I messed up when I
+forgot that I based the values on the difficulties they were
+based on and should NOT have been based on the "base" difficulty
+(Hard). Relevant values like enemy HP, spawn multiplier, enemy
+speed boost now start at 100% per difficulty. (thanks Bragdras)
+Modders, kindly check your custom difficulty values. You may
+have to redistribute if you created a mod with 4.2 to 4.2.2.
+This problem may not affect you if you loaded a swap file from
+before 4.2 and modified your values from there but please
+double-check. My apologies.
+* In the Difficulty screen, global Hitstop and Hitstun values
+now initialize as 100 instead of 0 when set as %
+* Gave Big Ben-SOR2 a different name index than Big Ben-SOR4
+so they would not share the same name when customized
+
+
 ## 4.2.2 - 2022/03/28 22:14:34 GMT+08:00
 ### Fixed
 * Fixed a minor but critical issue which may crash the app when

@@ -1284,8 +1284,9 @@ namespace SOR4_Swapper
 
             List<int> randomList = Library.characterDictionary.Keys.ToList();
             List<int> bossList = new(randomList);
-            List<int> minibossList = new List<int>(randomList);
-            List<int> regularplusList = new List<int>(randomList);
+            List<int> minibossList = new(randomList);
+            List<int> regularplusList = new(randomList);
+            //List<int> regularList = new(randomList);
 
             // remove all characters based on conditions
             foreach (KeyValuePair<int, Library.Character> asset in Library.characterDictionary)
@@ -1325,17 +1326,32 @@ namespace SOR4_Swapper
                         randomList.Remove(asset.Key);
                     }
                 }
+                /*
+                if (!asset.Value.IsBoss! && !asset.Value.IsMiniboss && !asset.Value.IsRegularPlus)
+                {
+                    if (randomizer.checkIgnoreRegular.Checked || randomizer.checkRegularToRegular.Checked)
+                    {
+                        randomList.Remove(asset.Key);
+                    }
+                    else if (!asset.Value.ReplaceRegs)
+                    {
+                        randomList.Remove(asset.Key);
+                    }
+                }
+                */
                 if (asset.Value.IsExcluded)
                 {
                     randomList.Remove(asset.Key);
                     bossList.Remove(asset.Key);
                     minibossList.Remove(asset.Key);
                     regularplusList.Remove(asset.Key);
+                    //regularList.Remove(asset.Key);
                 }
                 if (classlib.changeList.ContainsKey(asset.Key)) randomList.Remove(asset.Key);
                 if (!asset.Value.IsBoss) bossList.Remove(asset.Key);
                 if (!asset.Value.IsMiniboss || (asset.Value.IsMiniboss && !asset.Value.ReplaceRegs)) minibossList.Remove(asset.Key);
                 if (!asset.Value.IsRegularPlus) regularplusList.Remove(asset.Key);
+                //if (!asset.Value.IsBoss! && !asset.Value.IsMiniboss && !asset.Value.IsRegularPlus) regularList.Remove(asset.Key);
             }
 
             foreach (KeyValuePair<int, Library.Character> character in Library.characterDictionary)
