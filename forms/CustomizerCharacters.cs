@@ -42,14 +42,20 @@ namespace SOR4_Swapper
             _mainwindow = mainwindow;
             classlib = mainwindow.classlib;
             characterList.DrawMode = DrawMode.OwnerDrawFixed;
-            characterList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(characterList_DrawItem);
-            characterList.SelectedIndexChanged += new System.EventHandler(characterList_SelectedIndexChanged);
+            characterList.DrawItem += new DrawItemEventHandler(characterList_DrawItem);
+            characterList.SelectedIndexChanged += new EventHandler(characterList_SelectedIndexChanged);
+            cmbMoveList.DrawMode = DrawMode.OwnerDrawFixed;
+            cmbMoveList.DrawItem += new DrawItemEventHandler(cmbMoveList_DrawItem);
+            cmbMoveList.SelectedIndexChanged += new EventHandler(cmbMoveList_SelectedIndexChanged);
             labelHealth.Text = "\u271A";
             labelHealth.Font = new Font(Font.Name, Font.Size + 4.0F, FontStyle.Bold);
             labelSpeedX.Text = "\u2B0C";
             labelSpeedX.Font = new Font(Font.Name, Font.Size + 10.0F);
             labelSpeedY.Text = "\u2B0D";
             labelSpeedY.Font = new Font(Font.Name, Font.Size + 10.0F);
+            labelScale.Text = "\u2931";
+            labelScale.BackColor = Color.Transparent;
+            labelScale.Font = new Font(Font.Name, Font.Size + 10.0F);
             btnHealthReset.Text = "\u27F3";
             btnSpeedXReset.Text = "\u27F3";
             btnSpeedYReset.Text = "\u27F3";
@@ -93,7 +99,7 @@ namespace SOR4_Swapper
                     int swappedCharacterKey = selectedCharacterKey;
                     if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
                     if (characterList.Text != "") picThumbOrig.Image = _mainwindow.thumbnailslib.getThumbnail("character", swappedCharacterKey);
-                    Control[] controls = { txtName, txtHealth, txtSpeedX, txtSpeedY, chkBoss, chkDespawn, cmbShader, txtTeam, cmbMoveList, btnSetItem };
+                    Control[] controls = { txtName, txtHealth, txtSpeedX, txtSpeedY, chkBoss, chkDespawn, cmbShader, txtTeam, cmbMoveList, btnSetItem, txtScale };
                     foreach (Control ctrlname in controls) ctrlname.Enabled = true;
                     dataGridView1.Hide();
 
@@ -131,6 +137,8 @@ namespace SOR4_Swapper
                     chkDespawn.Checked = swappedCharacterClass.DespawnsAfterDeath;
                     txtTeam.Text = swappedCharacterClass.Team.ToString();
 
+                    txtScale.Text = swappedCharacterClass.Scale.ToString();
+
                     if (classlib.bigfileClass.shaderStrings.Contains(swappedCharacterClass.Shader))
                     {
                         cmbShader.SelectedIndex = classlib.bigfileClass.shaderStrings.IndexOf(swappedCharacterClass.Shader);
@@ -156,6 +164,8 @@ namespace SOR4_Swapper
                     cmbShader.ForeColor = labelShader.ForeColor;
                     labelTeam.ForeColor = CompareValues(txtTeam.Text.Trim(), referenceClass.Team.ToString());
                     txtTeam.ForeColor = labelTeam.ForeColor;
+                    txtScale.ForeColor = CompareValues(txtScale.Text.Trim(), referenceClass.Scale.ToString());
+                    labelScale.ForeColor = txtScale.ForeColor;
 
 
                     cmbMoveList.Items.Clear();
@@ -168,6 +178,16 @@ namespace SOR4_Swapper
                 }
             }
             justArrived = false;
+        }
+
+        private void cmbMoveList_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Font fontToUse = e.Font;
+            Brush brush = Brushes.Black;
+            e.DrawBackground();
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) brush = Brushes.White;
+            e.DrawFocusRectangle();
+            e.Graphics.DrawString(cmbMoveList.Items[e.Index].ToString(), fontToUse, brush, e.Bounds);
         }
 
         private void cmbMoveList_SelectedIndexChanged(object sender, EventArgs e)
@@ -263,6 +283,7 @@ namespace SOR4_Swapper
                     DespawnsAfterDeath = chkDespawn.Checked,
                     Shader = classlib.bigfileClass.shaderStrings[cmbShader.SelectedIndex],
                     Team = int.Parse(txtTeam.Text.Trim()),
+                    Scale = int.Parse(txtScale.Text.Trim()),
                 };
 
                 if (_mainwindow.Width < _mainwindow.fullWindowWidth) _mainwindow.Width = _mainwindow.fullWindowWidth;
@@ -439,6 +460,13 @@ namespace SOR4_Swapper
                         control.Text = memoryValue.ToString();
                         targetControl = labelTeam;
                         break;
+                    case "txtScale":
+                        memoryValue = ValidateData(control.Text.Trim(), "scale", swappedCharacterClass.Scale);
+                        originalValue = swappedCharacterClass.Scale;
+                        classlib.characterCustomizationInMemory[selectedCharacterKey].Scale = memoryValue;
+                        control.Text = memoryValue.ToString();
+                        targetControl = labelScale;
+                        break;
                 }
 
                 control.ForeColor = CompareValues(memoryValue, originalValue);
@@ -501,6 +529,10 @@ namespace SOR4_Swapper
                         maxValue = 999;
                         minValue = -1;
                         break;
+                    case "scale":
+                        maxValue = 99999;
+                        minValue = 0;
+                        break;
                 }
                 if (inputValue > maxValue)
                 {
@@ -520,6 +552,9 @@ namespace SOR4_Swapper
                             //errorMessage = "Are you trying to create more teams than games on Steam? No...";
                             errorMessage = "";
                             break;
+                        case "scale":
+                            errorMessage = "";
+                            break;
                     }
                 }
                 else if (inputValue < minValue)
@@ -536,6 +571,9 @@ namespace SOR4_Swapper
                             break;
                         case "team":
                             errorMessage = "Minimum value is -1 for \"no team\"";
+                            break;
+                        case "scale":
+                            errorMessage = "";
                             break;
                     }
                 }
@@ -577,6 +615,18 @@ namespace SOR4_Swapper
                             errorMessage = "";
                         }
                         break;
+                    case "scale":
+                        if (valueString != "-")
+                        {
+                            resetValue = previousValue;
+                            errorMessage = "Dr. Zan doesn't understand that. Resetting...";
+                        }
+                        else
+                        {
+                            resetValue = -1;
+                            errorMessage = "";
+                        }
+                        break;
                 }
             }
 
@@ -603,6 +653,7 @@ namespace SOR4_Swapper
                     txtSpeedY.Text = origData.Speed.Y.ToString();
                     chkBoss.Checked = origData.IsBoss;
                     chkDespawn.Checked = origData.DespawnsAfterDeath;
+                    txtScale.Text = origData.Scale.ToString();
                     if (classlib.bigfileClass.shaderStrings.Contains(origData.Shader))
                     {
                         cmbShader.SelectedIndex = classlib.bigfileClass.shaderStrings.IndexOf(origData.Shader);
@@ -792,6 +843,11 @@ namespace SOR4_Swapper
                 CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
                 txtHealth.Text = swappedCharacterClass.Health.ToString();
             }
+        }
+
+        private void txtScale_TextChanged(object sender, EventArgs e)
+        {
+            ProcessControl(txtScale, characterList.SelectedIndex);
         }
     }
 }

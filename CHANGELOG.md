@@ -2,10 +2,29 @@
 All notable changes to this project will be documented in
 this file.
 
-## Unreleased (still working on this)
+## 4.2.4 - 2022/05/10 10:35:01 GMT+08:00
 ### Added
+* Added `Character Size` in the `Character Customizer` screen.
+This changes the sprite size of the character and their hitbox.
+* Added `Gravity` in the `Difficulty` screen. Please note that
+this is "permanent" in such a way that it will stay as specified
+until the next bigfile modification.
 * In the Randomize Characters screen, Regular enemies now have
 their own IGNORE and ISOLATE tickboxes (thanks Bragdras, VGamer)
+### Changed
+* Dunphy (not electro) changed from Regular+ to Regular category
+### Fixed
+* Global `Hitstop` and `Hitstun` values and value types now load
+correctly from a swap file
+* Fixed the name index of some character variants using the same
+index: Ms. Whatever/Ms. Whatever (elite), Dunphy/Dunphy (Electro)
+* Fixed visual bug in the user interface of the Difficulty
+section where it was always the width of the Global Player
+Hitstop dropdown menu which changed when the other Hitstop or
+Hitstun dropdown menus were changed
+* In the Character Randomizer screen, the "ISOLATE" Regular
+enemies tickbox is now ticked and disabled when the "IGNORE"
+tickbox is enabled - as it should have been
 
 ## 4.2.3 - 2022/04/02 06:41:28 GMT+08:00
 ### Fixed

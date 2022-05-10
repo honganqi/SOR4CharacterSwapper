@@ -264,7 +264,6 @@
             this.label7.Size = new System.Drawing.Size(47, 13);
             this.label7.TabIndex = 73;
             this.label7.Text = "Regular";
-            this.label7.Visible = false;
             // 
             // checkRegularToRegular
             // 
@@ -278,7 +277,6 @@
             this.checkRegularToRegular.Size = new System.Drawing.Size(15, 14);
             this.checkRegularToRegular.TabIndex = 72;
             this.checkRegularToRegular.UseVisualStyleBackColor = true;
-            this.checkRegularToRegular.Visible = false;
             // 
             // checkIgnoreRegular
             // 
@@ -290,7 +288,7 @@
             this.checkIgnoreRegular.Size = new System.Drawing.Size(15, 14);
             this.checkIgnoreRegular.TabIndex = 71;
             this.checkIgnoreRegular.UseVisualStyleBackColor = true;
-            this.checkIgnoreRegular.Visible = false;
+            this.checkIgnoreRegular.CheckedChanged += new System.EventHandler(this.checkIgnoreRegular_CheckedChanged);
             // 
             // Randomizer
             // 

@@ -96,6 +96,9 @@
             this.label19 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.btnReset = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtGravity = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -709,11 +712,42 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(12, 77);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(42, 13);
+            this.label20.TabIndex = 161;
+            this.label20.Text = "Gravity";
+            // 
+            // txtGravity
+            // 
+            this.txtGravity.Location = new System.Drawing.Point(103, 74);
+            this.txtGravity.Name = "txtGravity";
+            this.txtGravity.Size = new System.Drawing.Size(40, 22);
+            this.txtGravity.TabIndex = 162;
+            this.txtGravity.TextChanged += new System.EventHandler(this.ProcessInput);
+            this.txtGravity.MouseHover += new System.EventHandler(this.txtGravity_MouseHover);
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox5.Enabled = false;
+            this.textBox5.Location = new System.Drawing.Point(142, 74);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(19, 22);
+            this.textBox5.TabIndex = 163;
+            this.textBox5.Text = "%";
+            // 
             // DifficultyScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 423);
+            this.Controls.Add(this.txtGravity);
+            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.label20);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label19);
@@ -855,5 +889,8 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.Label label20;
+        public System.Windows.Forms.TextBox txtGravity;
+        private System.Windows.Forms.TextBox textBox5;
     }
 }

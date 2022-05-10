@@ -1,6 +1,6 @@
 {
-	"version": "4.2.3.0",
-	"release_date": "2022-04-01T22:41:28",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.3.zip/download",
-	"description": "MAJOR fix in difficulty settings for mods created with 4.2"
+	"version": "4.2.4.0",
+	"release_date": "2022-05-10T02:35:01",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.4.zip/download",
+	"description": "Added Character Size and Gravity and other bug fixes"
 }

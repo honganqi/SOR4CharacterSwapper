@@ -15,6 +15,7 @@ namespace SOR4_Swapper
         ToolTip lifeUpScoreTooltip = new();
         ToolTip lifeUpScoreArcadeTooltip = new();
         ToolTip moveSpeedTooltip = new();
+        ToolTip gravityTooltip = new();
 
         public DifficultyScreen(MainWindow mainwindow)
         {
@@ -53,6 +54,7 @@ namespace SOR4_Swapper
                 [txtPlayerHitstunMin] = 0,
                 [txtEnemyHitstopMin] = 0,
                 [txtEnemyHitstunMin] = 0,
+                [txtGravity] = 0,
             };
 
         }
@@ -111,7 +113,7 @@ namespace SOR4_Swapper
                     txtPlayerHitstunMin.Enabled = false;
                     txtPlayerHitstunMin.Visible = false;
                     labelPlayerHitstunMinLabel.Visible = false;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
+                    cmbPlayerHitstunValuesOptions.Size = new Size(107, 21);
                     break;
                 case "%":
                     txtPlayerHitstun.Text = "100";
@@ -120,7 +122,7 @@ namespace SOR4_Swapper
                     txtPlayerHitstunMin.Enabled = true;
                     txtPlayerHitstunMin.Visible = true;
                     labelPlayerHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbPlayerHitstunValuesOptions.Size = new Size(60, 21);
                     break;
                 case "Frames":
                     txtPlayerHitstun.Text = "6";
@@ -129,14 +131,14 @@ namespace SOR4_Swapper
                     txtPlayerHitstunMin.Enabled = true;
                     txtPlayerHitstunMin.Visible = true;
                     labelPlayerHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbPlayerHitstunValuesOptions.Size = new Size(60, 21);
                     break;
                 default:
                     txtPlayerHitstun.Enabled = true;
                     txtPlayerHitstunMin.Enabled = true;
                     txtPlayerHitstunMin.Visible = true;
                     labelPlayerHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbPlayerHitstunValuesOptions.Size = new Size(60, 21);
                     break;
             }
         }
@@ -150,7 +152,7 @@ namespace SOR4_Swapper
                     txtEnemyHitstopMin.Enabled = false;
                     txtEnemyHitstopMin.Visible = false;
                     labelEnemyHitstopMinLabel.Visible = false;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
+                    cmbEnemyHitstopValuesOptions.Size = new Size(107, 21);
                     break;
                 case "%":
                     txtEnemyHitstop.Text = "100";
@@ -159,7 +161,7 @@ namespace SOR4_Swapper
                     txtEnemyHitstopMin.Enabled = true;
                     txtEnemyHitstopMin.Visible = true;
                     labelEnemyHitstopMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstopValuesOptions.Size = new Size(60, 21);
                     break;
                 case "Frames":
                     txtEnemyHitstop.Text = "6";
@@ -168,14 +170,14 @@ namespace SOR4_Swapper
                     txtEnemyHitstopMin.Enabled = true;
                     txtEnemyHitstopMin.Visible = true;
                     labelEnemyHitstopMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstopValuesOptions.Size = new Size(60, 21);
                     break;
                 default:
                     txtEnemyHitstop.Enabled = true;
                     txtEnemyHitstopMin.Enabled = true;
                     txtEnemyHitstopMin.Visible = true;
                     labelEnemyHitstopMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstopValuesOptions.Size = new Size(60, 21);
                     break;
             }
 
@@ -190,7 +192,7 @@ namespace SOR4_Swapper
                     txtEnemyHitstunMin.Enabled = false;
                     txtEnemyHitstunMin.Visible = false;
                     labelEnemyHitstunMinLabel.Visible = false;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(107, 21);
+                    cmbEnemyHitstunValuesOptions.Size = new Size(107, 21);
                     break;
                 case "%":
                     txtEnemyHitstun.Text = "100";
@@ -199,7 +201,7 @@ namespace SOR4_Swapper
                     txtEnemyHitstunMin.Enabled = true;
                     txtEnemyHitstunMin.Visible = true;
                     labelEnemyHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstunValuesOptions.Size = new Size(60, 21);
                     break;
                 case "Frames":
                     txtEnemyHitstun.Text = "6";
@@ -208,14 +210,14 @@ namespace SOR4_Swapper
                     txtEnemyHitstunMin.Enabled = true;
                     txtEnemyHitstunMin.Visible = true;
                     labelEnemyHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstunValuesOptions.Size = new Size(60, 21);
                     break;
                 default:
                     txtEnemyHitstun.Enabled = true;
                     txtEnemyHitstunMin.Enabled = true;
                     txtEnemyHitstunMin.Visible = true;
                     labelEnemyHitstunMinLabel.Visible = true;
-                    cmbPlayerHitstopValuesOptions.Size = new Size(60, 21);
+                    cmbEnemyHitstunValuesOptions.Size = new Size(60, 21);
                     break;
             }
         }
@@ -230,6 +232,7 @@ namespace SOR4_Swapper
             txtPlayerGreen.Text = difficulty.GreenHealthMultiplier.ToString();
             txtLifeUp.Text = gcd.ScoreLifeUp.ToString();
             txtLifeUpArcade.Text = gcd.ScoreLifeUpArcade.ToString();
+            txtGravity.Text = gcd.Gravity.ToString();
 
             txtEnemyHP.Text = difficulty.EnemyHealthMultiplier.ToString();
             txtEnemySpawn.Text = difficulty.EnemyMultiplier.ToString();
@@ -253,13 +256,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbPlayerHitstopValuesOptions.Text = "%";
-                                txtPlayerHitstop.Text = "100";
-                                txtPlayerHitstopMin.Text = "100";
+                                txtPlayerHitstop.Text = globalCharacterSettings["playables"].Hitstop.ToString();
+                                txtPlayerHitstopMin.Text = globalCharacterSettings["playables"].HitstopIgnoreBelow.ToString();
                                 break;
                             case "value":
                                 cmbPlayerHitstopValuesOptions.Text = "Frames";
-                                txtPlayerHitstop.Text = "6";
-                                txtPlayerHitstopMin.Text = "6";
+                                txtPlayerHitstop.Text = globalCharacterSettings["playables"].Hitstop.ToString();
+                                txtPlayerHitstopMin.Text = globalCharacterSettings["playables"].HitstopIgnoreBelow.ToString();
                                 break;
                             default:
                                 cmbPlayerHitstopValuesOptions.Text = "Default";
@@ -283,13 +286,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbPlayerHitstunValuesOptions.Text = "%";
-                                txtPlayerHitstun.Text = "100";
-                                txtPlayerHitstunMin.Text = "100";
+                                txtPlayerHitstun.Text = globalCharacterSettings["playables"].Hitstun.ToString();
+                                txtPlayerHitstunMin.Text = globalCharacterSettings["playables"].HitstunIgnoreBelow.ToString();
                                 break;
                             case "value":
                                 cmbPlayerHitstunValuesOptions.Text = "Frames";
-                                txtPlayerHitstun.Text = "6";
-                                txtPlayerHitstunMin.Text = "6";
+                                txtPlayerHitstun.Text = globalCharacterSettings["playables"].Hitstun.ToString();
+                                txtPlayerHitstunMin.Text = globalCharacterSettings["playables"].HitstunIgnoreBelow.ToString();
                                 break;
                             default:
                                 cmbPlayerHitstunValuesOptions.Text = "Default";
@@ -317,13 +320,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbEnemyHitstopValuesOptions.Text = "%";
-                                txtEnemyHitstop.Text = "100";
-                                txtEnemyHitstopMin.Text = "100";
+                                txtEnemyHitstop.Text = globalCharacterSettings["enemies"].Hitstop.ToString();
+                                txtEnemyHitstopMin.Text = globalCharacterSettings["enemies"].HitstopIgnoreBelow.ToString();
                                 break;
                             case "value":
                                 cmbEnemyHitstopValuesOptions.Text = "Frames";
-                                txtEnemyHitstop.Text = "100";
-                                txtEnemyHitstopMin.Text = "6";
+                                txtEnemyHitstop.Text = globalCharacterSettings["enemies"].Hitstop.ToString();
+                                txtEnemyHitstopMin.Text = globalCharacterSettings["enemies"].HitstopIgnoreBelow.ToString();
                                 break;
                             default:
                                 cmbEnemyHitstopValuesOptions.Text = "Default";
@@ -342,13 +345,13 @@ namespace SOR4_Swapper
                         {
                             case "percent":
                                 cmbEnemyHitstunValuesOptions.Text = "%";
-                                txtEnemyHitstun.Text = "100";
-                                txtEnemyHitstunMin.Text = "100";
+                                txtEnemyHitstun.Text = globalCharacterSettings["enemies"].Hitstun.ToString();
+                                txtEnemyHitstunMin.Text = globalCharacterSettings["enemies"].HitstunIgnoreBelow.ToString();
                                 break;
                             case "value":
                                 cmbEnemyHitstunValuesOptions.Text = "Frames";
-                                txtEnemyHitstun.Text = "6";
-                                txtEnemyHitstunMin.Text = "6";
+                                txtEnemyHitstun.Text = globalCharacterSettings["enemies"].Hitstun.ToString();
+                                txtEnemyHitstunMin.Text = globalCharacterSettings["enemies"].HitstunIgnoreBelow.ToString();
                                 break;
                             default:
                                 cmbEnemyHitstunValuesOptions.Text = "Default";
@@ -438,6 +441,10 @@ namespace SOR4_Swapper
                                 break;
                             case "txtEnemySpeedMultiplier":
                                 originalValue = originalDifficultyValues.EnemySpeedMultiplier;
+                                break;
+                            case "txtGravity":
+                                maxValue = 5200;
+                                originalValue = originalGCD.Gravity;
                                 break;
                         }
                         thisControl.ForeColor = CompareValues(thisControl.Text.Trim(), originalValue.ToString());
@@ -544,6 +551,9 @@ namespace SOR4_Swapper
 
             textToInt = DifficultyCheckValue(txtLifeUpArcade.Text.Trim(), "value");
             if (textToInt != null) gcd.ScoreLifeUpArcade = (int)textToInt;
+
+            textToInt = DifficultyCheckValue(txtGravity.Text.Trim(), "value");
+            if (textToInt != null) gcd.Gravity = (int)textToInt;
 
             return gcd;
         }
@@ -679,6 +689,11 @@ namespace SOR4_Swapper
         private void txtEnemySpeed_MouseHover(object sender, EventArgs e)
         {
             moveSpeedTooltip.Show("This will take effect regardless of difficulty. Also, this will be ignored by customized characters whose speed values are in red (changed).", txtEnemySpeed, 10000);
+        }
+
+        private void txtGravity_MouseHover(object sender, EventArgs e)
+        {
+            gravityTooltip.Show("The lower the number, the lower the gravity (characters flying). This will take effect regardless of difficulty.\n\nAnybody who complains that % is not a valid way to represent gravity will be banned from future updates to the Swapper...\n\n\n\n\n\nJust kidding!", txtGravity, 10000);
         }
     }
 }

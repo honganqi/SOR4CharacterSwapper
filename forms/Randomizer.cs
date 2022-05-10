@@ -149,5 +149,18 @@ namespace SOR4_Swapper
                 _mainwindow.ToggleSwapList(false);
             }
         }
+
+        private void checkIgnoreRegular_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkIgnoreRegular.Checked)
+            {
+                checkRegularToRegular.Enabled = false;
+                checkRegularToRegular.Checked = true;
+            }
+            else
+            {
+                checkRegularToRegular.Enabled = true;
+            }
+        }
     }
 }

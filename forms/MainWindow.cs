@@ -59,7 +59,6 @@ namespace SOR4_Swapper
 
         public bool updateAvailable = false;
         string updateurl = "https://raw.githubusercontent.com/honganqi/SOR4CharacterSwapper/main/latest.json";
-        //string updateurl = "http://localhost/sor4/sor4swapper_versioncheck.json";
         string downloadURL = "";
 
         public MainWindow()
@@ -507,6 +506,7 @@ namespace SOR4_Swapper
                 charClass.Value.SwapNameIndex = customNameIndex;
                 classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
             }
+
             int lastDiffIndex = 0;
             foreach (KeyValuePair<int, DifficultyClass> asset in bigfileClass.difficultyCollection)
             {
@@ -1286,12 +1286,16 @@ namespace SOR4_Swapper
             List<int> bossList = new(randomList);
             List<int> minibossList = new(randomList);
             List<int> regularplusList = new(randomList);
-            //List<int> regularList = new(randomList);
+            List<int> regularList = new(randomList);
 
             // remove all characters based on conditions
             foreach (KeyValuePair<int, Library.Character> asset in Library.characterDictionary)
             {
-                if ((target == "enemies") && asset.Value.IsPlayable) randomList.Remove(asset.Key);
+                if ((target == "enemies") && asset.Value.IsPlayable)
+                {
+                    regularList.Remove(asset.Key);
+                    randomList.Remove(asset.Key);
+                }
                 if (asset.Value.IsBoss)
                 {
                     // if bosses are locked OR 
@@ -1326,7 +1330,6 @@ namespace SOR4_Swapper
                         randomList.Remove(asset.Key);
                     }
                 }
-                /*
                 if (!asset.Value.IsBoss! && !asset.Value.IsMiniboss && !asset.Value.IsRegularPlus)
                 {
                     if (randomizer.checkIgnoreRegular.Checked || randomizer.checkRegularToRegular.Checked)
@@ -1338,20 +1341,19 @@ namespace SOR4_Swapper
                         randomList.Remove(asset.Key);
                     }
                 }
-                */
                 if (asset.Value.IsExcluded)
                 {
                     randomList.Remove(asset.Key);
                     bossList.Remove(asset.Key);
                     minibossList.Remove(asset.Key);
                     regularplusList.Remove(asset.Key);
-                    //regularList.Remove(asset.Key);
+                    regularList.Remove(asset.Key);
                 }
                 if (classlib.changeList.ContainsKey(asset.Key)) randomList.Remove(asset.Key);
                 if (!asset.Value.IsBoss) bossList.Remove(asset.Key);
                 if (!asset.Value.IsMiniboss || (asset.Value.IsMiniboss && !asset.Value.ReplaceRegs)) minibossList.Remove(asset.Key);
                 if (!asset.Value.IsRegularPlus) regularplusList.Remove(asset.Key);
-                //if (!asset.Value.IsBoss! && !asset.Value.IsMiniboss && !asset.Value.IsRegularPlus) regularList.Remove(asset.Key);
+                if (asset.Value.IsBoss || asset.Value.IsMiniboss || asset.Value.IsRegularPlus) regularList.Remove(asset.Key);
             }
 
             foreach (KeyValuePair<int, Library.Character> character in Library.characterDictionary)
@@ -1428,14 +1430,29 @@ namespace SOR4_Swapper
                         }
                     }
                     else
+                    if (!character.Value.IsBoss && !character.Value.IsMiniboss && !character.Value.IsRegularPlus && !randomizer.checkIgnoreRegular.Checked && randomizer.checkRegularToRegular.Checked)
                     {
-                        randomValue = randomObj.Next(0, randomList.Count());
-                        classlib.AddToList(this, "character", character.Key, randomList[randomValue]);
-
+                        randomValue = randomObj.Next(0, regularList.Count());
+                        classlib.AddToList(this, "character", character.Key, regularList[randomValue]);
                         if (!randomizer.allowDuplicates.Checked)
                         {
-                            bossList.Remove(randomList[randomValue]);
-                            randomList.RemoveAt(randomValue);
+                            randomList.Remove(regularList[randomValue]);
+                            regularList.RemoveAt(randomValue);
+                        }
+                    }
+                    else
+                    {
+                        if (randomList.Count() > 0)
+                        {
+                            randomValue = randomObj.Next(0, randomList.Count());
+                            classlib.AddToList(this, "character", character.Key, randomList[randomValue]);
+
+                            if (!randomizer.allowDuplicates.Checked)
+                            {
+                                bossList.Remove(randomList[randomValue]);
+                                randomList.RemoveAt(randomValue);
+                            }
+
                         }
                     }
                 }
@@ -1724,6 +1741,7 @@ namespace SOR4_Swapper
                     string swapVerString = "";
                     List<string> currentVer = new();
                     List<string> swapVer = new();
+
                     try
                     {
                         Dictionary<string, string> settings = swapSettings.Load();
@@ -1806,7 +1824,7 @@ namespace SOR4_Swapper
                                 {
                                     difficultyscreen.LoadSettings(swapSettings.difficulty, bigfileClass.gameplayConfigData, swapSettings.globalCharacterSettings);
                                 }
-                                
+
                                 ownerdetailsscreen.LoadSettings(swapSettings.author);
                                 info.labelLoadedSwapFile.Text = Path.GetFileName(settingsFilename);
                                 info.labelLoadedSwap.Visible = true;
