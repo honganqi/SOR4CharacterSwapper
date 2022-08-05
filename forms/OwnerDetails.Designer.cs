@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +42,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.txtDateCreated = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtModShortDesc = new System.Windows.Forms.TextBox();
+            this.chkAuthorDisplay = new System.Windows.Forms.CheckBox();
+            this.chkTitleDisplay = new System.Windows.Forms.CheckBox();
+            this.tooltipDiffDisplay = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltipTitleDisplay = new System.Windows.Forms.ToolTip(this.components);
+            this.chkDateDisplay = new System.Windows.Forms.CheckBox();
+            this.btnCopyURL = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -73,12 +82,11 @@
             // 
             // label4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 187);
+            this.label4.Location = new System.Drawing.Point(12, 186);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(132, 55);
             this.label4.TabIndex = 62;
-            this.label4.Text = "Description";
+            this.label4.Text = "Short Description\r\n   - appears on Arcade\r\n     difficulty selection";
             // 
             // label5
             // 
@@ -100,19 +108,19 @@
             // 
             // txtModDesc
             // 
-            this.txtModDesc.Location = new System.Drawing.Point(149, 184);
+            this.txtModDesc.Location = new System.Drawing.Point(149, 247);
             this.txtModDesc.Multiline = true;
             this.txtModDesc.Name = "txtModDesc";
             this.txtModDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtModDesc.Size = new System.Drawing.Size(359, 175);
-            this.txtModDesc.TabIndex = 5;
+            this.txtModDesc.TabIndex = 6;
             this.txtModDesc.MouseHover += new System.EventHandler(this.txtModDesc_MouseHover);
             // 
             // txtDownloadURL
             // 
             this.txtDownloadURL.Location = new System.Drawing.Point(149, 102);
             this.txtDownloadURL.Name = "txtDownloadURL";
-            this.txtDownloadURL.Size = new System.Drawing.Size(359, 22);
+            this.txtDownloadURL.Size = new System.Drawing.Size(281, 22);
             this.txtDownloadURL.TabIndex = 3;
             this.txtDownloadURL.Text = "Unlocated";
             this.txtDownloadURL.MouseHover += new System.EventHandler(this.txtDownloadURL_MouseHover);
@@ -161,11 +169,77 @@
             this.txtDateCreated.Size = new System.Drawing.Size(0, 13);
             this.txtDateCreated.TabIndex = 74;
             // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(12, 250);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(134, 97);
+            this.label8.TabIndex = 75;
+            this.label8.Text = "Description\r\n   - replaces the scrolling\r\n     text in Stage 1 intro";
+            // 
+            // txtModShortDesc
+            // 
+            this.txtModShortDesc.Location = new System.Drawing.Point(149, 183);
+            this.txtModShortDesc.Multiline = true;
+            this.txtModShortDesc.Name = "txtModShortDesc";
+            this.txtModShortDesc.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtModShortDesc.Size = new System.Drawing.Size(359, 58);
+            this.txtModShortDesc.TabIndex = 5;
+            // 
+            // chkAuthorDisplay
+            // 
+            this.chkAuthorDisplay.AutoSize = true;
+            this.chkAuthorDisplay.Checked = true;
+            this.chkAuthorDisplay.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAuthorDisplay.Location = new System.Drawing.Point(131, 51);
+            this.chkAuthorDisplay.Name = "chkAuthorDisplay";
+            this.chkAuthorDisplay.Size = new System.Drawing.Size(15, 14);
+            this.chkAuthorDisplay.TabIndex = 76;
+            this.chkAuthorDisplay.UseVisualStyleBackColor = true;
+            // 
+            // chkTitleDisplay
+            // 
+            this.chkTitleDisplay.AutoSize = true;
+            this.chkTitleDisplay.Checked = true;
+            this.chkTitleDisplay.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkTitleDisplay.Location = new System.Drawing.Point(131, 78);
+            this.chkTitleDisplay.Name = "chkTitleDisplay";
+            this.chkTitleDisplay.Size = new System.Drawing.Size(15, 14);
+            this.chkTitleDisplay.TabIndex = 77;
+            this.chkTitleDisplay.UseVisualStyleBackColor = true;
+            // 
+            // chkDateDisplay
+            // 
+            this.chkDateDisplay.AutoSize = true;
+            this.chkDateDisplay.Checked = true;
+            this.chkDateDisplay.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkDateDisplay.Location = new System.Drawing.Point(131, 159);
+            this.chkDateDisplay.Name = "chkDateDisplay";
+            this.chkDateDisplay.Size = new System.Drawing.Size(15, 14);
+            this.chkDateDisplay.TabIndex = 78;
+            this.chkDateDisplay.UseVisualStyleBackColor = true;
+            // 
+            // btnCopyURL
+            // 
+            this.btnCopyURL.Location = new System.Drawing.Point(436, 101);
+            this.btnCopyURL.Name = "btnCopyURL";
+            this.btnCopyURL.Size = new System.Drawing.Size(72, 24);
+            this.btnCopyURL.TabIndex = 79;
+            this.btnCopyURL.Text = "Copy URL";
+            this.btnCopyURL.UseVisualStyleBackColor = true;
+            this.btnCopyURL.Click += new System.EventHandler(this.btnCopyURL_Click);
+            // 
             // OwnerDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 372);
+            this.ClientSize = new System.Drawing.Size(520, 442);
+            this.Controls.Add(this.btnCopyURL);
+            this.Controls.Add(this.chkDateDisplay);
+            this.Controls.Add(this.chkTitleDisplay);
+            this.Controls.Add(this.chkAuthorDisplay);
+            this.Controls.Add(this.txtModShortDesc);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.txtDateCreated);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txtRecoDiff);
@@ -202,5 +276,13 @@
         public System.Windows.Forms.TextBox txtModTitle;
         public System.Windows.Forms.TextBox txtRecoDiff;
         public System.Windows.Forms.Label txtDateCreated;
+        private System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox txtModShortDesc;
+        private System.Windows.Forms.ToolTip tooltipDiffDisplay;
+        private System.Windows.Forms.ToolTip tooltipTitleDisplay;
+        public System.Windows.Forms.CheckBox chkAuthorDisplay;
+        public System.Windows.Forms.CheckBox chkTitleDisplay;
+        public System.Windows.Forms.CheckBox chkDateDisplay;
+        private System.Windows.Forms.Button btnCopyURL;
     }
 }

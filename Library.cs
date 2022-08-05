@@ -15,19 +15,9 @@ namespace SOR4_Swapper
     public class Library
     {
         public BigfileExplorer bigfileClass = new();
-        public class VersionClass
-        {
-            [Newtonsoft.Json.JsonProperty("release_date")]
-            public String ReleaseDate { get; set; }
-
-            [Newtonsoft.Json.JsonProperty("version")]
-            public String Version { get; set; }
-            [Newtonsoft.Json.JsonProperty("download_url")]
-            public String DownloadURL { get; set; }
-            [Newtonsoft.Json.JsonProperty("description")]
-            public String Description { get; set; }
-        }
-
+        public const string TEXT_ACCESSMODE_EDITABLE = "Editable swaps are meant for authors while not yet finalized or if the author decides to distribute the swap mod and allow the users to make changes to their mod.";
+        public const string TEXT_ACCESSMODE_READONLY = "Read-only swaps can only be viewed and loaded and cannot be modified.";
+        public const string TEXT_ACCESSMODE_PROTECTED = "Protected swaps can only be loaded and contents cannot be viewed or modified.";
         public class Character
         {
             public int Id { get; set; }
@@ -136,9 +126,9 @@ namespace SOR4_Swapper
             [49] = new Character { Name = "--- BARBON ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
             [50] = new Character { Name = "Barbon", Path = "characters/sor4_enemies/barbon/chrsor4barbon", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", NameIndex = "CHR_BARBON", CustomNameIndex = "CHR_BARBON", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
             [51] = new Character { Name = "Barbon (survival)", Path = "characters/sor4_enemies/barbon/chrsor4barbonsurvival", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbon", NameIndex = "CHR_BARBON", CustomNameIndex = "CHR_BARBON_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
-            [52] = new Character { Name = "Vulture", Path = "characters/sor4_enemies/barbon/chrsor4vulture", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv3", NameIndex = "CHR_VULTURE", CustomNameIndex = "CHR_VULTURE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [53] = new Character { Name = "Wayne", Path = "characters/sor4_enemies/barbon/chrsor4wayne", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
-            [54] = new Character { Name = "Wayne (elite)", Path = "characters/sor4_enemies/barbon/chrsor4wayne_elite", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [52] = new Character { Name = "Vulture", Path = "characters/sor4_enemies/barbon/chrsor4vulture", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv2", NameIndex = "CHR_VULTURE", CustomNameIndex = "CHR_VULTURE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [53] = new Character { Name = "Wayne", Path = "characters/sor4_enemies/barbon/chrsor4wayne", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv3", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
+            [54] = new Character { Name = "Wayne (elite)", Path = "characters/sor4_enemies/barbon/chrsor4wayne_elite", Thumbnail = "animatedsprites/sor4/enemies/barbon/sprsor4barbonv3", NameIndex = "CHR_WAYNE", CustomNameIndex = "CHR_WAYNE_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = true, IsRegularPlus = false, IsExcluded = false },
             [55] = new Character { Name = "--- SHIVA ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
             [56] = new Character { Name = "Shiva (boss)", Path = "characters/sor4_enemies/shiva/chrsor4shiva", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_BOSS", IsPlayable = false, IsBoss = true, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
             [57] = new Character { Name = "Shiva (survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivasurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_SURV", IsPlayable = false, IsBoss = true, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
@@ -199,7 +189,7 @@ namespace SOR4_Swapper
             [112] = new Character { Name = "Ruby", Path = "characters/sor4_enemies/diamond/chrsor4_l1_ruby", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", NameIndex = "CHR_RUBY", CustomNameIndex = "CHR_RUBY", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
             [113] = new Character { Name = "Garnet", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", NameIndex = "CHR_GARNET", CustomNameIndex = "CHR_GARNET", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
             [114] = new Character { Name = "Garnet (elite)", Path = "characters/sor4_enemies/diamond/chrsor4_l2_garnet_elite", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4garnet", NameIndex = "CHR_GARNET", CustomNameIndex = "CHR_GARNET_ELITE", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
-            [115] = new Character { Name = "Pyrop", Path = "characters/sor4_enemies/diamond/chrsor4_l4_pyrop", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4ruby", NameIndex = "CHR_PYROP", CustomNameIndex = "CHR_PYROP", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
+            [115] = new Character { Name = "Pyrop", Path = "characters/sor4_enemies/diamond/chrsor4_l4_pyrop", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4pyrop", NameIndex = "CHR_PYROP", CustomNameIndex = "CHR_PYROP", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
             [116] = new Character { Name = "Saphyr", Path = "characters/sor4_enemies/diamond/chrsor4_l5_saphyr", Thumbnail = "animatedsprites/sor4/enemies/diamond/sprsor4saphyr", NameIndex = "CHR_SAPHYR", CustomNameIndex = "CHR_SAPHYR", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = true, IsExcluded = false },
             [117] = new Character { Name = "--- BIKER GIRLS ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
             [118] = new Character { Name = "Sugar", Path = "characters/sor4_enemies/sugar/chrsor4sugar_l0_sugar", Thumbnail = "animatedsprites/sor4/enemies/sugar/sprsor4sugar", NameIndex = "CHR_SUGAR", CustomNameIndex = "CHR_SUGAR", IsPlayable = false, IsBoss = false, ReplaceRegs = true, ReplacedByRegs = true, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
@@ -920,14 +910,21 @@ namespace SOR4_Swapper
             int targetKey = assetKey;
             if (changeList.ContainsKey(assetKey)) targetKey = changeList[assetKey];
             var originalClass = bigfileClass.characterCollection[targetKey];
-            if (originalClass.NameIndex != characterDetails.NameIndex) goAhead = true;
-            if (originalClass.Health != characterDetails.Health) goAhead = true;
-            if (originalClass.Speed.X != characterDetails.Speed.X) goAhead = true;
-            if (originalClass.Speed.Y != characterDetails.Speed.Y) goAhead = true;
-            if (originalClass.IsBoss != characterDetails.IsBoss) goAhead = true;
-            if (originalClass.DespawnsAfterDeath != characterDetails.DespawnsAfterDeath) goAhead = true;
-            if (originalClass.Shader != characterDetails.Shader) goAhead = true;
-            if (originalClass.Team != characterDetails.Team) goAhead = true;
+            if (
+                (originalClass.NameIndex != characterDetails.NameIndex) ||
+                (originalClass.Health != characterDetails.Health) ||
+                (originalClass.Speed.X != characterDetails.Speed.X) ||
+                (originalClass.Speed.Y != characterDetails.Speed.Y) ||
+                (originalClass.IsBoss != characterDetails.IsBoss) ||
+                (originalClass.DespawnsAfterDeath != characterDetails.DespawnsAfterDeath) ||
+                (originalClass.Shader != characterDetails.Shader) ||
+                (originalClass.Team != characterDetails.Team) ||
+                (originalClass.Scale != characterDetails.Scale) ||
+                (originalClass.AlwaysArmor != characterDetails.AlwaysArmor) ||
+                (originalClass.AI != characterDetails.AI)
+                )
+                goAhead = true;
+
 
             // 1. check if character name is different from the original, if not then don't go ahead and remove from queue
             if (characterDetails.Name != characterDetails.NewName)
@@ -950,6 +947,9 @@ namespace SOR4_Swapper
             foreach (var move in originalClass.Moveset)
             {
                 int hitctr = 0;
+                if (characterDetails.Moveset[movectr].HPCost != move.HPCost) goAhead = true;
+                if (characterDetails.Moveset[movectr].Dpad != move.Dpad) goAhead = true;
+                if (characterDetails.Moveset[movectr].Button != move.Button) goAhead = true;
                 foreach (var hit in move.Hits)
                 {
                     var inputDetails = characterDetails.Moveset[movectr].Hits[hitctr];
@@ -1127,13 +1127,10 @@ namespace SOR4_Swapper
                             if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == origKey)
                             {
                                 if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
-                                {
                                     mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
-                                }
                                 else
-                                {
                                     mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
-                                }
+
                                 characterCustomizationInMemory.Remove(origKey);
                                 mainwindow.charactercustomizerscreen.characterList.SelectedIndex = origKey;
                                 characterCustomizationInMemory.Remove(origKey);
@@ -1143,16 +1140,13 @@ namespace SOR4_Swapper
 
                     // re-index row numbers to allow removal
                     for (int i = 0; i < swapTable.Rows.Count; i++)
-                    {
                         swapTable.Rows[i]["rowIndex"] = i;
-                    }
 
                     // reset unique list
                     changeTo.Clear();
                     foreach (KeyValuePair<int, int> pair in changeList)
-                    {
                         if (!changeTo.ContainsKey(pair.Value)) changeTo[pair.Value] = true;
-                    }
+
                     returnCount = new int[2] { swapTable.Rows.Count, changeTo.Count() };
                     break;
                 case "item":
@@ -1171,16 +1165,13 @@ namespace SOR4_Swapper
 
                     // re-index row numbers to allow removal
                     for (int i = 0; i < itemSwapTable.Rows.Count; i++)
-                    {
                         itemSwapTable.Rows[i]["rowIndex"] = i;
-                    }
 
                     // reset unique list
                     itemChangeTo.Clear();
                     foreach (KeyValuePair<int, int> pair in itemChangeList)
-                    {
                         if (!itemChangeTo.ContainsKey(pair.Value)) itemChangeTo[pair.Value] = true;
-                    }
+
                     returnCount = new int[2] { itemSwapTable.Rows.Count, itemChangeTo.Count() };
                     break;
                 case "destroyable":
@@ -1199,16 +1190,13 @@ namespace SOR4_Swapper
 
                     // re-index row numbers to allow removal
                     for (int i = 0; i < destroyableSwapTable.Rows.Count; i++)
-                    {
                         destroyableSwapTable.Rows[i]["rowIndex"] = i;
-                    }
 
                     // reset unique list
                     destroyableChangeTo.Clear();
                     foreach (KeyValuePair<int, int> pair in destroyableChangeList)
-                    {
                         if (!destroyableChangeTo.ContainsKey(pair.Value)) destroyableChangeTo[pair.Value] = true;
-                    }
+
                     returnCount = new int[2] { destroyableSwapTable.Rows.Count, destroyableChangeTo.Count() };
                     break;
                 case "level":
@@ -1227,16 +1215,13 @@ namespace SOR4_Swapper
 
                     // re-index row numbers to allow removal
                     for (int i = 0; i < levelSwapTable.Rows.Count; i++)
-                    {
                         levelSwapTable.Rows[i]["rowIndex"] = i;
-                    }
 
                     // reset unique list
                     levelChangeTo.Clear();
                     foreach (KeyValuePair<int, int> pair in levelChangeList)
-                    {
                         if (!levelChangeTo.ContainsKey(pair.Value)) levelChangeTo[pair.Value] = true;
-                    }
+
                     returnCount = new int[2] { levelSwapTable.Rows.Count, levelChangeTo.Count() };
                     break;
                 case "customCharacter":
@@ -1263,9 +1248,8 @@ namespace SOR4_Swapper
 
                     // re-index row numbers to allow removal
                     for (int i = 0; i < customTable.Rows.Count; i++)
-                    {
                         customTable.Rows[i]["rowIndex"] = i;
-                    }
+
                     returnCount = new int[2] { customTable.Rows.Count, 0 };
                     break;
             }
@@ -1338,9 +1322,8 @@ namespace SOR4_Swapper
                         customCharacterNames[charClass.Value.NameIndex] = nameFromOriginalIndex;
                     }
                     if (panel != null)
-                    {
                         panel.labelReplaceCount.Text = "0";
-                    }
+
                     break;
             }
         }

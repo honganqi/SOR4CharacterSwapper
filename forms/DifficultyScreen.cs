@@ -56,7 +56,6 @@ namespace SOR4_Swapper
                 [txtEnemyHitstunMin] = 0,
                 [txtGravity] = 0,
             };
-
         }
 
         private void cmbDifficultyCollection_SelectedIndexChanged(object sender, EventArgs e)
@@ -223,7 +222,7 @@ namespace SOR4_Swapper
         }
 
         public void LoadSettings(DifficultyClass difficulty, GameplayConfigDataClass gcd, Dictionary<string, CharacterClass> globalCharacterSettings)
-        {
+        {  
             txtDifficultyName.Text = difficulty.Name;
             txtPlayerDefense.Text = difficulty.Defense.ToString();
             txtPlayerLives.Text = difficulty.Lives.ToString();
@@ -239,6 +238,8 @@ namespace SOR4_Swapper
             txtEnemyAFK.Text = difficulty.EnemyAFKPercentage.ToString();
             txtEnemyAggro.Text = difficulty.AggroLimit.ToString();
             txtEnemySpeedMultiplier.Text = difficulty.EnemySpeedMultiplier.ToString();
+
+            chkRemoveArmor.Checked = difficulty.RemoveArmor;
 
             if (globalCharacterSettings != null)
             {
@@ -539,6 +540,7 @@ namespace SOR4_Swapper
             {
                 difficulty.EnemySpeedMultiplier = (int)textToInt;
             }
+            difficulty.RemoveArmor = chkRemoveArmor.Checked;
             return difficulty;
         }
 

@@ -99,6 +99,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.txtGravity = new System.Windows.Forms.TextBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
+            this.chkRemoveArmor = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -107,7 +108,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(10, 17);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(262, 28);
+            this.label1.Size = new System.Drawing.Size(210, 21);
             this.label1.TabIndex = 59;
             this.label1.Text = "Custom Difficulty Settings";
             // 
@@ -115,7 +116,7 @@
             // 
             this.txtDifficultyName.Location = new System.Drawing.Point(103, 48);
             this.txtDifficultyName.Name = "txtDifficultyName";
-            this.txtDifficultyName.Size = new System.Drawing.Size(135, 26);
+            this.txtDifficultyName.Size = new System.Drawing.Size(135, 22);
             this.txtDifficultyName.TabIndex = 2;
             // 
             // label5
@@ -123,7 +124,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 51);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 19);
+            this.label5.Size = new System.Drawing.Size(85, 13);
             this.label5.TabIndex = 81;
             this.label5.Text = "Difficulty Name";
             // 
@@ -132,7 +133,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(277, 162);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(111, 19);
+            this.label2.Size = new System.Drawing.Size(95, 13);
             this.label2.TabIndex = 83;
             this.label2.Text = "Spawn Multiplier";
             // 
@@ -140,7 +141,7 @@
             // 
             this.txtEnemyHP.Location = new System.Drawing.Point(376, 130);
             this.txtEnemyHP.Name = "txtEnemyHP";
-            this.txtEnemyHP.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemyHP.Size = new System.Drawing.Size(29, 22);
             this.txtEnemyHP.TabIndex = 15;
             this.txtEnemyHP.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -149,7 +150,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(277, 133);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(27, 19);
+            this.label3.Size = new System.Drawing.Size(21, 13);
             this.label3.TabIndex = 85;
             this.label3.Text = "HP";
             // 
@@ -157,7 +158,7 @@
             // 
             this.txtEnemySpawn.Location = new System.Drawing.Point(376, 159);
             this.txtEnemySpawn.Name = "txtEnemySpawn";
-            this.txtEnemySpawn.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemySpawn.Size = new System.Drawing.Size(29, 22);
             this.txtEnemySpawn.TabIndex = 16;
             this.txtEnemySpawn.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -166,7 +167,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(277, 191);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 19);
+            this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 87;
             this.label4.Text = "AFK Rate";
             // 
@@ -174,7 +175,7 @@
             // 
             this.txtEnemyAFK.Location = new System.Drawing.Point(376, 188);
             this.txtEnemyAFK.Name = "txtEnemyAFK";
-            this.txtEnemyAFK.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemyAFK.Size = new System.Drawing.Size(29, 22);
             this.txtEnemyAFK.TabIndex = 17;
             this.txtEnemyAFK.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -183,7 +184,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(277, 220);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(81, 19);
+            this.label6.Size = new System.Drawing.Size(66, 13);
             this.label6.TabIndex = 89;
             this.label6.Text = "Aggro Limit";
             // 
@@ -191,7 +192,7 @@
             // 
             this.txtEnemyAggro.Location = new System.Drawing.Point(376, 217);
             this.txtEnemyAggro.Name = "txtEnemyAggro";
-            this.txtEnemyAggro.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemyAggro.Size = new System.Drawing.Size(29, 22);
             this.txtEnemyAggro.TabIndex = 18;
             this.txtEnemyAggro.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -200,7 +201,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(12, 220);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(93, 19);
+            this.label7.Size = new System.Drawing.Size(75, 13);
             this.label7.TabIndex = 97;
             this.label7.Text = "Lives (Arcade)";
             // 
@@ -208,7 +209,7 @@
             // 
             this.txtPlayerLivesArcade.Location = new System.Drawing.Point(110, 217);
             this.txtPlayerLivesArcade.Name = "txtPlayerLivesArcade";
-            this.txtPlayerLivesArcade.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerLivesArcade.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerLivesArcade.TabIndex = 6;
             this.txtPlayerLivesArcade.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -217,7 +218,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(12, 191);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(39, 19);
+            this.label8.Size = new System.Drawing.Size(31, 13);
             this.label8.TabIndex = 95;
             this.label8.Text = "Lives";
             // 
@@ -225,7 +226,7 @@
             // 
             this.txtPlayerLives.Location = new System.Drawing.Point(110, 188);
             this.txtPlayerLives.Name = "txtPlayerLives";
-            this.txtPlayerLives.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerLives.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerLives.TabIndex = 5;
             this.txtPlayerLives.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -234,7 +235,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 133);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(58, 19);
+            this.label9.Size = new System.Drawing.Size(49, 13);
             this.label9.TabIndex = 93;
             this.label9.Text = "Defense";
             // 
@@ -242,7 +243,7 @@
             // 
             this.txtPlayerGreen.Location = new System.Drawing.Point(110, 159);
             this.txtPlayerGreen.Name = "txtPlayerGreen";
-            this.txtPlayerGreen.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerGreen.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerGreen.TabIndex = 4;
             this.txtPlayerGreen.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -251,7 +252,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(12, 162);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(117, 19);
+            this.label10.Size = new System.Drawing.Size(97, 13);
             this.label10.TabIndex = 91;
             this.label10.Text = "Green Health Use";
             // 
@@ -259,7 +260,7 @@
             // 
             this.txtPlayerDefense.Location = new System.Drawing.Point(110, 130);
             this.txtPlayerDefense.Name = "txtPlayerDefense";
-            this.txtPlayerDefense.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerDefense.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerDefense.TabIndex = 3;
             this.txtPlayerDefense.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -269,7 +270,7 @@
             this.label11.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(10, 104);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(71, 28);
+            this.label11.Size = new System.Drawing.Size(58, 21);
             this.label11.TabIndex = 98;
             this.label11.Text = "Player";
             // 
@@ -279,7 +280,7 @@
             this.label12.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(276, 104);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(90, 28);
+            this.label12.Size = new System.Drawing.Size(74, 21);
             this.label12.TabIndex = 99;
             this.label12.Text = "Enemies";
             // 
@@ -288,7 +289,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(12, 249);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(39, 19);
+            this.label13.Size = new System.Drawing.Size(32, 13);
             this.label13.TabIndex = 101;
             this.label13.Text = "Stars";
             // 
@@ -296,7 +297,7 @@
             // 
             this.txtPlayerStars.Location = new System.Drawing.Point(110, 246);
             this.txtPlayerStars.Name = "txtPlayerStars";
-            this.txtPlayerStars.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerStars.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerStars.TabIndex = 7;
             this.txtPlayerStars.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -306,7 +307,7 @@
             this.cmbDifficultyCollection.FormattingEnabled = true;
             this.cmbDifficultyCollection.Location = new System.Drawing.Point(244, 48);
             this.cmbDifficultyCollection.Name = "cmbDifficultyCollection";
-            this.cmbDifficultyCollection.Size = new System.Drawing.Size(121, 27);
+            this.cmbDifficultyCollection.Size = new System.Drawing.Size(121, 21);
             this.cmbDifficultyCollection.TabIndex = 106;
             this.cmbDifficultyCollection.SelectedIndexChanged += new System.EventHandler(this.cmbDifficultyCollection_SelectedIndexChanged);
             // 
@@ -315,7 +316,7 @@
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(12, 336);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(54, 19);
+            this.label21.Size = new System.Drawing.Size(45, 13);
             this.label21.TabIndex = 116;
             this.label21.Text = "Hitstun";
             // 
@@ -323,7 +324,7 @@
             // 
             this.txtPlayerHitstun.Location = new System.Drawing.Point(110, 333);
             this.txtPlayerHitstun.Name = "txtPlayerHitstun";
-            this.txtPlayerHitstun.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerHitstun.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerHitstun.TabIndex = 13;
             this.txtPlayerHitstun.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -332,7 +333,7 @@
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(12, 307);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(54, 19);
+            this.label22.Size = new System.Drawing.Size(45, 13);
             this.label22.TabIndex = 114;
             this.label22.Text = "Hitstop";
             // 
@@ -340,7 +341,7 @@
             // 
             this.txtPlayerHitstop.Location = new System.Drawing.Point(110, 304);
             this.txtPlayerHitstop.Name = "txtPlayerHitstop";
-            this.txtPlayerHitstop.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerHitstop.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerHitstop.TabIndex = 10;
             this.txtPlayerHitstop.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -349,7 +350,7 @@
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(277, 336);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(54, 19);
+            this.label23.Size = new System.Drawing.Size(45, 13);
             this.label23.TabIndex = 120;
             this.label23.Text = "Hitstun";
             // 
@@ -357,7 +358,7 @@
             // 
             this.txtEnemyHitstun.Location = new System.Drawing.Point(376, 333);
             this.txtEnemyHitstun.Name = "txtEnemyHitstun";
-            this.txtEnemyHitstun.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemyHitstun.Size = new System.Drawing.Size(29, 22);
             this.txtEnemyHitstun.TabIndex = 25;
             this.txtEnemyHitstun.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -366,7 +367,7 @@
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(277, 307);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(54, 19);
+            this.label24.Size = new System.Drawing.Size(45, 13);
             this.label24.TabIndex = 118;
             this.label24.Text = "Hitstop";
             // 
@@ -374,7 +375,7 @@
             // 
             this.txtEnemyHitstop.Location = new System.Drawing.Point(376, 304);
             this.txtEnemyHitstop.Name = "txtEnemyHitstop";
-            this.txtEnemyHitstop.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemyHitstop.Size = new System.Drawing.Size(29, 22);
             this.txtEnemyHitstop.TabIndex = 22;
             this.txtEnemyHitstop.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -384,7 +385,7 @@
             this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(138, 130);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(19, 26);
+            this.textBox1.Size = new System.Drawing.Size(19, 22);
             this.textBox1.TabIndex = 122;
             this.textBox1.Text = "%";
             // 
@@ -394,7 +395,7 @@
             this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(138, 159);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(19, 26);
+            this.textBox2.Size = new System.Drawing.Size(19, 22);
             this.textBox2.TabIndex = 123;
             this.textBox2.Text = "%";
             // 
@@ -404,7 +405,7 @@
             this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(404, 188);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(19, 26);
+            this.textBox4.Size = new System.Drawing.Size(19, 22);
             this.textBox4.TabIndex = 124;
             this.textBox4.Text = "%";
             // 
@@ -418,7 +419,7 @@
             "%"});
             this.cmbPlayerHitstopValuesOptions.Location = new System.Drawing.Point(138, 305);
             this.cmbPlayerHitstopValuesOptions.Name = "cmbPlayerHitstopValuesOptions";
-            this.cmbPlayerHitstopValuesOptions.Size = new System.Drawing.Size(107, 27);
+            this.cmbPlayerHitstopValuesOptions.Size = new System.Drawing.Size(107, 21);
             this.cmbPlayerHitstopValuesOptions.TabIndex = 9;
             this.cmbPlayerHitstopValuesOptions.SelectedIndexChanged += new System.EventHandler(this.cmbPlayerHitstopValuesOptions_SelectedIndexChanged);
             // 
@@ -432,7 +433,7 @@
             "%"});
             this.cmbPlayerHitstunValuesOptions.Location = new System.Drawing.Point(138, 334);
             this.cmbPlayerHitstunValuesOptions.Name = "cmbPlayerHitstunValuesOptions";
-            this.cmbPlayerHitstunValuesOptions.Size = new System.Drawing.Size(107, 27);
+            this.cmbPlayerHitstunValuesOptions.Size = new System.Drawing.Size(107, 21);
             this.cmbPlayerHitstunValuesOptions.TabIndex = 12;
             this.cmbPlayerHitstunValuesOptions.SelectedIndexChanged += new System.EventHandler(this.cmbPlayerHitstunValuesOptions_SelectedIndexChanged);
             // 
@@ -446,7 +447,7 @@
             "%"});
             this.cmbEnemyHitstunValuesOptions.Location = new System.Drawing.Point(404, 334);
             this.cmbEnemyHitstunValuesOptions.Name = "cmbEnemyHitstunValuesOptions";
-            this.cmbEnemyHitstunValuesOptions.Size = new System.Drawing.Size(107, 27);
+            this.cmbEnemyHitstunValuesOptions.Size = new System.Drawing.Size(107, 21);
             this.cmbEnemyHitstunValuesOptions.TabIndex = 24;
             this.cmbEnemyHitstunValuesOptions.SelectedIndexChanged += new System.EventHandler(this.cmbEnemyHitstunValuesOptions_SelectedIndexChanged);
             // 
@@ -460,7 +461,7 @@
             "%"});
             this.cmbEnemyHitstopValuesOptions.Location = new System.Drawing.Point(404, 305);
             this.cmbEnemyHitstopValuesOptions.Name = "cmbEnemyHitstopValuesOptions";
-            this.cmbEnemyHitstopValuesOptions.Size = new System.Drawing.Size(107, 27);
+            this.cmbEnemyHitstopValuesOptions.Size = new System.Drawing.Size(107, 21);
             this.cmbEnemyHitstopValuesOptions.TabIndex = 21;
             this.cmbEnemyHitstopValuesOptions.SelectedIndexChanged += new System.EventHandler(this.cmbEnemyHitstopValuesOptions_SelectedIndexChanged);
             // 
@@ -469,7 +470,7 @@
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(12, 278);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(117, 19);
+            this.label16.Size = new System.Drawing.Size(96, 13);
             this.label16.TabIndex = 138;
             this.label16.Text = "Movement Speed";
             // 
@@ -477,7 +478,7 @@
             // 
             this.txtPlayerSpeed.Location = new System.Drawing.Point(110, 275);
             this.txtPlayerSpeed.Name = "txtPlayerSpeed";
-            this.txtPlayerSpeed.Size = new System.Drawing.Size(29, 26);
+            this.txtPlayerSpeed.Size = new System.Drawing.Size(29, 22);
             this.txtPlayerSpeed.TabIndex = 8;
             this.txtPlayerSpeed.TextChanged += new System.EventHandler(this.ProcessInput);
             this.txtPlayerSpeed.MouseHover += new System.EventHandler(this.txtPlayerSpeed_MouseHover);
@@ -487,7 +488,7 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(277, 278);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(117, 19);
+            this.label17.Size = new System.Drawing.Size(96, 13);
             this.label17.TabIndex = 140;
             this.label17.Text = "Movement Speed";
             // 
@@ -495,7 +496,7 @@
             // 
             this.txtEnemySpeed.Location = new System.Drawing.Point(375, 275);
             this.txtEnemySpeed.Name = "txtEnemySpeed";
-            this.txtEnemySpeed.Size = new System.Drawing.Size(29, 26);
+            this.txtEnemySpeed.Size = new System.Drawing.Size(29, 22);
             this.txtEnemySpeed.TabIndex = 20;
             this.txtEnemySpeed.TextChanged += new System.EventHandler(this.ProcessInput);
             this.txtEnemySpeed.MouseHover += new System.EventHandler(this.txtEnemySpeed_MouseHover);
@@ -506,7 +507,7 @@
             this.textBox6.Enabled = false;
             this.textBox6.Location = new System.Drawing.Point(404, 130);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(19, 26);
+            this.textBox6.Size = new System.Drawing.Size(19, 22);
             this.textBox6.TabIndex = 141;
             this.textBox6.Text = "%";
             // 
@@ -516,7 +517,7 @@
             this.textBox7.Enabled = false;
             this.textBox7.Location = new System.Drawing.Point(403, 275);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(19, 26);
+            this.textBox7.Size = new System.Drawing.Size(19, 22);
             this.textBox7.TabIndex = 142;
             this.textBox7.Text = "%";
             // 
@@ -526,7 +527,7 @@
             this.textBox8.Enabled = false;
             this.textBox8.Location = new System.Drawing.Point(403, 159);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(19, 26);
+            this.textBox8.Size = new System.Drawing.Size(19, 22);
             this.textBox8.TabIndex = 143;
             this.textBox8.Text = "%";
             // 
@@ -536,7 +537,7 @@
             this.textBox9.Enabled = false;
             this.textBox9.Location = new System.Drawing.Point(138, 275);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(19, 26);
+            this.textBox9.Size = new System.Drawing.Size(19, 22);
             this.textBox9.TabIndex = 144;
             this.textBox9.Text = "%";
             // 
@@ -545,7 +546,7 @@
             this.txtPlayerHitstopMin.Enabled = false;
             this.txtPlayerHitstopMin.Location = new System.Drawing.Point(221, 304);
             this.txtPlayerHitstopMin.Name = "txtPlayerHitstopMin";
-            this.txtPlayerHitstopMin.Size = new System.Drawing.Size(24, 26);
+            this.txtPlayerHitstopMin.Size = new System.Drawing.Size(24, 22);
             this.txtPlayerHitstopMin.TabIndex = 11;
             this.txtPlayerHitstopMin.Visible = false;
             this.txtPlayerHitstopMin.TextChanged += new System.EventHandler(this.ProcessInput);
@@ -555,7 +556,7 @@
             this.txtPlayerHitstunMin.Enabled = false;
             this.txtPlayerHitstunMin.Location = new System.Drawing.Point(221, 333);
             this.txtPlayerHitstunMin.Name = "txtPlayerHitstunMin";
-            this.txtPlayerHitstunMin.Size = new System.Drawing.Size(24, 26);
+            this.txtPlayerHitstunMin.Size = new System.Drawing.Size(24, 22);
             this.txtPlayerHitstunMin.TabIndex = 14;
             this.txtPlayerHitstunMin.Visible = false;
             this.txtPlayerHitstunMin.TextChanged += new System.EventHandler(this.ProcessInput);
@@ -564,7 +565,7 @@
             // 
             this.txtEnemyHitstopMin.Location = new System.Drawing.Point(487, 304);
             this.txtEnemyHitstopMin.Name = "txtEnemyHitstopMin";
-            this.txtEnemyHitstopMin.Size = new System.Drawing.Size(24, 26);
+            this.txtEnemyHitstopMin.Size = new System.Drawing.Size(24, 22);
             this.txtEnemyHitstopMin.TabIndex = 23;
             this.txtEnemyHitstopMin.Visible = false;
             this.txtEnemyHitstopMin.TextChanged += new System.EventHandler(this.ProcessInput);
@@ -573,7 +574,7 @@
             // 
             this.txtEnemyHitstunMin.Location = new System.Drawing.Point(487, 333);
             this.txtEnemyHitstunMin.Name = "txtEnemyHitstunMin";
-            this.txtEnemyHitstunMin.Size = new System.Drawing.Size(24, 26);
+            this.txtEnemyHitstunMin.Size = new System.Drawing.Size(24, 22);
             this.txtEnemyHitstunMin.TabIndex = 26;
             this.txtEnemyHitstunMin.Visible = false;
             this.txtEnemyHitstunMin.TextChanged += new System.EventHandler(this.ProcessInput);
@@ -583,7 +584,7 @@
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(315, 32);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(65, 19);
+            this.label14.Size = new System.Drawing.Size(54, 13);
             this.label14.TabIndex = 145;
             this.label14.Text = "Based on";
             // 
@@ -644,7 +645,7 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(149, 220);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(72, 19);
+            this.label15.Size = new System.Drawing.Size(58, 13);
             this.label15.TabIndex = 156;
             this.label15.Text = "1UP Score";
             // 
@@ -652,7 +653,7 @@
             // 
             this.txtLifeUpArcade.Location = new System.Drawing.Point(210, 217);
             this.txtLifeUpArcade.Name = "txtLifeUpArcade";
-            this.txtLifeUpArcade.Size = new System.Drawing.Size(61, 26);
+            this.txtLifeUpArcade.Size = new System.Drawing.Size(61, 22);
             this.txtLifeUpArcade.TabIndex = 154;
             this.txtLifeUpArcade.TextChanged += new System.EventHandler(this.ProcessInput);
             this.txtLifeUpArcade.MouseHover += new System.EventHandler(this.txtLifeUpArcade_MouseHover);
@@ -662,7 +663,7 @@
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(149, 191);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(72, 19);
+            this.label18.Size = new System.Drawing.Size(58, 13);
             this.label18.TabIndex = 155;
             this.label18.Text = "1UP Score";
             // 
@@ -670,7 +671,7 @@
             // 
             this.txtLifeUp.Location = new System.Drawing.Point(210, 188);
             this.txtLifeUp.Name = "txtLifeUp";
-            this.txtLifeUp.Size = new System.Drawing.Size(61, 26);
+            this.txtLifeUp.Size = new System.Drawing.Size(61, 22);
             this.txtLifeUp.TabIndex = 153;
             this.txtLifeUp.TextChanged += new System.EventHandler(this.ProcessInput);
             this.txtLifeUp.MouseHover += new System.EventHandler(this.txtLifeUp_MouseHover);
@@ -679,7 +680,7 @@
             // 
             this.txtEnemySpeedMultiplier.Location = new System.Drawing.Point(375, 245);
             this.txtEnemySpeedMultiplier.Name = "txtEnemySpeedMultiplier";
-            this.txtEnemySpeedMultiplier.Size = new System.Drawing.Size(30, 26);
+            this.txtEnemySpeedMultiplier.Size = new System.Drawing.Size(30, 22);
             this.txtEnemySpeedMultiplier.TabIndex = 19;
             this.txtEnemySpeedMultiplier.TextChanged += new System.EventHandler(this.ProcessInput);
             // 
@@ -688,7 +689,7 @@
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(277, 249);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(85, 19);
+            this.label19.Size = new System.Drawing.Size(71, 13);
             this.label19.TabIndex = 158;
             this.label19.Text = "Speed Boost";
             // 
@@ -698,7 +699,7 @@
             this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(403, 245);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(19, 26);
+            this.textBox3.Size = new System.Drawing.Size(19, 22);
             this.textBox3.TabIndex = 159;
             this.textBox3.Text = "%";
             // 
@@ -740,11 +741,22 @@
             this.textBox5.TabIndex = 163;
             this.textBox5.Text = "%";
             // 
+            // chkRemoveArmor
+            // 
+            this.chkRemoveArmor.AutoSize = true;
+            this.chkRemoveArmor.Location = new System.Drawing.Point(280, 364);
+            this.chkRemoveArmor.Name = "chkRemoveArmor";
+            this.chkRemoveArmor.Size = new System.Drawing.Size(186, 17);
+            this.chkRemoveArmor.TabIndex = 164;
+            this.chkRemoveArmor.Text = "Remove armor from all enemies";
+            this.chkRemoveArmor.UseVisualStyleBackColor = true;
+            // 
             // DifficultyScreen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 423);
+            this.ClientSize = new System.Drawing.Size(520, 501);
+            this.Controls.Add(this.chkRemoveArmor);
             this.Controls.Add(this.txtGravity);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.label20);
@@ -892,5 +904,6 @@
         private System.Windows.Forms.Label label20;
         public System.Windows.Forms.TextBox txtGravity;
         private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.CheckBox chkRemoveArmor;
     }
 }

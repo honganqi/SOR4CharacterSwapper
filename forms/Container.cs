@@ -24,13 +24,7 @@ namespace SOR4_Swapper
         {
             DialogResult confirmStart = MessageBox.Show("Are you sure you want to do this?\nAs surely as good coffee is black?", "Apply changes?", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (confirmStart == DialogResult.OK)
-            {
                 _mainwindow.ApplyChanges();
-            }
-            else
-            {
-                MessageBox.Show("You backed out of a great experience.", "Sad", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-            }
         }
 
         private void imgBMCSupport_Click(object sender, EventArgs e)

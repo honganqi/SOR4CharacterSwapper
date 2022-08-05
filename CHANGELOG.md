@@ -2,6 +2,71 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.5 - 2022/08/06 03:08:14 GMT+08:00
+### Added
+* Added `Perma Armor` and `Move Armor` in the `Character
+Customizer` screen. For those who are unaware, most armor in
+the game are are related to moves. `Perma Armor` is used by
+characters like the boss version of Max and the DJs.
+* In the `Difficulty` screen, added a tickbox to remove all
+armor from all the enemies
+* Added `Move Direction` and `Move Trigger` options to
+characters' moves. This can be used to change a move's inputs
+or add inputs to a move without an input.
+* Added tooltip for `Character Size` in the `Character
+Customizer` screen
+* If and when a character's health and speeds are changed, their
+original values are now shown to the right of their respective
+text boxes
+* In the `Swap Author` screen, added a box for a `Short
+Description` to display in the Arcade difficulty selection
+screen
+* In the `Swap Author` screen, added checkboxes for the Author, 
+Title, and Date Created info to show them in the Difficulty
+selection screens in the game
+* Added reference to the original values of Health and Speed
+in the `Customize Character` screen if values have been modified
+* Added a button on the Difficulty screen to copy the text in
+`Download URL` 
+### Changes
+* A swap mod made or saved starting v4.2.5 will have 3 access
+types: Protected, Read-only, and Editable. The first two (2)
+items are meant for distributing the mods after the modder
+finalizes them. `Protected` swap mods won't show anything in
+the interface when loaded. `Read-only` swap mods will show
+details but nothing will not be changeable. `Editable` swap
+mods are meant for use by the modders while they are working on
+a mod unless they intend to distribute the mod while allowing
+anybody to make changes to it and redistribute it.
+* `Editable` swap mods now use the `*.swapedit` file extension
+* Loading a swap file now switches to the `Swap Author` screen
+automatically
+* Loading a `Protected` swap mod now disables all other screens
+except the `Swap Author` screen
+* Loading a `Read-only` swap mod now disables all items which
+were previously modifiable (e.g. character HP, swap list, lives,
+etc.)
+* Loading a swap mod made before 4.2.5 will be treated as
+`Editable`
+### Fixed
+* Fixed the issue where the location of the bigfile is
+"forgotten" everytime the Swapper is updated
+* Fixed the issue where the character customization is not being
+accepted if the only thing changed is the character's size
+* In the `Difficulty` screen, loading a swap file will now
+preselect the difficulty it was based on
+* Fixed various issues in resetting characters and moves in the
+`Character Customizer` screen
+* Pyrop now uses the correct thumbnail for her portrait instead
+of Ruby's
+* Vulture and Wayne now use the correct thumbnails for their
+portraits
+* Loading a swap mod now resets the Swapper's memory of changes
+if any (e.g. HP changed before loading swap would remain)
+### Removed
+* Removed the additional alert which pops up if "Apply Changes"
+was clicked and then cancelled
+
 ## 4.2.4 - 2022/05/10 10:35:01 GMT+08:00
 ### Added
 * Added `Character Size` in the `Character Customizer` screen.

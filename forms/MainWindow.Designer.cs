@@ -52,6 +52,7 @@
             this.imgListShadow = new System.Windows.Forms.PictureBox();
             this.panelSwapList = new System.Windows.Forms.Panel();
             this.panelInstructions = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelLeft.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -76,7 +77,7 @@
             // 
             // ofdLoadDialog
             // 
-            this.ofdLoadDialog.Filter = "SOR4 Swapper Settings|*.swap";
+            this.ofdLoadDialog.Filter = "SOR4 Swapper Mods (*.swap,*.swapedit)|*.swap;*.swapedit";
             this.ofdLoadDialog.Title = "Load Settings File";
             // 
             // btnOpenBigfile
@@ -116,6 +117,7 @@
             // panelLeft
             // 
             this.panelLeft.BackColor = System.Drawing.Color.Black;
+            this.panelLeft.Controls.Add(this.label1);
             this.panelLeft.Controls.Add(this.btnShowSwapperPanel);
             this.panelLeft.Controls.Add(this.btnShowCustomizer);
             this.panelLeft.Controls.Add(this.navDivider);
@@ -129,7 +131,7 @@
             this.panelLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelLeft.Location = new System.Drawing.Point(0, 0);
             this.panelLeft.Name = "panelLeft";
-            this.panelLeft.Size = new System.Drawing.Size(110, 689);
+            this.panelLeft.Size = new System.Drawing.Size(110, 769);
             this.panelLeft.TabIndex = 42;
             this.panelLeft.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseDown);
             this.panelLeft.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panelLeft_MouseMove);
@@ -141,7 +143,7 @@
             this.btnShowSwapperPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowSwapperPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowSwapperPanel.ForeColor = System.Drawing.Color.White;
-            this.btnShowSwapperPanel.Location = new System.Drawing.Point(11, 190);
+            this.btnShowSwapperPanel.Location = new System.Drawing.Point(11, 414);
             this.btnShowSwapperPanel.Margin = new System.Windows.Forms.Padding(0);
             this.btnShowSwapperPanel.Name = "btnShowSwapperPanel";
             this.btnShowSwapperPanel.Size = new System.Drawing.Size(90, 60);
@@ -159,7 +161,7 @@
             this.btnShowCustomizer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowCustomizer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowCustomizer.ForeColor = System.Drawing.Color.White;
-            this.btnShowCustomizer.Location = new System.Drawing.Point(11, 340);
+            this.btnShowCustomizer.Location = new System.Drawing.Point(11, 489);
             this.btnShowCustomizer.Margin = new System.Windows.Forms.Padding(0);
             this.btnShowCustomizer.Name = "btnShowCustomizer";
             this.btnShowCustomizer.Size = new System.Drawing.Size(90, 60);
@@ -173,7 +175,7 @@
             // navDivider
             // 
             this.navDivider.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.navDivider.Location = new System.Drawing.Point(21, 565);
+            this.navDivider.Location = new System.Drawing.Point(21, 645);
             this.navDivider.Name = "navDivider";
             this.navDivider.Size = new System.Drawing.Size(70, 2);
             this.navDivider.TabIndex = 46;
@@ -185,7 +187,7 @@
             this.btnSaveSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveSwap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveSwap.ForeColor = System.Drawing.Color.White;
-            this.btnSaveSwap.Location = new System.Drawing.Point(56, 115);
+            this.btnSaveSwap.Location = new System.Drawing.Point(56, 142);
             this.btnSaveSwap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnSaveSwap.Name = "btnSaveSwap";
             this.btnSaveSwap.Size = new System.Drawing.Size(44, 60);
@@ -203,7 +205,7 @@
             this.btnLoadSwap.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoadSwap.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoadSwap.ForeColor = System.Drawing.Color.White;
-            this.btnLoadSwap.Location = new System.Drawing.Point(11, 115);
+            this.btnLoadSwap.Location = new System.Drawing.Point(11, 142);
             this.btnLoadSwap.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLoadSwap.Name = "btnLoadSwap";
             this.btnLoadSwap.Size = new System.Drawing.Size(44, 60);
@@ -221,7 +223,7 @@
             this.btnOwnerPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnOwnerPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOwnerPanel.ForeColor = System.Drawing.Color.White;
-            this.btnOwnerPanel.Location = new System.Drawing.Point(11, 490);
+            this.btnOwnerPanel.Location = new System.Drawing.Point(11, 217);
             this.btnOwnerPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnOwnerPanel.Name = "btnOwnerPanel";
             this.btnOwnerPanel.Size = new System.Drawing.Size(88, 60);
@@ -239,7 +241,7 @@
             this.btnDifficultyPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDifficultyPanel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDifficultyPanel.ForeColor = System.Drawing.Color.White;
-            this.btnDifficultyPanel.Location = new System.Drawing.Point(11, 410);
+            this.btnDifficultyPanel.Location = new System.Drawing.Point(11, 559);
             this.btnDifficultyPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDifficultyPanel.Name = "btnDifficultyPanel";
             this.btnDifficultyPanel.Size = new System.Drawing.Size(88, 60);
@@ -257,7 +259,7 @@
             this.btnShowRandomPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnShowRandomPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowRandomPanel.ForeColor = System.Drawing.Color.White;
-            this.btnShowRandomPanel.Location = new System.Drawing.Point(11, 265);
+            this.btnShowRandomPanel.Location = new System.Drawing.Point(11, 339);
             this.btnShowRandomPanel.Margin = new System.Windows.Forms.Padding(0);
             this.btnShowRandomPanel.Name = "btnShowRandomPanel";
             this.btnShowRandomPanel.Size = new System.Drawing.Size(90, 60);
@@ -275,7 +277,7 @@
             this.btnInstructions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnInstructions.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnInstructions.ForeColor = System.Drawing.Color.White;
-            this.btnInstructions.Location = new System.Drawing.Point(11, 580);
+            this.btnInstructions.Location = new System.Drawing.Point(11, 660);
             this.btnInstructions.Margin = new System.Windows.Forms.Padding(0);
             this.btnInstructions.Name = "btnInstructions";
             this.btnInstructions.Size = new System.Drawing.Size(90, 90);
@@ -348,7 +350,7 @@
             this.panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContainer.Location = new System.Drawing.Point(110, 36);
             this.panelContainer.Name = "panelContainer";
-            this.panelContainer.Size = new System.Drawing.Size(520, 653);
+            this.panelContainer.Size = new System.Drawing.Size(520, 733);
             this.panelContainer.TabIndex = 46;
             // 
             // imgListShadow
@@ -375,12 +377,20 @@
             this.panelInstructions.TabIndex = 47;
             this.panelInstructions.Visible = false;
             // 
+            // label1
+            // 
+            this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label1.Location = new System.Drawing.Point(21, 306);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(70, 2);
+            this.label1.TabIndex = 52;
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(630, 689);
+            this.ClientSize = new System.Drawing.Size(630, 769);
             this.Controls.Add(this.labelDisplayList);
             this.Controls.Add(this.panelSwapList);
             this.Controls.Add(this.panelInstructions);
@@ -430,6 +440,7 @@
         private System.Windows.Forms.Label navDivider;
         public System.Windows.Forms.Button btnShowCustomizer;
         public System.Windows.Forms.Button btnShowSwapperPanel;
+        private System.Windows.Forms.Label label1;
     }
 }
 

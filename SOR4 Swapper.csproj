@@ -393,6 +393,7 @@
     <EmbeddedResource Include="img\author.png" />
     <EmbeddedResource Include="img\swapper.png" />
     <EmbeddedResource Include="img\customize.png" />
+    <EmbeddedResource Include="img\export.png" />
     <Content Include="logo.ico" />
   </ItemGroup>
   <ItemGroup>

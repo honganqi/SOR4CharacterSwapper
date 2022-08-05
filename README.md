@@ -50,7 +50,7 @@ click on the `Clear list` button before doing so to remove
 all the characters in the list.
 
 ## Donations
-[![Buy me A Coffee](http://sidestream.tk/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
+[![Buy me A Coffee](http://sidestreamnetwork.net/wp-content/uploads/2021/06/white-button-e1624263691285.png "Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
 
 This was created for the Streets of Rage 4 community with
 love and care  and is provided without charging anybody.
