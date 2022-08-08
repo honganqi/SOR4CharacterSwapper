@@ -2024,7 +2024,6 @@ namespace SOR4_Swapper
                         classlib.AddToList(this, "level", swap.Key, swap.Value, true);
                 }
 
-
                 Dictionary<int, CharacterClass> customList = swapSettings.CharacterCustomizationQueue;
                 classlib.ClearTable("customCharacter", charactercustomizerpanel);
                 if (customList != null)

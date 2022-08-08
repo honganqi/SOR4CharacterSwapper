@@ -727,6 +727,7 @@ namespace SOR4_Swapper
                     chkDespawn.Checked = origData.DespawnsAfterDeath;
                     txtScale.Text = origData.Scale.ToString();
                     cmbAI.SelectedIndex = classlib.bigfileClass.pathDictionary["CharacterData"][origData.AI];
+                    chkAlwaysArmor.Checked = origData.AlwaysArmor;
 
                     if (classlib.bigfileClass.shaderStrings.Contains(origData.Shader))
                         cmbShader.SelectedIndex = classlib.bigfileClass.shaderStrings.IndexOf(origData.Shader);
