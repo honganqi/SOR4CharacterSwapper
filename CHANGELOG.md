@@ -2,12 +2,14 @@
 All notable changes to this project will be documented in
 this file.
 
-## 4.2.6 - 2022/08/09 01:58:49 GMT+08:00
+## 4.2.6 - 2022/08/09 22:00:50 GMT+08:00
 ### Fixed
 * `Remove armor from all enemies` in the Difficulty screen
 now work as expected
 * `Perma Armor` is now reset along with all the character
 properties when the Reset Character button is used
+* Correctly set the version to 4.2.6 - previous 4.2.6 release
+had incorrect version of 4.2.5 despite having the updates
 
 ## 4.2.5 - 2022/08/06 03:08:14 GMT+08:00
 ### Added
