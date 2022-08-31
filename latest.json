@@ -1,6 +1,6 @@
 {
-	"version": "4.2.6.0",
-	"release_date": "2022-08-09T14:00:50",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.6.zip/download",
-	"description": "Quickfix: Fixed 'Remove all armor option'"
+	"version": "4.2.7.0",
+	"release_date": "2022-08-31T05:41:00",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.7.zip/download",
+	"description": "Quickfix: Fixed issues with character names'"
 }

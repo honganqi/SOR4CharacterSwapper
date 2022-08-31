@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.7 - 2022/08/31 13:41:00 GMT+08:00
+### Fixed
+* Fixed the issue where, when loading any swap mods, characters
+had buggy names if they didn't have any customization (does not
+affect swap mods)
+* Fixed the issue where, upon clicking the "Clear swap list"
+button, characters had buggy names if they didn't have any
+customization (does not affect swap mods)
+
 ## 4.2.6 - 2022/08/09 22:00:50 GMT+08:00
 ### Fixed
 * `Remove armor from all enemies` in the Difficulty screen

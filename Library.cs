@@ -810,9 +810,8 @@ namespace SOR4_Swapper
                         changedCount = changeTo.Count;
                         customCharacterNames[characterDictionary[orig].CustomNameIndex] = bigfileClass.characterCollection[replace].Name;
                         if (characterCustomizationInMemory.ContainsKey(orig))
-                        {
                             characterCustomizationInMemory.Remove(orig);
-                        }
+
                         if (characterCustomizationQueue.ContainsKey(orig) && !fromLoad)
                         {
                             int[] customcount = RemoveFromTable(mainwindow, "customCharacter", orig);
@@ -821,13 +820,10 @@ namespace SOR4_Swapper
                         if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == orig)
                         {
                             if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
-                            {
                                 mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
-                            }
                             else
-                            {
                                 mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
-                            }
+
                             mainwindow.charactercustomizerscreen.characterList.SelectedIndex = orig;
                         }
                         goAhead = true;
@@ -1110,6 +1106,23 @@ namespace SOR4_Swapper
                 case "character":
                     changeList.Remove(origKey);
 
+                    if (characterCustomizationQueue.ContainsKey(origKey))
+                    {
+                        int[] customcount = RemoveFromTable(mainwindow, "customCharacter", origKey);
+                        mainwindow.charactercustomizerpanel.labelReplaceCount.Text = customcount[0].ToString();
+                    }
+                    if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == origKey)
+                    {
+                        if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
+                            mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
+                        else
+                            mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
+
+                        characterCustomizationInMemory.Remove(origKey);
+                        mainwindow.charactercustomizerscreen.characterList.SelectedIndex = origKey;
+                        characterCustomizationInMemory.Remove(origKey);
+                    }
+
                     // fetch row index
                     swapRows = swapTable.Select("origKey = " + origKey);
                     if (swapRows.Count() > 0)
@@ -1118,23 +1131,6 @@ namespace SOR4_Swapper
                         {
                             int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
                             swapTable.Rows.RemoveAt(rowIndex);
-
-                            if (characterCustomizationQueue.ContainsKey(origKey))
-                            {
-                                int[] customcount = RemoveFromTable(mainwindow, "customCharacter", origKey);
-                                mainwindow.charactercustomizerpanel.labelReplaceCount.Text = customcount[0].ToString();
-                            }
-                            if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == origKey)
-                            {
-                                if (mainwindow.charactercustomizerscreen.characterList.SelectedIndex == 1)
-                                    mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 2;
-                                else
-                                    mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
-
-                                characterCustomizationInMemory.Remove(origKey);
-                                mainwindow.charactercustomizerscreen.characterList.SelectedIndex = origKey;
-                                characterCustomizationInMemory.Remove(origKey);
-                            }
                         }
                     }
 

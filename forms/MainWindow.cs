@@ -420,23 +420,7 @@ namespace SOR4_Swapper
             }
 
             // character names
-            foreach (KeyValuePair<int, CharacterClass> charClass in classlib.bigfileClass.characterCollection)
-            {
-                string customNameIndex = Library.characterDictionary[charClass.Key].CustomNameIndex;
-                string nameFromOriginalIndex;
-                if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
-                {
-                    nameFromOriginalIndex = classlib.bigfileClass.customCharacterNames[charClass.Value.NameIndex];
-                }
-                else
-                {
-                    nameFromOriginalIndex = charClass.Value.NameIndex;
-                }
-                charClass.Value.Name = nameFromOriginalIndex;
-                charClass.Value.NewName = nameFromOriginalIndex;
-                charClass.Value.SwapNameIndex = customNameIndex;
-                classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
-            }
+            InitializeCustomNames();
 
             foreach (KeyValuePair<int, DifficultyClass> asset in bigfileClass.difficultyCollection)
             {
@@ -465,6 +449,25 @@ namespace SOR4_Swapper
             difficultyscreen.txtDifficultyName.Text = "CUSTOM";
 
             classlib.bigfilePath = originalBigfilePath;
+        }
+
+        public void InitializeCustomNames()
+        {
+            // character names
+            foreach (KeyValuePair<int, CharacterClass> charClass in classlib.bigfileClass.characterCollection)
+            {
+                string customNameIndex = Library.characterDictionary[charClass.Key].CustomNameIndex;
+                string nameFromOriginalIndex;
+                if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
+                    nameFromOriginalIndex = classlib.bigfileClass.customCharacterNames[charClass.Value.NameIndex];
+                else
+                    nameFromOriginalIndex = charClass.Value.NameIndex;
+
+                charClass.Value.Name = nameFromOriginalIndex;
+                charClass.Value.NewName = nameFromOriginalIndex;
+                charClass.Value.SwapNameIndex = customNameIndex;
+                classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
+            }
         }
 
 
@@ -569,7 +572,9 @@ namespace SOR4_Swapper
                         mode = "custom" + mode.Substring(0, 1).ToUpper() + mode.Substring(1);
 
                     classlib.ClearTable(mode);
-                    //bigfileClass.ResetSwaps(mode);
+                    if (mode == "customCharacter")
+                        InitializeCustomNames();
+
                     info.labelLoadedSwapFile.Text = "";
                     info.labelLoadedSwap.Visible = false;
                     info.labelLoadedSwapFile.Visible = false;
@@ -1324,7 +1329,6 @@ namespace SOR4_Swapper
             {
                 Console.WriteLine(err.Message);
             }
-
         }
 
         public void GetUpdate()
@@ -1869,17 +1873,7 @@ namespace SOR4_Swapper
                     classlib.ClearTable("customCharacter", charactercustomizerpanel);
 
                     // character names
-                    foreach (KeyValuePair<int, CharacterClass> charClass in classlib.bigfileClass.characterCollection)
-                    {
-                        string customNameIndex = Library.characterDictionary[charClass.Key].CustomNameIndex;
-                        string nameFromOriginalIndex;
-                        if (bigfileClass.customCharacterNames.ContainsKey(charClass.Value.NameIndex))
-                            nameFromOriginalIndex = classlib.bigfileClass.customCharacterNames[charClass.Value.NameIndex];
-                        else
-                            nameFromOriginalIndex = charClass.Value.NameIndex;
-
-                        classlib.customCharacterNames[customNameIndex] = nameFromOriginalIndex;
-                    }
+                    InitializeCustomNames();
 
                     string currentVerString = Application.ProductVersion;
                     string swapVerString = "";
@@ -2026,11 +2020,14 @@ namespace SOR4_Swapper
 
                 Dictionary<int, CharacterClass> customList = swapSettings.CharacterCustomizationQueue;
                 classlib.ClearTable("customCharacter", charactercustomizerpanel);
+                InitializeCustomNames();
                 if (customList != null)
                 {
                     foreach (KeyValuePair<int, CharacterClass> customCharacter in customList)
                     {
                         // customCharacter.Value = class of customized (and replaced) character
+                        //if (!swapSettings.ChangeList.ContainsKey(customCharacter.Key) && (customCharacter.Key != customCharacter.Value.NewCharacterId))
+                        //    classlib.AddToList(this, "character", customCharacter.Key, customCharacter.Value.NewCharacterId);
                         classlib.AddCustom(this, "character", customCharacter.Key, customCharacter.Value);
                         classlib.characterCustomizationInMemory[customCharacter.Key] = customCharacter.Value;
                         classlib.customCharacterNames[customCharacter.Value.NameIndex] = customCharacter.Value.NewName;
