@@ -7,7 +7,6 @@ namespace SOR4_Swapper
 {
     public partial class Swapper : Form
     {
-        Assembly imageAssembly = Assembly.GetExecutingAssembly();
         private MainWindow _mainwindow;
         Library classlib;
 
@@ -18,11 +17,11 @@ namespace SOR4_Swapper
             classlib = mainwindow.classlib;
             labelOrigToReplace.Text = "\u2794";
             characterList.DrawMode = DrawMode.OwnerDrawFixed;
-            characterList.DrawItem += new System.Windows.Forms.DrawItemEventHandler(characterList_DrawItem);
-            characterList.SelectedIndexChanged += new System.EventHandler(characterList_SelectedIndexChanged);
+            characterList.DrawItem += new DrawItemEventHandler(characterList_DrawItem);
+            characterList.SelectedIndexChanged += new EventHandler(characterList_SelectedIndexChanged);
             replacementComboBox.DrawMode = DrawMode.OwnerDrawFixed;
-            replacementComboBox.DrawItem += new System.Windows.Forms.DrawItemEventHandler(characterList_DrawItem);
-            replacementComboBox.SelectedIndexChanged += new System.EventHandler(replacementComboBox_SelectedIndexChanged);
+            replacementComboBox.DrawItem += new DrawItemEventHandler(characterList_DrawItem);
+            replacementComboBox.SelectedIndexChanged += new EventHandler(replacementComboBox_SelectedIndexChanged);
         }
 
         private void characterList_DrawItem(object sender, DrawItemEventArgs e)

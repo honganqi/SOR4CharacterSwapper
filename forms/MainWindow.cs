@@ -23,6 +23,8 @@ namespace SOR4_Swapper
         public Thumbnails thumbnailslib = new();
         BigfileExplorer bigfileClass;
         Swaps swaps = new();
+        public forms.TextEditor textEditorForm;
+
 
         // accessible by BigfileExplorer
         public string originalReferenceForBigfile;
@@ -387,6 +389,7 @@ namespace SOR4_Swapper
 
             bigfileClass.Initialize();
 
+            textEditorForm = new(this);
 
             // initialize shader combobox in customizer
             string[] shaderStrings = { "Normal", "Shiva Double", "Elite", "Motion Blur", "Doppelganger" };
@@ -473,6 +476,9 @@ namespace SOR4_Swapper
 
         public void ApplyChanges()
         {
+            //GameText customTextTransit = textEditorForm.GetGameTextFromUI();
+            GameTextCollection customTextTransit = textEditorForm.TransportGameText();
+            if (customTextTransit == null) customTextTransit = new();
             string createdBackup = classlib.CreateBackup();
             string originalBigfilePath = classlib.bigfilePath;
 
@@ -490,7 +496,7 @@ namespace SOR4_Swapper
             }
 
             GetValuesFromUI(true);
-            if (bigfileClass.CommitChanges(swaps))
+            if (bigfileClass.CommitChanges(swaps, customTextTransit))
             {
                 info.labelValidBigfile.Text = "modded v7 bigfile";
                 info.labelValidBigfile.ForeColor = Color.Crimson;
@@ -533,6 +539,8 @@ namespace SOR4_Swapper
             swaps.LevelChangeList = classlib.levelChangeList;
             swaps.CharacterCustomizationQueue = classlib.characterCustomizationQueue;
             swaps.CustomCharacterNamesQueue = classlib.customCharacterNames;
+
+            if (textEditorForm.chkSwapFile.Checked) swaps.GameTextCollection = textEditorForm.ExportTextSwap();
         }
 
         public void ClearSwaps(string mode, string function, bool fromAll = false)
@@ -1528,41 +1536,26 @@ namespace SOR4_Swapper
                 swapperlevels.btnShowList.Enabled = readable;
                 randomizerlevels.btnShowList.Enabled = readable;
                 charactercustomizerscreen.characterList.Enabled = readable;
+
                 if (difficultyscreen.cmbPlayerHitstopValuesOptions.SelectedIndex > 0)
-                {
                     difficultyscreen.txtPlayerHitstop.Enabled = currentEditable;
-                }
                 else
-                {
                     difficultyscreen.txtPlayerHitstop.Enabled = false;
-                }
-                charactercustomizerscreen.characterList.Enabled = readable;
+
                 if (difficultyscreen.cmbPlayerHitstunValuesOptions.SelectedIndex > 0)
-                {
                     difficultyscreen.txtPlayerHitstun.Enabled = currentEditable;
-                }
                 else
-                {
                     difficultyscreen.txtPlayerHitstun.Enabled = false;
-                }
-                charactercustomizerscreen.characterList.Enabled = readable;
+
                 if (difficultyscreen.cmbEnemyHitstopValuesOptions.SelectedIndex > 0)
-                {
                     difficultyscreen.txtEnemyHitstop.Enabled = currentEditable;
-                }
                 else
-                {
                     difficultyscreen.txtEnemyHitstop.Enabled = false;
-                }
-                charactercustomizerscreen.characterList.Enabled = readable;
+
                 if (difficultyscreen.cmbEnemyHitstunValuesOptions.SelectedIndex > 0)
-                {
                     difficultyscreen.txtEnemyHitstun.Enabled = currentEditable;
-                }
                 else
-                {
                     difficultyscreen.txtEnemyHitstun.Enabled = false;
-                }
             }
         }
 
@@ -1926,7 +1919,7 @@ namespace SOR4_Swapper
                             currentlyLoadedFile = Path.GetFileName(settingsFilename);
                             ReselectAllCmb(previouslySelected);
                             ResetForm();
-                            string viewmode = "protected";
+                            string viewmode = "editable";
                             if (currentEditable && currentReadable)
                             {
                                 viewmode = "editable";
@@ -1983,6 +1976,17 @@ namespace SOR4_Swapper
                                 ResetForm(true);
                             }
                         }
+
+                        System.Text.StringBuilder msg = new();
+                        msg.AppendLine(err.GetType().FullName);
+                        msg.AppendLine(err.Message);
+                        System.Diagnostics.StackTrace st = new();
+                        msg.AppendLine(st.ToString());
+                        msg.AppendLine();
+                        string exePath = AppDomain.CurrentDomain.BaseDirectory;
+                        string path = $"{exePath}sor4swapper_error_{DateTime.Now.ToString("yyyyMMdd-HHmmss")}.log";
+                        MessageBox.Show(path);
+                        File.AppendAllText(path, msg.ToString());
                     }
                 }
             }
@@ -1999,6 +2003,7 @@ namespace SOR4_Swapper
                     foreach (KeyValuePair<int, int> swap in swapContents)
                         classlib.AddToList(this, "character", swap.Key, swap.Value, true);
                 }
+
                 swapContents = swapSettings.ItemChangeList;
                 if (swapContents != null)
                 {
@@ -2023,14 +2028,30 @@ namespace SOR4_Swapper
                 InitializeCustomNames();
                 if (customList != null)
                 {
+                    Dictionary<int, int> missingSwaps = new();
                     foreach (KeyValuePair<int, CharacterClass> customCharacter in customList)
                     {
                         // customCharacter.Value = class of customized (and replaced) character
-                        //if (!swapSettings.ChangeList.ContainsKey(customCharacter.Key) && (customCharacter.Key != customCharacter.Value.NewCharacterId))
-                        //    classlib.AddToList(this, "character", customCharacter.Key, customCharacter.Value.NewCharacterId);
+                        if (!swapSettings.ChangeList.ContainsKey(customCharacter.Key) && (customCharacter.Key != customCharacter.Value.NewCharacterId))
+                        {
+                            missingSwaps.Add(customCharacter.Key, customCharacter.Value.NewCharacterId);
+                            classlib.AddToList(this, "character", customCharacter.Key, customCharacter.Value.NewCharacterId);
+                        }
+
                         classlib.AddCustom(this, "character", customCharacter.Key, customCharacter.Value);
                         classlib.characterCustomizationInMemory[customCharacter.Key] = customCharacter.Value;
                         classlib.customCharacterNames[customCharacter.Value.NameIndex] = customCharacter.Value.NewName;
+                    }
+                    if (missingSwaps.Count > 0)
+                    {
+                        string missingSwapsText = "Customizations were found for the following missing swaps:\n\n";
+                        foreach (KeyValuePair<int, int> missing in missingSwaps)
+                        {
+                            missingSwapsText += Library.characterDictionary[missing.Key].Name + " -> " + Library.characterDictionary[missing.Value].Name + "\n";
+                        }
+                        missingSwapsText += "\nYou may inspect these by going to the Characters tab in the Swapper section.\n";
+                        MessageBox.Show(missingSwapsText, "Missing swaps added", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
                     }
                 }
 
@@ -2055,6 +2076,9 @@ namespace SOR4_Swapper
                     difficultyscreen.LoadSettings(swapSettings.Difficulty, swapSettings.GameplayConfigDataSave, swapSettings.GlobalCharacterSettings);
                 else
                     difficultyscreen.LoadSettings(swapSettings.Difficulty, bigfileClass.gameplayConfigData, swapSettings.GlobalCharacterSettings);
+
+                if (swapSettings.GameTextCollection != null)
+                    textEditorForm.ImportTextSwap(swapSettings.GameTextCollection);
 
                 return true;
             }
@@ -2108,6 +2132,10 @@ namespace SOR4_Swapper
 
         #endregion
 
+        private void btnTextEditor_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     public class VersionClass
     {

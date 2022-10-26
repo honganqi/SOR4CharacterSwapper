@@ -1,6 +1,6 @@
 {
-	"version": "4.2.7.0",
-	"release_date": "2022-08-31T05:41:00",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.7.zip/download",
-	"description": "Quickfix: Fixed issues with character names'"
+	"version": "4.2.8.0",
+	"release_date": "2022-10-26T10:11:06",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.2.8.zip/download",
+	"description": "Added Text Editor (Customizer > Game Text)"
 }

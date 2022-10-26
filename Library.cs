@@ -72,6 +72,7 @@ namespace SOR4_Swapper
             public bool IsTraining { get; set; }
             public bool IsExcluded { get; set; }
         }
+
         public static Dictionary<int, Character> characterDictionary = new()
         {
             [0] = new Character { Name = "--- PLAYABLES ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
@@ -619,6 +620,24 @@ namespace SOR4_Swapper
             [93] = new Level { Name = "Survival - SOR3 Roof", Path = "levels/survival/lvl_biome_retro_sor3roof", Thumbnail = "decors/survival/retro/sor3/roof/sor3roof_bg02", IsStory = false, IsChallenge = false, IsBossRush = false, IsBattle = false, IsTraining = false, IsSurvival = true, IsExcluded = false },
             [94] = new Level { Name = "Survival - SOR3 Temple", Path = "levels/survival/lvl_biome_retro_sor3temple", Thumbnail = "decors/survival/retro/sor3/temple/sor3temple_bg02", IsStory = false, IsChallenge = false, IsBossRush = false, IsBattle = false, IsTraining = false, IsSurvival = true, IsExcluded = false },
         };
+        public static Dictionary<string, string> languages = new()
+        {
+            ["br"] = "Português",
+            ["de"] = "Deutsch",
+            ["en"] = "English",
+            ["es"] = "Español",
+            ["fr"] = "Français",
+            ["it"] = "Italiano",
+            ["ja"] = "日本語",
+            ["ko"] = "한국어",
+            //["nl"] = "Nederlands",
+            //["pl"] = "Polski",
+            ["ru"] = "Русский",
+            ["uk"] = "Українська",
+            ["zh"] = "简体中文",
+            ["zt"] = "繁體中文",
+            ["ztpc"] = "繁體中文",
+        };
 
         public Dictionary<string, int> characterPathToIndex = new();
         public Dictionary<string, int> itemPathToIndex = new();
@@ -655,6 +674,7 @@ namespace SOR4_Swapper
         public string bigfilePath;
         public string backup_filename;
         public string gameVerString;
+        public Dictionary<string, GameText> gameText;
 
         public DataTable swapTable = new();
         public DataTable itemSwapTable = new();

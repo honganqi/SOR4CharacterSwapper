@@ -69,6 +69,15 @@ namespace SOR4_Swapper
 
         public void SwitchTabs(string screen)
         {
+            switch (_mainwindow.functionmode)
+            {
+                case "randomizer":
+                    btnPresetsPanel.Text = "Presets";
+                    break;
+                case "custom":
+                    btnPresetsPanel.Text = "Game Text";
+                    break;
+            }
             List<Button> buttons = new()
             {
                 btnCharPanel,
@@ -154,18 +163,17 @@ namespace SOR4_Swapper
                     break;
                 case "presets":
                     btnTo = btnPresetsPanel;
-                    targetForm = _mainwindow.randomizerpresets;
+                    if (_mainwindow.functionmode == "randomizer")
+                        targetForm = _mainwindow.randomizerpresets;
+                    if (_mainwindow.functionmode == "custom")
+                        _mainwindow.textEditorForm.Show();
                     break;
             }
 
-            if (_mainwindow.functionmode == "randomizer")
-            {
+            if ((_mainwindow.functionmode == "randomizer") || (_mainwindow.functionmode == "custom"))
                 btnPresetsPanel.Show();
-            }
             else
-            {
                 btnPresetsPanel.Hide();
-            }
 
             foreach (Button button in buttons)
             {
@@ -197,25 +205,33 @@ namespace SOR4_Swapper
 
             _mainwindow.screenmode = screen;
 
-            if (panelMain.Controls.Find(targetForm.Name, true).FirstOrDefault() == null)
+            if (targetForm.Name != "")
             {
-                panelMain.Controls.Clear();
-                panelMain.Controls.Add(targetForm);
-                targetForm.Show();
-                panelDivider.BringToFront();
-                btnTo.BringToFront();
-                panelMain.BringToFront();
-
-                if (listPanelToSwitchTo.Name != "")
+                if (panelMain.Controls.Find(targetForm.Name, true).FirstOrDefault() == null)
                 {
-                    if (panelMain.Controls.Find(listPanelToSwitchTo.Name, true).FirstOrDefault() == null)
+                    panelMain.Controls.Clear();
+                    panelMain.Controls.Add(targetForm);
+                    targetForm.Show();
+                    panelDivider.BringToFront();
+                    btnTo.BringToFront();
+                    panelMain.BringToFront();
+
+                    if (listPanelToSwitchTo.Name != "")
                     {
-                        _mainwindow.panelSwapList.Controls.Clear();
-                        _mainwindow.panelSwapList.Controls.Add(listPanelToSwitchTo);
-                        listPanelToSwitchTo.Show();
+                        if (panelMain.Controls.Find(listPanelToSwitchTo.Name, true).FirstOrDefault() == null)
+                        {
+                            _mainwindow.panelSwapList.Controls.Clear();
+                            _mainwindow.panelSwapList.Controls.Add(listPanelToSwitchTo);
+                            listPanelToSwitchTo.Show();
+                        }
                     }
                 }
             }
+            else
+            {
+                SwitchTabs("characters");
+            }
+
         }
 
         private void btnCharPanel_Click(object sender, EventArgs e)

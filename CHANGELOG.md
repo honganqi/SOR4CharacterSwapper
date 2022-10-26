@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.8 - 2022/10/26 18:11:06 GMT+08:00
+### Added
+* Added a Text Editor. You can access this by going to
+`Customizer` then `Game Text`. The contents of the text editor
+can be imported and exported using `*.swaptext` files.
+* Added a function where, upon loading a swap, it automatically
+checks the swap file for errors and fixes it without modifying
+the swap file. There was a very rare error related to having a
+swap with customized characters where the actual swap was
+missing which crashed the Swapper. An alert box will pop up
+showing what the swaps are when this error is found.
+* In case of a crash or an error, the Swapper now saves a log
+file in the same folder
+
 ## 4.2.7 - 2022/08/31 13:41:00 GMT+08:00
 ### Fixed
 * Fixed the issue where, when loading any swap mods, characters
