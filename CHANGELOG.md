@@ -15,6 +15,7 @@ missing which crashed the Swapper. An alert box will pop up
 showing what the swaps are when this error is found.
 * In case of a crash or an error, the Swapper now saves a log
 file in the same folder
+* A log file is now created when the app crashes
 
 ## 4.2.7 - 2022/08/31 13:41:00 GMT+08:00
 ### Fixed
