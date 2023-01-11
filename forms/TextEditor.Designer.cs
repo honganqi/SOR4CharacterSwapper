@@ -29,10 +29,12 @@ namespace SOR4_Swapper.forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTable = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.colIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colReset = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panelFilters = new System.Windows.Forms.Panel();
             this.labelDateCreated = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -45,11 +47,13 @@ namespace SOR4_Swapper.forms
             this.cmbLang = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panelApply = new System.Windows.Forms.Panel();
+            this.chkAffectAll = new System.Windows.Forms.CheckBox();
             this.chkSwapFile = new System.Windows.Forms.CheckBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.chkTextApply = new System.Windows.Forms.CheckBox();
             this.btnReset = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
+            this.btnCopyToAll = new System.Windows.Forms.Button();
             this.panelTable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelFilters.SuspendLayout();
@@ -73,17 +77,22 @@ namespace SOR4_Swapper.forms
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colIndex,
-            this.colText});
+            this.colText,
+            this.colReset});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(12, 6);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(909, 414);
             this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // colIndex
             // 
+            this.colIndex.DataPropertyName = "Index";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.colIndex.DefaultCellStyle = dataGridViewCellStyle2;
             this.colIndex.HeaderText = "Index";
             this.colIndex.Name = "colIndex";
             this.colIndex.ReadOnly = true;
@@ -92,10 +101,20 @@ namespace SOR4_Swapper.forms
             // 
             // colText
             // 
+            this.colText.DataPropertyName = "Text";
             this.colText.HeaderText = "Text";
             this.colText.Name = "colText";
             this.colText.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colText.Width = 580;
+            // 
+            // colReset
+            // 
+            this.colReset.DataPropertyName = "Reset";
+            this.colReset.HeaderText = "Reset";
+            this.colReset.Name = "colReset";
+            this.colReset.Text = "Reset";
+            this.colReset.UseColumnTextForButtonValue = true;
+            this.colReset.Width = 60;
             // 
             // panelFilters
             // 
@@ -211,6 +230,8 @@ namespace SOR4_Swapper.forms
             // 
             // panelApply
             // 
+            this.panelApply.Controls.Add(this.btnCopyToAll);
+            this.panelApply.Controls.Add(this.chkAffectAll);
             this.panelApply.Controls.Add(this.chkSwapFile);
             this.panelApply.Controls.Add(this.btnSave);
             this.panelApply.Controls.Add(this.chkTextApply);
@@ -222,10 +243,20 @@ namespace SOR4_Swapper.forms
             this.panelApply.Size = new System.Drawing.Size(933, 63);
             this.panelApply.TabIndex = 90;
             // 
+            // chkAffectAll
+            // 
+            this.chkAffectAll.AutoSize = true;
+            this.chkAffectAll.Location = new System.Drawing.Point(373, 6);
+            this.chkAffectAll.Name = "chkAffectAll";
+            this.chkAffectAll.Size = new System.Drawing.Size(259, 21);
+            this.chkAffectAll.TabIndex = 71;
+            this.chkAffectAll.Text = "Apply the next changes to all languages";
+            this.chkAffectAll.UseVisualStyleBackColor = true;
+            // 
             // chkSwapFile
             // 
             this.chkSwapFile.AutoSize = true;
-            this.chkSwapFile.Location = new System.Drawing.Point(361, 21);
+            this.chkSwapFile.Location = new System.Drawing.Point(144, 30);
             this.chkSwapFile.Name = "chkSwapFile";
             this.chkSwapFile.Size = new System.Drawing.Size(216, 21);
             this.chkSwapFile.TabIndex = 70;
@@ -248,7 +279,7 @@ namespace SOR4_Swapper.forms
             // chkTextApply
             // 
             this.chkTextApply.AutoSize = true;
-            this.chkTextApply.Location = new System.Drawing.Point(144, 21);
+            this.chkTextApply.Location = new System.Drawing.Point(144, 6);
             this.chkTextApply.Name = "chkTextApply";
             this.chkTextApply.Size = new System.Drawing.Size(211, 21);
             this.chkTextApply.TabIndex = 68;
@@ -280,6 +311,19 @@ namespace SOR4_Swapper.forms
             this.btnLoad.Text = "Import";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // btnCopyToAll
+            // 
+            this.btnCopyToAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCopyToAll.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopyToAll.Location = new System.Drawing.Point(373, 28);
+            this.btnCopyToAll.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.btnCopyToAll.Name = "btnCopyToAll";
+            this.btnCopyToAll.Size = new System.Drawing.Size(167, 25);
+            this.btnCopyToAll.TabIndex = 72;
+            this.btnCopyToAll.Text = "Copy to all other languages";
+            this.btnCopyToAll.UseVisualStyleBackColor = true;
+            this.btnCopyToAll.Click += new System.EventHandler(this.btnCopyToAll_Click);
             // 
             // TextEditor
             // 
@@ -314,12 +358,9 @@ namespace SOR4_Swapper.forms
         private System.Windows.Forms.Panel panelApply;
         private System.Windows.Forms.Button btnReset;
         private System.Windows.Forms.Button btnLoad;
-        private System.Windows.Forms.CheckBox chkTextApply;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.TextBox txtGridText;
         private System.Windows.Forms.TextBox txtGridIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIndex;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colText;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtTitle;
@@ -327,5 +368,11 @@ namespace SOR4_Swapper.forms
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelDateCreated;
         public System.Windows.Forms.CheckBox chkSwapFile;
+        public System.Windows.Forms.CheckBox chkAffectAll;
+        public System.Windows.Forms.CheckBox chkTextApply;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colIndex;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colText;
+        private System.Windows.Forms.DataGridViewButtonColumn colReset;
+        private System.Windows.Forms.Button btnCopyToAll;
     }
 }

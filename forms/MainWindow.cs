@@ -15,9 +15,6 @@ namespace SOR4_Swapper
 {
     public partial class MainWindow : Form
     {
-        // internal variables
-        public Assembly imageAssembly = Assembly.GetExecutingAssembly();
-
         // class references
         public Library classlib = new();
         public Thumbnails thumbnailslib = new();
@@ -57,8 +54,10 @@ namespace SOR4_Swapper
         public DifficultyScreen difficultyscreen;
         public OwnerDetails ownerdetailsscreen;
         public CustomizerCharacters charactercustomizerscreen;
+        public CustomizerItems itemcustomizerscreen;
         public CustomizerLevels levelcustomizerscreen;
         public CharacterCustomizerPanel charactercustomizerpanel;
+        public ItemCustomizerPanel itemcustomizerpanel;
         public string screenmode = "characters";
         public string functionmode = "swapper";
 
@@ -172,12 +171,22 @@ namespace SOR4_Swapper
                 TopLevel = false,
                 TopMost = true
             };
+            itemcustomizerscreen = new CustomizerItems(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
             levelcustomizerscreen = new CustomizerLevels(this)
             {
                 TopLevel = false,
                 TopMost = true
             };
             charactercustomizerpanel = new CharacterCustomizerPanel(this)
+            {
+                TopLevel = false,
+                TopMost = true
+            };
+            itemcustomizerpanel = new ItemCustomizerPanel(this)
             {
                 TopLevel = false,
                 TopMost = true
@@ -218,6 +227,8 @@ namespace SOR4_Swapper
             {
                 swapperitems.cmbItemOriginalList.Items.Insert(asset.Key, asset.Value.Name);
                 swapperitems.cmbItemReplacementList.Items.Insert(asset.Key, asset.Value.Name);
+                itemcustomizerscreen.itemList.Items.Insert(asset.Key, asset.Value.Name);
+                itemcustomizerscreen.cmbTransformOnHit.Items.Insert(asset.Key, asset.Value.Name);
                 classlib.itemPathToIndex[asset.Value.Path] = asset.Key;
             }
 
@@ -235,69 +246,22 @@ namespace SOR4_Swapper
                 classlib.levelPathToIndex[asset.Value.Path] = asset.Key;
             }
 
-            Stream thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.bmc.png");
-            Bitmap thumbBitmap = new Bitmap(thumbStream);
-            container.imgBMCSupport.Image = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.sflogo.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            container.imgSF.Image = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.youtube.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            container.imgYoutube.Image = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.twitch.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            container.imgTwitch.Image = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.open.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnOpenBigfile.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.random.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnShowRandomPanel.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.swapper.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnShowSwapperPanel.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.customize.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnShowCustomizer.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.load.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnLoadSwap.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.difficulty.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnDifficultyPanel.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.author.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnOwnerPanel.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.save.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnSaveSwap.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.help.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnInstructions.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.exit.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnClose.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.min.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            btnMinimize.BackgroundImage = thumbBitmap;
-
-            thumbStream = imageAssembly.GetManifestResourceStream("SOR4_Swapper.img.listshadow.png");
-            thumbBitmap = new Bitmap(thumbStream);
-            imgListShadow.BackgroundImage = thumbBitmap;
+            container.imgBMCSupport.Image = Images.Load("bmc");
+            container.imgSF.Image = Images.Load("sflogo");
+            container.imgYoutube.Image = Images.Load("youtube");
+            container.imgTwitch.Image = Images.Load("twitch");
+            btnOpenBigfile.BackgroundImage = Images.Load("open");
+            btnShowRandomPanel.BackgroundImage = Images.Load("random");
+            btnShowSwapperPanel.BackgroundImage = Images.Load("swapper");
+            btnShowCustomizer.BackgroundImage = Images.Load("customize");
+            btnLoadSwap.BackgroundImage = Images.Load("load");
+            btnDifficultyPanel.BackgroundImage = Images.Load("difficulty");
+            btnOwnerPanel.BackgroundImage = Images.Load("author");
+            btnSaveSwap.BackgroundImage = Images.Load("save");
+            btnInstructions.BackgroundImage = Images.Load("help");
+            btnClose.BackgroundImage = Images.Load("exit");
+            btnMinimize.BackgroundImage = Images.Load("min");
+            imgListShadow.BackgroundImage = Images.Load("listshadow");
 
             panelContainer.Controls.Add(container);
             container.Show();
@@ -394,7 +358,8 @@ namespace SOR4_Swapper
             // initialize shader combobox in customizer
             string[] shaderStrings = { "Normal", "Shiva Double", "Elite", "Motion Blur", "Doppelganger" };
             int shaderComboIndex = 0;
-            foreach (var item in bigfileClass.shaderStrings)
+            classlib.shaderStrings = bigfileClass.GetListStrings("shaders");
+            foreach (var item in classlib.shaderStrings)
                 charactercustomizerscreen.cmbShader.Items.Add(shaderStrings[shaderComboIndex++]);
             foreach (var item in classlib.bigfileClass.superArmors)
                 charactercustomizerscreen.cmbMoveArmor.Items.Add(item.Key);
@@ -402,6 +367,20 @@ namespace SOR4_Swapper
                 charactercustomizerscreen.cmbMoveDpad.Items.Add(item.Key);
             foreach (var item in classlib.bigfileClass.moveButtons)
                 charactercustomizerscreen.cmbMoveButton.Items.Add(item.Key);
+
+            // initialize weapon type combobox in customizer
+            string[] weaponTypeStrings = { "Not a weapon", "Pipe", "Bottle", "Katana", "Knife", "Vial", "Taser", "Butcher Knife", "Halberd", "Tonfa", "Umbrella" };
+            int weaponTypeComboIndex = 0;
+            classlib.weaponTypeStrings = bigfileClass.GetListStrings("weaponTypes");
+            foreach (var item in classlib.weaponTypeStrings)
+                itemcustomizerscreen.cmbWeaponType.Items.Add(weaponTypeStrings[weaponTypeComboIndex++]);
+
+            // initialize food type combobox in customizer
+            string[] foodTypeStrings = { "Not food", "Small", "Big" };
+            int foodTypeComboIndex = 0;
+            classlib.foodTypeStrings = bigfileClass.GetListStrings("foodTypes");
+            foreach (var item in classlib.foodTypeStrings)
+                itemcustomizerscreen.cmbFood.Items.Add(foodTypeStrings[foodTypeComboIndex++]);
 
             // add levels to level customizer
             foreach (var levelClass in Library.levelDictionary)
@@ -476,9 +455,6 @@ namespace SOR4_Swapper
 
         public void ApplyChanges()
         {
-            //GameText customTextTransit = textEditorForm.GetGameTextFromUI();
-            GameTextCollection customTextTransit = textEditorForm.TransportGameText();
-            if (customTextTransit == null) customTextTransit = new();
             string createdBackup = classlib.CreateBackup();
             string originalBigfilePath = classlib.bigfilePath;
 
@@ -496,7 +472,8 @@ namespace SOR4_Swapper
             }
 
             GetValuesFromUI(true);
-            if (bigfileClass.CommitChanges(swaps, customTextTransit))
+
+            if (bigfileClass.CommitChanges(swaps))
             {
                 info.labelValidBigfile.Text = "modded v7 bigfile";
                 info.labelValidBigfile.ForeColor = Color.Crimson;
@@ -539,8 +516,10 @@ namespace SOR4_Swapper
             swaps.LevelChangeList = classlib.levelChangeList;
             swaps.CharacterCustomizationQueue = classlib.characterCustomizationQueue;
             swaps.CustomCharacterNamesQueue = classlib.customCharacterNames;
+            swaps.ItemCustomizationQueue = classlib.itemCustomizationQueue;
 
-            if (textEditorForm.chkSwapFile.Checked) swaps.GameTextCollection = textEditorForm.ExportTextSwap();
+            if (textEditorForm.chkSwapFile.Checked|| textEditorForm.chkTextApply.Checked)
+                swaps.GameTextCollection = textEditorForm.ExportTextSwap(applyChanges);
         }
 
         public void ClearSwaps(string mode, string function, bool fromAll = false)
@@ -615,6 +594,10 @@ namespace SOR4_Swapper
                         case "customCharacter":
                             charactercustomizerpanel.labelReplaceCount.Text = "0";
                             charactercustomizerscreen.btnClearSwapList.Enabled = false;
+                            break;
+                        case "customItem":
+                            itemcustomizerpanel.labelReplaceCount.Text = "0";
+                            itemcustomizerscreen.btnClearSwapList.Enabled = false;
                             break;
                     }
                     ResetForm();
@@ -909,32 +892,28 @@ namespace SOR4_Swapper
                             int targetKey = assetKey;
 
                             // initialize characterClass with original character's original attributes
-                            CharacterClass characterClass = new(bigfileClass.characterCollection[assetKey]);
+                            CharacterClass characterClass = bigfileClass.characterCollection[assetKey].Copy();
 
                             // if character is found in swap list, change characterClass into swap target's original attributes
                             if (classlib.changeList.ContainsKey(assetKey)) {
                                 targetKey = classlib.changeList[assetKey];
-                                characterClass = new(bigfileClass.characterCollection[targetKey]);
+                                characterClass = bigfileClass.characterCollection[targetKey].Copy();
                             }
 
                             // if character is found in customization list
                             if (classlib.characterCustomizationQueue.ContainsKey(assetKey))
-                            {
-                                characterClass = new(classlib.characterCustomizationQueue[assetKey]);
-                            }
+                                characterClass = classlib.characterCustomizationQueue[assetKey].Copy();
 
                             characterClass.Team = teamIterator;
 
                             // if character has an entry in "memory" but not yet added to list
                             if (!classlib.characterCustomizationInMemory.ContainsKey(assetKey))
-                            {
                                 classlib.characterCustomizationInMemory[assetKey] = characterClass;
-                            }
+
                             classlib.AddCustom(this, "character", assetKey, characterClass);
                             foreach (DataGridViewRow dr in levelcustomizerscreen.dgvLevelSettings.Rows)
-                            {
                                 dr.Cells["teams"].Value = true;
-                            }
+
                             teamIterator++;
                         }
 
@@ -1354,13 +1333,9 @@ namespace SOR4_Swapper
             container.panelDifficulty.Hide();
             container.panelOwner.Hide();
             if (functionmode == "custom")
-            {
                 labelDisplayList.Text = "CUSTOMIZATION List";
-            }
             else
-            {
                 labelDisplayList.Text = "REPLACEMENT List";
-            }
             container.SwitchTabs(screenmode);
         }
 
@@ -1604,54 +1579,24 @@ namespace SOR4_Swapper
             }
         }
 
-        private void btnInstructions_Click(object sender, EventArgs e)
-        {
-            panelInstructions.Visible = true;
-        }
-
-        private void btnInstructionsClose_Click(object sender, EventArgs e)
-        {
-            btnInstructionsClose();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
+        private void btnInstructions_Click(object sender, EventArgs e) => panelInstructions.Visible = true;
+        private void btnInstructionsClose_Click(object sender, EventArgs e) => btnInstructionsClose();
+        private void btnMinimize_Click(object sender, EventArgs e) => WindowState = FormWindowState.Minimized;
         private void btnOwnerPanel_Click(object sender, EventArgs e)
         {
             btnInstructionsClose();
             container.panelOwner.Visible = true;
             container.panelOwner.BringToFront();
         }
-
         private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult exitAsk = MessageBox.Show("Yeah?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             e.Cancel = (exitAsk == DialogResult.No);
         }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnCustomize_Click(object sender, EventArgs e)
-        {
-            ChangeFunction("custom");
-        }
-
-        private void btnShowSwapperPanel_Click(object sender, EventArgs e)
-        {
-            ChangeFunction("swapper");
-        }
-
-        private void btnShowRandomPanel_Click(object sender, EventArgs e)
-        {
-            ChangeFunction("randomizer");
-        }
-
+        private void btnClose_Click(object sender, EventArgs e) => Close();
+        private void btnCustomize_Click(object sender, EventArgs e) => ChangeFunction("custom");
+        private void btnShowSwapperPanel_Click(object sender, EventArgs e) => ChangeFunction("swapper");
+        private void btnShowRandomPanel_Click(object sender, EventArgs e) => ChangeFunction("randomizer");
         private void btnDifficultyPanel_Click(object sender, EventArgs e)
         {
             btnInstructionsClose();
@@ -1735,11 +1680,7 @@ namespace SOR4_Swapper
             cm.Show(btnSaveSwap, new Point(5,60));
         }
 
-        private void SaveAs_Editable_Click(object sender, EventArgs e)
-        {
-            SaveSwap(2);
-        }
-
+        private void SaveAs_Editable_Click(object sender, EventArgs e) => SaveSwap(2);
         private void SaveAs_Readonly_Click(object sender, EventArgs e)
         {
             DialogResult cont = MessageBox.Show("You are about to export a READ-ONLY swap mod. If you haven't saved an editable copy for yourself, please do so before exporting a copy. \n\n" + Library.TEXT_ACCESSMODE_READONLY + " If you want to create or share a modifiable swap select the \"Save editable swap mod\" option.", "Export Read-only Mod", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -1864,6 +1805,7 @@ namespace SOR4_Swapper
                     classlib.ClearTable("destroyable", swaplistdestroyablepanel);
                     classlib.ClearTable("level", swaplistlevelpanel);
                     classlib.ClearTable("customCharacter", charactercustomizerpanel);
+                    classlib.ClearTable("customItem", itemcustomizerpanel);
 
                     // character names
                     InitializeCustomNames();
@@ -1919,7 +1861,7 @@ namespace SOR4_Swapper
                             currentlyLoadedFile = Path.GetFileName(settingsFilename);
                             ReselectAllCmb(previouslySelected);
                             ResetForm();
-                            string viewmode = "editable";
+                            string viewmode = "protected";
                             if (currentEditable && currentReadable)
                             {
                                 viewmode = "editable";
@@ -2055,6 +1997,24 @@ namespace SOR4_Swapper
                     }
                 }
 
+                if (swapSettings.ItemCustomizationQueue != null)
+                {
+                    Dictionary<int, ItemClass> customItemList = swapSettings.ItemCustomizationQueue;
+                    classlib.ClearTable("customItem", itemcustomizerpanel);
+                    if (customItemList != null)
+                    {
+                        foreach (KeyValuePair<int, ItemClass> customItem in customItemList)
+                        {
+                            classlib.AddCustomItem(this, "item", customItem.Key, customItem.Value);
+                            classlib.itemCustomizationInMemory[customItem.Key] = customItem.Value;
+                        }
+                    }
+                }
+                else
+                {
+                    classlib.ClearTable("customItem", itemcustomizerpanel);
+                }
+
                 // add levels to level customizer
                 foreach (DataGridViewRow leveldr in levelcustomizerscreen.dgvLevelSettings.Rows)
                 {
@@ -2131,13 +2091,8 @@ namespace SOR4_Swapper
         }
 
         #endregion
-
-        private void btnTextEditor_Click(object sender, EventArgs e)
-        {
-
-        }
     }
-    public class VersionClass
+    class VersionClass
     {
         [Newtonsoft.Json.JsonProperty("release_date")]
         public string ReleaseDate { get; set; }
@@ -2150,5 +2105,14 @@ namespace SOR4_Swapper
         public string Description { get; set; }
     }
 
-
+    class Images
+    {
+        public static Bitmap Load(string imagename)
+        {
+            Assembly _assembly = Assembly.GetExecutingAssembly();
+            Stream stream = _assembly.GetManifestResourceStream("SOR4_Swapper.img." + imagename + ".png");
+            Bitmap _bitmap = new(stream);
+            return _bitmap;
+        }
+    }
 }

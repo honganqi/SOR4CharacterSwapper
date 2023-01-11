@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.2.9 - 2023/01/11 18:54:48 GMT+08:00
+### Added
+* Added the ability to customize items in the `Customizer` > `Item` tab which includes food and weapons.
+* Added `Multi` (multi-hit), `+HP` (recover green HP), `X Force`, and `Y Force` (horizontal and vertical launch strength) properties to hits of character moves
+* Added `Launch height on hit` property to characters which sets how high they fly when hit
+* Added a toggle in the Text Editor to affect all languages with future edits
+* Added a "Copy to all other languages" button in the `Text Editor` which copies all current items to other languages
+### Fixed
+* Fixed the "Clear list" button not actually working in the Character Customization list (the listed items would still be there)
+* Fixed the custom text not applying if coming from a protected swap
+* Fixed the issue in the Text Editor where the row of Game Text will disappear from the list if the item is made blank. This only happened if the list was filtered before this edit
+* Fixed the label indicating that the loaded swap mod was "editable" if it was actually "protected"
+* Fixed the issue in the Text Editor where the `Include the Swap File when Saving` setting did not get included in the exported file
+
 ## 4.2.8 - 2022/10/26 18:11:06 GMT+08:00
 ### Added
 * Added a Text Editor. You can access this by going to

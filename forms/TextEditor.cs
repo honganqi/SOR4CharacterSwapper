@@ -15,10 +15,9 @@ namespace SOR4_Swapper.forms
     {
         private MainWindow _mainwindow;
         Library classlib;
-        public DataTable mainTable = new();
+        DataTable mainTable = new();
         string currentlyLoadedFile = "";
         Dictionary<string, GameText> customTextInMemory = new();
-        bool resetButton = false;
         string prevSelectedLanguage = "en";
         GameTextCollection gameTextCollection = new();
 
@@ -27,6 +26,7 @@ namespace SOR4_Swapper.forms
             InitializeComponent();
             _mainwindow = mainwindow;
             classlib = mainwindow.classlib;
+            dataGridView1.AutoGenerateColumns = false;
 
             classlib.gameText = classlib.bigfileClass.GetGameText();
             cmbLang.Items.Clear();
@@ -55,11 +55,19 @@ namespace SOR4_Swapper.forms
         #region User Interface
         private void ResetTable(GameText text = null)
         {
-            resetButton = true;
             if ((classlib.gameText != null) && (cmbLang.SelectedIndex != -1))
             {
                 string selectedLanguage = Library.languages.ElementAt(cmbLang.SelectedIndex).Key;
                 mainTable.Rows.Clear();
+                mainTable.Columns.Clear();
+
+                DataColumn colIndex = new();
+                colIndex.ColumnName = "Index";
+                mainTable.Columns.Add(colIndex);
+
+                DataColumn colText = new();
+                colText.ColumnName = "Text";
+                mainTable.Columns.Add(colText);
 
                 bool customized = false;
                 if (text == null)
@@ -88,8 +96,8 @@ namespace SOR4_Swapper.forms
                         mainTable.Rows.Add(new object[] { textpair.Key, textpair.Value });
                     }
                 }
+                InitializeTable();
 
-                dataGridView1.DataSource = mainTable;
                 dataGridView1.Update();
                 dataGridView1.Refresh();
 
@@ -106,6 +114,7 @@ namespace SOR4_Swapper.forms
                     {
                         string index = dr.Cells[0].Value.ToString();
                         string entry = dr.Cells[1].Value.ToString();
+                        
                         if (entry != classlib.gameText[selectedLanguage].Entries[index])
                         {
                             dr.Cells[0].Style.ForeColor = Color.Crimson;
@@ -125,14 +134,27 @@ namespace SOR4_Swapper.forms
 
         public void InitializeTable()
         {
-            DataColumn col = new();
-            col.ColumnName = "Index";
-            mainTable.Columns.Add(col);
-            col = new();
-            col.ColumnName = "Text";
-            mainTable.Columns.Add(col);
             dataGridView1.Columns.Clear();
+
+            DataGridViewTextBoxColumn colIndexCol = new();
+            colIndexCol.Name = "Index";
+            colIndexCol.DataPropertyName = "Index";
+            colIndexCol.ReadOnly = true;
+
+            DataGridViewTextBoxColumn colTextCol = new();
+            colTextCol.Name = "Text";
+            colTextCol.DataPropertyName = "Text";
+
+            DataGridViewButtonColumn buttoncol = new();
+            buttoncol.Name = "Reset";
+            buttoncol.Text = "Reset";
+            buttoncol.UseColumnTextForButtonValue = true;
+            buttoncol.Width = 60;
+
             dataGridView1.DataSource = mainTable;
+            dataGridView1.Columns.Add(colIndexCol);
+            dataGridView1.Columns.Add(colTextCol);
+            dataGridView1.Columns.Add(buttoncol);
 
             dataGridView1.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
             dataGridView1.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.TopLeft;
@@ -142,6 +164,7 @@ namespace SOR4_Swapper.forms
             dataGridView1.Columns[0].Width = 200;
             dataGridView1.Columns[1].Width = 580;
             dataGridView1.Columns[0].ReadOnly = true;
+
         }
         #endregion
 
@@ -246,10 +269,11 @@ namespace SOR4_Swapper.forms
         {
             try
             {
-                gameTextCollection = source;
                 txtAuthor.Text = source.Author;
                 txtTitle.Text = source.Title;
                 chkTextApply.Checked = source.IncludeWhenApplied;
+                chkSwapFile.Checked = source.IncludeInSave;
+                chkAffectAll.Checked = source.ApplyToAllLanguages;
                 labelDateCreated.Text = "Date Created: " + source.DateCreated.ToLocalTime().ToString();
                 labelDateCreated.Show();
                 Dictionary<string, GameText> gametext = source.Collection;
@@ -274,15 +298,19 @@ namespace SOR4_Swapper.forms
                 File.AppendAllText(path, msg.ToString());
                 MessageBox.Show("An error occurred. A log file has been saved in " + path + ".", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
         }
 
-        public GameTextCollection ExportTextSwap()
+        public GameTextCollection ExportTextSwap(bool applyChanges = false)
         {
-            gameTextCollection.Collection = customTextInMemory;
             gameTextCollection.Author = txtAuthor.Text;
             gameTextCollection.Title = txtTitle.Text;
             gameTextCollection.DateCreated = DateTime.UtcNow;
             gameTextCollection.IncludeWhenApplied = chkTextApply.Checked;
+            gameTextCollection.IncludeInSave = chkSwapFile.Checked;
+            gameTextCollection.ApplyToAllLanguages = chkAffectAll.Checked;
+            if ((chkSwapFile.Checked && !applyChanges) || (chkTextApply.Checked && applyChanges))
+                gameTextCollection.Collection = customTextInMemory;
 
             labelDateCreated.Show();
 
@@ -300,38 +328,21 @@ namespace SOR4_Swapper.forms
             return base.ProcessCmdKey(ref msg, keyData); //we didn't handle it
         }
 
-        public GameTextCollection TransportGameText()
-        {
-            GameTextCollection transport;
-            if (gameTextCollection.Collection != null)
-            {
-                transport = gameTextCollection;
-            }
-            else
-            {
-                transport = new();
-                transport.Collection = customTextInMemory;
-                transport.Author = txtAuthor.Text;
-                transport.Title = txtTitle.Text;
-                transport.DateCreated = DateTime.Now;
-            }
-
-            foreach (KeyValuePair<string, string> langpair in Library.languages)
-            {
-                if (customTextInMemory.ContainsKey(langpair.Key))
-                    classlib.gameText[langpair.Key] = customTextInMemory[langpair.Key];
-            }
-
-            return transport;
-        }
-
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             if (cmbLang.Items.Count > 0)
             {
                 string language = Library.languages.ElementAt(cmbLang.SelectedIndex).Key;
                 string index = dataGridView1[0, e.RowIndex].Value.ToString();
-                customTextInMemory[language].Entries[index] = dataGridView1[1, e.RowIndex].Value.ToString();
+                if (chkAffectAll.Checked)
+                {
+                    foreach (KeyValuePair<string, string> pair in Library.languages)
+                        customTextInMemory[pair.Key].Entries[index] = dataGridView1[1, e.RowIndex].Value.ToString();
+                }
+                else
+                {
+                    customTextInMemory[language].Entries[index] = dataGridView1[1, e.RowIndex].Value.ToString();
+                }
                 Color color = Color.Black;
                 if (classlib.gameText[language].Entries[index] != dataGridView1[1, e.RowIndex].Value.ToString())
                     color = Color.Crimson;
@@ -342,12 +353,43 @@ namespace SOR4_Swapper.forms
 
         private void txtGridIndex_TextChanged(object sender, EventArgs e)
         {
-            mainTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%' AND {2} LIKE '%{3}%'", "Index", txtGridIndex.Text, "Text", txtGridText.Text);
+            if (txtGridIndex.Text != "")
+                mainTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%' AND {2} LIKE '%{3}%'", "Index", txtGridIndex.Text, "Text", txtGridText.Text);
+            else
+                mainTable.DefaultView.RowFilter = "";
         }
 
         private void txtGridText_TextChanged(object sender, EventArgs e)
         {
-            mainTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%' AND {2} LIKE '%{3}%'", "Index", txtGridIndex.Text, "Text", txtGridText.Text);
+            if (txtGridText.Text != "")
+                mainTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%' AND {2} LIKE '%{3}%'", "Index", txtGridIndex.Text, "Text", txtGridText.Text);
+            else
+                mainTable.DefaultView.RowFilter = "";
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
+            {
+                string selectedLanguage = Library.languages.ElementAt(cmbLang.SelectedIndex).Key;
+                List<string> entriesList = classlib.gameText[selectedLanguage].Entries.Keys.ToList();
+                dataGridView1.Rows[e.RowIndex].Cells[1].Value = classlib.gameText[selectedLanguage].Entries[entriesList[e.RowIndex]];
+            }
+        }
+
+        private void btnCopyToAll_Click(object sender, EventArgs e)
+        {
+            DialogResult copyAsk = MessageBox.Show("Copy all entries to all the other languages? This will overwrite all modifications. Please make sure you have a backup copy of your text modifications if you have a lot of them.", "Confirm Copy All Text", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (copyAsk == DialogResult.Yes)
+            {
+                string selectedLanguage = Library.languages.ElementAt(cmbLang.SelectedIndex).Key;
+                foreach (var textpair in classlib.gameText)
+                {
+                    if (textpair.Key != selectedLanguage)
+                        customTextInMemory[textpair.Key].Entries = customTextInMemory[selectedLanguage].Entries;
+                }
+            }
         }
     }
 }

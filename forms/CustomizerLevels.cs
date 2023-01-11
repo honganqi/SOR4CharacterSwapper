@@ -59,7 +59,7 @@ namespace SOR4_Swapper
             foreach (DataGridViewRow dr in dgvLevelSettings.Rows)
             {
                 int levelKey = (int)dr.Cells["origKey"].Value;
-                LevelClass levelClass = new(classlib.bigfileClass.levelCollection[levelKey]);
+                LevelClass levelClass = classlib.bigfileClass.levelCollection[levelKey].Copy();
                 levelClass.Teams = (bool)dr.Cells["teams"].Value;
                 levelCustomizationQueue[levelKey] = levelClass;
             }
@@ -77,21 +77,21 @@ namespace SOR4_Swapper
                     int targetKey = assetKey;
 
                     // initialize characterClass with original character's original attributes
-                    CharacterClass characterClass = new(classlib.bigfileClass.characterCollection[assetKey]);
+                    CharacterClass characterClass = classlib.bigfileClass.characterCollection[assetKey].Copy();
                     string origName = characterClass.Name;
                     string swapNameIndex = characterClass.NameIndex;
 
                     // if character is found in customization list
                     if (classlib.characterCustomizationQueue.ContainsKey(assetKey))
                     {
-                        characterClass = new(classlib.characterCustomizationQueue[assetKey]);
+                        characterClass = classlib.characterCustomizationQueue[assetKey].Copy();
                     }
                     else
                     // if character is found in swap list, change characterClass into swap target's original attributes
                     if (classlib.changeList.ContainsKey(assetKey))
                     {
                         targetKey = classlib.changeList[assetKey];
-                        characterClass = new(classlib.bigfileClass.characterCollection[targetKey]);
+                        characterClass = classlib.bigfileClass.characterCollection[targetKey].Copy();
                         characterClass.NameIndex = Library.characterDictionary[assetKey].CustomNameIndex;
                         characterClass.Name = origName;
                     }

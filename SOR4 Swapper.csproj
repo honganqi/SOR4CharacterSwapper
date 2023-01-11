@@ -154,6 +154,18 @@
     <Compile Include="forms\CustomizerCharacters.Designer.cs">
       <DependentUpon>CustomizerCharacters.cs</DependentUpon>
     </Compile>
+    <Compile Include="forms\CustomizerItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\CustomizerItems.Designer.cs">
+      <DependentUpon>CustomizerItems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forms\CustomizerItemsPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\CustomizerItemsPanel.Designer.cs">
+      <DependentUpon>CustomizerItemsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\OwnerDetails.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -301,6 +313,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forms\Container.resx">
       <DependentUpon>Container.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\CustomizerItems.resx">
+      <DependentUpon>CustomizerItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\CustomizerItemsPanel.resx">
+      <DependentUpon>CustomizerItemsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forms\OwnerDetails.resx">
       <DependentUpon>OwnerDetails.cs</DependentUpon>

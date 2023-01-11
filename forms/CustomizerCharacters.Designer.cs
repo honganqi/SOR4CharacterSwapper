@@ -52,6 +52,10 @@ namespace SOR4_Swapper
             this.damage = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hitstop = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hitstun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.multi = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.recoverHP = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.xForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yForce = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Reset = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnResetMove = new System.Windows.Forms.Button();
             this.btnResetCharacter = new System.Windows.Forms.Button();
@@ -86,6 +90,10 @@ namespace SOR4_Swapper
             this.labelOrigSpeedX = new System.Windows.Forms.Label();
             this.labelOrigSpeedY = new System.Windows.Forms.Label();
             this.btnAIReset = new System.Windows.Forms.Button();
+            this.txtVertLaunch = new System.Windows.Forms.TextBox();
+            this.labelVertLaunch = new System.Windows.Forms.Label();
+            this.labelOrigVertLaunch = new System.Windows.Forms.Label();
+            this.btnVertLaunchReset = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picThumbOrig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -311,6 +319,10 @@ namespace SOR4_Swapper
             this.damage,
             this.hitstop,
             this.hitstun,
+            this.multi,
+            this.recoverHP,
+            this.xForce,
+            this.yForce,
             this.Reset});
             this.dataGridView1.Location = new System.Drawing.Point(12, 286);
             this.dataGridView1.Name = "dataGridView1";
@@ -336,11 +348,11 @@ namespace SOR4_Swapper
             // damage
             // 
             this.damage.DataPropertyName = "damage";
-            this.damage.HeaderText = "Damage";
+            this.damage.HeaderText = "DMG";
             this.damage.MinimumWidth = 6;
             this.damage.Name = "damage";
             this.damage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.damage.Width = 57;
+            this.damage.Width = 40;
             // 
             // hitstop
             // 
@@ -359,6 +371,36 @@ namespace SOR4_Swapper
             this.hitstun.Name = "hitstun";
             this.hitstun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.hitstun.Width = 52;
+            // 
+            // multi
+            // 
+            this.multi.HeaderText = "Multi";
+            this.multi.MinimumWidth = 6;
+            this.multi.Name = "multi";
+            this.multi.Width = 40;
+            // 
+            // recoverHP
+            // 
+            this.recoverHP.HeaderText = "+HP";
+            this.recoverHP.MinimumWidth = 6;
+            this.recoverHP.Name = "recoverHP";
+            this.recoverHP.Width = 40;
+            // 
+            // xForce
+            // 
+            this.xForce.HeaderText = "X Force";
+            this.xForce.MinimumWidth = 6;
+            this.xForce.Name = "xForce";
+            this.xForce.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.xForce.Width = 52;
+            // 
+            // yForce
+            // 
+            this.yForce.HeaderText = "Y Force";
+            this.yForce.MinimumWidth = 6;
+            this.yForce.Name = "yForce";
+            this.yForce.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.yForce.Width = 52;
             // 
             // Reset
             // 
@@ -440,7 +482,6 @@ namespace SOR4_Swapper
             this.txtTeam.Size = new System.Drawing.Size(38, 22);
             this.txtTeam.TabIndex = 92;
             this.txtTeam.TextChanged += new System.EventHandler(this.txtTeam_TextChanged);
-            this.txtTeam.Leave += new System.EventHandler(this.txtTeam_Leave);
             this.txtTeam.MouseHover += new System.EventHandler(this.txtTeam_MouseHover);
             // 
             // btnSpeedXReset
@@ -508,6 +549,7 @@ namespace SOR4_Swapper
             this.cmbMoveDpad.Name = "cmbMoveDpad";
             this.cmbMoveDpad.Size = new System.Drawing.Size(146, 21);
             this.cmbMoveDpad.TabIndex = 95;
+            this.cmbMoveDpad.Visible = false;
             this.cmbMoveDpad.SelectedIndexChanged += new System.EventHandler(this.cmbMoveDpad_SelectedIndexChanged);
             // 
             // cmbMoveButton
@@ -519,6 +561,7 @@ namespace SOR4_Swapper
             this.cmbMoveButton.Name = "cmbMoveButton";
             this.cmbMoveButton.Size = new System.Drawing.Size(146, 21);
             this.cmbMoveButton.TabIndex = 96;
+            this.cmbMoveButton.Visible = false;
             this.cmbMoveButton.SelectedIndexChanged += new System.EventHandler(this.cmbMoveButton_SelectedIndexChanged);
             // 
             // cmbMoveArmor
@@ -742,11 +785,58 @@ namespace SOR4_Swapper
             this.btnAIReset.UseVisualStyleBackColor = true;
             this.btnAIReset.Click += new System.EventHandler(this.btnAIReset_Click);
             // 
+            // txtVertLaunch
+            // 
+            this.txtVertLaunch.Enabled = false;
+            this.txtVertLaunch.Location = new System.Drawing.Point(354, 203);
+            this.txtVertLaunch.Name = "txtVertLaunch";
+            this.txtVertLaunch.Size = new System.Drawing.Size(38, 22);
+            this.txtVertLaunch.TabIndex = 122;
+            this.txtVertLaunch.TextChanged += new System.EventHandler(this.txtVertLaunch_TextChanged);
+            // 
+            // labelVertLaunch
+            // 
+            this.labelVertLaunch.AutoSize = true;
+            this.labelVertLaunch.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVertLaunch.Location = new System.Drawing.Point(233, 206);
+            this.labelVertLaunch.Name = "labelVertLaunch";
+            this.labelVertLaunch.Size = new System.Drawing.Size(115, 13);
+            this.labelVertLaunch.TabIndex = 123;
+            this.labelVertLaunch.Text = "Launch height on hit";
+            // 
+            // labelOrigVertLaunch
+            // 
+            this.labelOrigVertLaunch.AutoSize = true;
+            this.labelOrigVertLaunch.Font = new System.Drawing.Font("Segoe UI", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelOrigVertLaunch.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelOrigVertLaunch.Location = new System.Drawing.Point(353, 225);
+            this.labelOrigVertLaunch.Name = "labelOrigVertLaunch";
+            this.labelOrigVertLaunch.Size = new System.Drawing.Size(29, 12);
+            this.labelOrigVertLaunch.TabIndex = 124;
+            this.labelOrigVertLaunch.Text = "label3";
+            this.labelOrigVertLaunch.Visible = false;
+            // 
+            // btnVertLaunchReset
+            // 
+            this.btnVertLaunchReset.Enabled = false;
+            this.btnVertLaunchReset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVertLaunchReset.Location = new System.Drawing.Point(390, 202);
+            this.btnVertLaunchReset.Name = "btnVertLaunchReset";
+            this.btnVertLaunchReset.Size = new System.Drawing.Size(24, 24);
+            this.btnVertLaunchReset.TabIndex = 125;
+            this.btnVertLaunchReset.Text = "Reset";
+            this.btnVertLaunchReset.UseVisualStyleBackColor = true;
+            this.btnVertLaunchReset.Click += new System.EventHandler(this.btnVertLaunchReset_Click);
+            // 
             // CustomizerCharacters
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 501);
+            this.Controls.Add(this.txtVertLaunch);
+            this.Controls.Add(this.btnVertLaunchReset);
+            this.Controls.Add(this.labelOrigVertLaunch);
+            this.Controls.Add(this.labelVertLaunch);
             this.Controls.Add(this.labelMoveButton);
             this.Controls.Add(this.labelMoveDpad);
             this.Controls.Add(this.labelMoveInput);
@@ -845,11 +935,6 @@ namespace SOR4_Swapper
         public System.Windows.Forms.ComboBox cmbMoveDpad;
         public System.Windows.Forms.ComboBox cmbMoveButton;
         public System.Windows.Forms.ComboBox cmbMoveArmor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hit_no;
-        private System.Windows.Forms.DataGridViewTextBoxColumn damage;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hitstop;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hitstun;
-        private System.Windows.Forms.DataGridViewButtonColumn Reset;
         private System.Windows.Forms.TextBox txtGreenHP;
         private System.Windows.Forms.CheckBox chkAlwaysArmor;
         private System.Windows.Forms.Label labelGreenHP;
@@ -869,5 +954,18 @@ namespace SOR4_Swapper
         private System.Windows.Forms.Label labelOrigSpeedX;
         private System.Windows.Forms.Label labelOrigSpeedY;
         private System.Windows.Forms.Button btnAIReset;
+        public System.Windows.Forms.TextBox txtVertLaunch;
+        public System.Windows.Forms.Label labelVertLaunch;
+        private System.Windows.Forms.Label labelOrigVertLaunch;
+        private System.Windows.Forms.Button btnVertLaunchReset;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hit_no;
+        private System.Windows.Forms.DataGridViewTextBoxColumn damage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hitstop;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hitstun;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn multi;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn recoverHP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn xForce;
+        private System.Windows.Forms.DataGridViewTextBoxColumn yForce;
+        private System.Windows.Forms.DataGridViewButtonColumn Reset;
     }
 }

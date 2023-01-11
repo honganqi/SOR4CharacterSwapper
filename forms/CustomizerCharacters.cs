@@ -19,6 +19,14 @@ namespace SOR4_Swapper
         readonly ToolTip resetTooltip = new();
         readonly ToolTip originalTooltip = new();
 
+        CharacterClass selectedCharacterClass;
+        CharacterClass swappedCharacterClass;
+        CharacterClass originalCharacterClass;
+        int selectedCharacterKey = -1;
+        int swappedCharacterKey = -1;
+        int selectedMoveIndex = -1;
+        bool populatingMove = false;
+
 
         public CustomizerCharacters(MainWindow mainwindow)
         {
@@ -43,6 +51,7 @@ namespace SOR4_Swapper
             btnHealthReset.Text = "\u27F3";
             btnSpeedXReset.Text = "\u27F3";
             btnSpeedYReset.Text = "\u27F3";
+            btnVertLaunchReset.Text = "\u27F3";
             btnGreenHPReset.Text = "\u27F3";
             btnMoveArmorReset.Text = "\u27F3";
             btnMoveDpadReset.Text = "\u27F3";
@@ -96,6 +105,7 @@ namespace SOR4_Swapper
             btnMoveButtonReset.Hide();
             cmbMoveDpad.Enabled = false;
             cmbMoveButton.Enabled = false;
+            selectedMoveIndex = -1;
             
             if (cmb.SelectedIndex != -1)
             {
@@ -106,20 +116,22 @@ namespace SOR4_Swapper
                 else
                 {
                     // enable controls
-                    int selectedCharacterKey = cmb.SelectedIndex;
-                    int swappedCharacterKey = selectedCharacterKey;
-                    if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
+                    selectedCharacterKey = cmb.SelectedIndex;
+                    swappedCharacterKey = selectedCharacterKey;
+                    if (classlib.changeList.ContainsKey(swappedCharacterKey))
+                        swappedCharacterKey = classlib.changeList[swappedCharacterKey];
                     if (characterList.Text != "") picThumbOrig.Image = _mainwindow.thumbnailslib.getThumbnail("character", swappedCharacterKey);
-                    Control[] controls = { txtName, txtHealth, txtSpeedX, txtSpeedY, chkBoss, chkDespawn, cmbShader, txtTeam, cmbMoveList, btnSetItem, txtScale, chkAlwaysArmor, cmbAI };
+                    Control[] controls = { txtName, txtHealth, txtSpeedX, txtSpeedY, chkBoss, chkDespawn, cmbShader, txtTeam, txtVertLaunch, cmbMoveList, btnSetItem, txtScale, chkAlwaysArmor, cmbAI };
                     foreach (Control ctrlname in controls) ctrlname.Enabled = _mainwindow.currentEditable;
                     cmbMoveList.Enabled = true;
                     dataGridView1.Hide();
 
-                    CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                    CharacterClass selectedCharacterClass = new(classlib.bigfileClass.characterCollection[selectedCharacterKey]);
+                    selectedCharacterClass = classlib.bigfileClass.characterCollection[selectedCharacterKey].Copy();
+                    swappedCharacterClass = classlib.bigfileClass.characterCollection[swappedCharacterKey].Copy();
+                    originalCharacterClass = classlib.bigfileClass.characterCollection[swappedCharacterKey].Copy();
 
                     if (classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
-                        swappedCharacterClass = new(classlib.characterCustomizationInMemory[selectedCharacterKey]);
+                        swappedCharacterClass = classlib.characterCustomizationInMemory[selectedCharacterKey].Copy();
 
                     // if found in memory
                     if (classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
@@ -146,6 +158,7 @@ namespace SOR4_Swapper
                     chkBoss.Checked = swappedCharacterClass.IsBoss;
                     chkDespawn.Checked = swappedCharacterClass.DespawnsAfterDeath;
                     txtTeam.Text = swappedCharacterClass.Team.ToString();
+                    txtVertLaunch.Text = swappedCharacterClass.VerticalLaunch.ToString();
                     chkAlwaysArmor.Checked = swappedCharacterClass.AlwaysArmor;
                     if (swappedCharacterClass.AI == null)
                         swappedCharacterClass.AI = classlib.bigfileClass.originalCharacterCollection[swappedCharacterKey].AI;
@@ -154,58 +167,70 @@ namespace SOR4_Swapper
 
                     txtScale.Text = swappedCharacterClass.Scale.ToString();
 
-                    if (classlib.bigfileClass.shaderStrings.Contains(swappedCharacterClass.Shader))
-                        cmbShader.SelectedIndex = classlib.bigfileClass.shaderStrings.IndexOf(swappedCharacterClass.Shader);
+                    if (classlib.shaderStrings.Contains(swappedCharacterClass.Shader))
+                        cmbShader.SelectedIndex = classlib.shaderStrings.IndexOf(swappedCharacterClass.Shader);
                     else
                         cmbShader.SelectedIndex = -1;
 
                     // set control color based on value if custom
-                    CharacterClass referenceClass = classlib.bigfileClass.characterCollection[swappedCharacterKey];
                     txtName.ForeColor = CompareValues(txtName.Text.Trim(), swappedCharacterClass.Name, null);
                     labelName.ForeColor = txtName.ForeColor;
-                    txtHealth.ForeColor = CompareValues(txtHealth.Text.Trim(), referenceClass.Health.ToString(), btnHealthReset);
+                    txtHealth.ForeColor = CompareValues(txtHealth.Text.Trim(), originalCharacterClass.Health.ToString(), btnHealthReset);
                     labelHealth.ForeColor = txtHealth.ForeColor;
                     if (txtHealth.ForeColor == Color.Red)
                     {
-                        labelOrigHealth.Text = "(" + referenceClass.Health.ToString() + ")";
+                        labelOrigHealth.Text = "(" + originalCharacterClass.Health.ToString() + ")";
                         labelOrigHealth.Show();
                     }
                     else
                     {
                         labelOrigHealth.Hide();
                     }
-                    txtSpeedX.ForeColor = CompareValues(txtSpeedX.Text.Trim(), referenceClass.Speed.X.ToString(), btnSpeedXReset);
+                    txtSpeedX.ForeColor = CompareValues(txtSpeedX.Text.Trim(), originalCharacterClass.Speed.X.ToString(), btnSpeedXReset);
                     labelSpeedX.ForeColor = txtSpeedX.ForeColor;
                     if (txtHealth.ForeColor == Color.Red)
                     {
-                        labelOrigSpeedX.Text = "(" + referenceClass.Speed.X.ToString() + ")";
+                        labelOrigSpeedX.Text = "(" + originalCharacterClass.Speed.X.ToString() + ")";
                         labelOrigSpeedX.Show();
                     }
                     else
                     {
                         labelOrigSpeedX.Hide();
                     }
-                    txtSpeedY.ForeColor = CompareValues(txtSpeedY.Text.Trim(), referenceClass.Speed.Y.ToString(), btnSpeedYReset);
+                    txtSpeedY.ForeColor = CompareValues(txtSpeedY.Text.Trim(), originalCharacterClass.Speed.Y.ToString(), btnSpeedYReset);
                     labelSpeedY.ForeColor = txtSpeedY.ForeColor;
                     if (txtHealth.ForeColor == Color.Red)
                     {
-                        labelOrigSpeedY.Text = "(" + referenceClass.Speed.Y.ToString() + ")";
+                        labelOrigSpeedY.Text = "(" + originalCharacterClass.Speed.Y.ToString() + ")";
                         labelOrigSpeedY.Show();
                     }
                     else
                     {
                         labelOrigSpeedY.Hide();
                     }
-                    chkBoss.ForeColor = CompareValues(chkBoss.Checked, referenceClass.IsBoss);
-                    chkDespawn.ForeColor = CompareValues(chkDespawn.Checked, referenceClass.DespawnsAfterDeath);
-                    labelShader.ForeColor = CompareValues(classlib.bigfileClass.shaderStrings[cmbShader.SelectedIndex], referenceClass.Shader);
+                    txtVertLaunch.ForeColor = CompareValues(txtVertLaunch.Text.Trim(), originalCharacterClass.VerticalLaunch.ToString(), btnVertLaunchReset);
+                    labelVertLaunch.ForeColor = txtVertLaunch.ForeColor;
+                    if (txtVertLaunch.ForeColor == Color.Red)
+                    {
+                        labelOrigVertLaunch.Text = "(" + originalCharacterClass.VerticalLaunch.ToString() + ")";
+                        labelOrigVertLaunch.Show();
+                    }
+                    else
+                    {
+                        labelOrigVertLaunch.Hide();
+                    }
+                    chkBoss.ForeColor = CompareValues(chkBoss.Checked, originalCharacterClass.IsBoss);
+                    chkDespawn.ForeColor = CompareValues(chkDespawn.Checked, originalCharacterClass.DespawnsAfterDeath);
+                    labelShader.ForeColor = CompareValues(classlib.shaderStrings[cmbShader.SelectedIndex], originalCharacterClass.Shader);
                     cmbShader.ForeColor = labelShader.ForeColor;
-                    labelTeam.ForeColor = CompareValues(txtTeam.Text.Trim(), referenceClass.Team.ToString());
+                    labelTeam.ForeColor = CompareValues(txtTeam.Text.Trim(), originalCharacterClass.Team.ToString());
                     txtTeam.ForeColor = labelTeam.ForeColor;
-                    txtScale.ForeColor = CompareValues(txtScale.Text.Trim(), referenceClass.Scale.ToString());
+                    labelVertLaunch.ForeColor = CompareValues(txtVertLaunch.Text.Trim(), originalCharacterClass.VerticalLaunch.ToString());
+                    txtVertLaunch.ForeColor = labelVertLaunch.ForeColor;
+                    txtScale.ForeColor = CompareValues(txtScale.Text.Trim(), originalCharacterClass.Scale.ToString());
                     labelScale.ForeColor = txtScale.ForeColor;
-                    chkAlwaysArmor.ForeColor = CompareValues(chkAlwaysArmor.Checked, referenceClass.AlwaysArmor);
-                    cmbAI.ForeColor = CompareValues(Library.characterDictionary[cmbAI.SelectedIndex].Path, referenceClass.AI, btnAIReset);
+                    chkAlwaysArmor.ForeColor = CompareValues(chkAlwaysArmor.Checked, originalCharacterClass.AlwaysArmor);
+                    cmbAI.ForeColor = CompareValues(Library.characterDictionary[cmbAI.SelectedIndex].Path, originalCharacterClass.AI, btnAIReset);
                     labelAI.ForeColor = cmbAI.ForeColor;
 
                     cmbMoveList.Items.Clear();
@@ -223,155 +248,177 @@ namespace SOR4_Swapper
         {
             // reset this before anything else
             btnResetMove.Enabled = false;
+            populatingMove = true;
+            selectedMoveIndex = cmbMoveList.SelectedIndex;
             if (cmbMoveList.SelectedIndex > -1)
             {
                 cmbMoveArmor.Enabled = _mainwindow.currentEditable;
                 cmbMoveArmor.Show();
-                btnMoveArmorReset.Show();
                 labelMoveArmor.Show();
+                btnMoveArmorReset.Show();
                 labelMoveInput.Show();
-                labelMoveDpad.Show();
-                labelMoveButton.Show();
                 txtGreenHP.Enabled = _mainwindow.currentEditable;
                 txtGreenHP.Show();
-                btnGreenHPReset.Show();
                 labelGreenHP.Show();
+                btnGreenHPReset.Show();
                 cmbMoveDpad.Enabled = _mainwindow.currentEditable;
-                cmbMoveButton.Enabled = _mainwindow.currentEditable;
                 cmbMoveDpad.Show();
+                labelMoveDpad.Show();
+                cmbMoveButton.Enabled = _mainwindow.currentEditable;
                 cmbMoveButton.Show();
+                labelMoveButton.Show();
                 btnMoveDpadReset.Show();
                 btnMoveButtonReset.Show();
-                
-                int thisMove = cmbMoveList.SelectedIndex;
+
                 dataGridView1.Show();
                 dataGridView1.Rows.Clear();
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass characterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                CharacterClass originalCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
 
-                if (classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
-                {
-                    characterClass = new(classlib.characterCustomizationInMemory[selectedCharacterKey]);
-                    if (characterClass.Moveset[thisMove].Armor != null)
-                    {
-                        cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[characterClass.Moveset[thisMove].Armor];
-                    }
-                    else
-                    {
-                        cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[originalCharacterClass.Moveset[thisMove].Armor];
-                    }
-                    
-                    if (characterClass.Moveset[thisMove].Dpad != null)
-                    {
-                        cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[characterClass.Moveset[thisMove].Dpad];
-                    }
-                    else
-                    {
-                        cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[originalCharacterClass.Moveset[thisMove].Dpad];
-                    }
-                    if (characterClass.Moveset[thisMove].Button != null)
-                    {
-                        cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[characterClass.Moveset[thisMove].Button];
-                    }
-                    else
-                    {
-                        cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[originalCharacterClass.Moveset[thisMove].Button];
-                    }
-                }
+                if (swappedCharacterClass.Moveset[selectedMoveIndex].Armor != null)
+                    cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[swappedCharacterClass.Moveset[selectedMoveIndex].Armor];
                 else
-                {
-                    cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[characterClass.Moveset[thisMove].Armor];
-                    cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[characterClass.Moveset[thisMove].Dpad];
-                    cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[characterClass.Moveset[thisMove].Button];
-                }
+                    cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[originalCharacterClass.Moveset[selectedMoveIndex].Armor];
+                cmbMoveArmor_SelectedIndexChanged(cmbMoveArmor, new EventArgs());
 
-                if ((characterClass.Moveset[thisMove].Armor != null) && (cmbMoveArmor.SelectedIndex != classlib.bigfileClass.superArmors[characterClass.Moveset[thisMove].Armor]))
+                if (swappedCharacterClass.Moveset[selectedMoveIndex].Dpad != null)
+                    cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[swappedCharacterClass.Moveset[selectedMoveIndex].Dpad];
+                else
+                    cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[originalCharacterClass.Moveset[selectedMoveIndex].Dpad];
+                cmbMoveDpad_SelectedIndexChanged(cmbMoveDpad, new EventArgs());
+
+                if (swappedCharacterClass.Moveset[selectedMoveIndex].Button != null)
+                    cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[swappedCharacterClass.Moveset[selectedMoveIndex].Button];
+                else
+                    cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[originalCharacterClass.Moveset[selectedMoveIndex].Button];
+                cmbMoveButton_SelectedIndexChanged(cmbMoveButton, new EventArgs());
+
+                if ((swappedCharacterClass.Moveset[selectedMoveIndex].Armor != null) && (cmbMoveArmor.SelectedIndex != classlib.bigfileClass.superArmors[swappedCharacterClass.Moveset[selectedMoveIndex].Armor]))
                     btnResetMove.Enabled = _mainwindow.currentEditable;
-                if ((characterClass.Moveset[thisMove].Dpad != null) && (cmbMoveDpad.SelectedIndex != classlib.bigfileClass.moveDpads[characterClass.Moveset[thisMove].Dpad]))
+                if ((swappedCharacterClass.Moveset[selectedMoveIndex].Dpad != null) && (cmbMoveDpad.SelectedIndex != classlib.bigfileClass.moveDpads[swappedCharacterClass.Moveset[selectedMoveIndex].Dpad]))
                     btnResetMove.Enabled = _mainwindow.currentEditable;
-                if ((characterClass.Moveset[thisMove].Button != null) && (cmbMoveButton.SelectedIndex != classlib.bigfileClass.moveButtons[characterClass.Moveset[thisMove].Button]))
+                if ((swappedCharacterClass.Moveset[selectedMoveIndex].Button != null) && (cmbMoveButton.SelectedIndex != classlib.bigfileClass.moveButtons[swappedCharacterClass.Moveset[selectedMoveIndex].Button]))
                     btnResetMove.Enabled = _mainwindow.currentEditable;
 
 
 
                 int hitctr = 0;
-                var move = characterClass.Moveset[thisMove];
+                bool moveHasChanges = false;
+                var move = swappedCharacterClass.Moveset[selectedMoveIndex];
                 txtGreenHP.Text = move.HPCost.ToString();
 
                 if (move.Hits.Count > 0)
                 {
                     foreach (var hit in move.Hits)
                     {
-                        dataGridView1.Rows.Add(hitctr + 1, hit.Damage, hit.Hitstop, hit.Hitstun);
-                        
-                        if (hit.Damage != originalCharacterClass.Moveset[thisMove].Hits[hitctr].Damage)
+                        dataGridView1.Rows.Add(hitctr + 1, hit.Damage, hit.Hitstop, hit.Hitstun, hit.MultiHit, hit.RecoverHP, hit.XForce, hit.YForce);
+
+                        if (hit.Damage != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].Damage)
                         {
                             dataGridView1.Rows[hitctr].Cells["damage"].Style.ForeColor = Color.Red;
                             dataGridView1.Rows[hitctr].Cells["damage"].ToolTipText = tooltipMoveString;
-                            btnResetMove.Enabled = _mainwindow.currentEditable;
+                            moveHasChanges = true;
                         }
-                        if (hit.Hitstop != originalCharacterClass.Moveset[thisMove].Hits[hitctr].Hitstop)
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["damage"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.Hitstop != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].Hitstop)
                         {
                             dataGridView1.Rows[hitctr].Cells["hitstop"].Style.ForeColor = Color.Red;
                             dataGridView1.Rows[hitctr].Cells["hitstop"].ToolTipText = tooltipMoveString;
-                            btnResetMove.Enabled = _mainwindow.currentEditable;
+                            moveHasChanges = true;
                         }
-                        if (hit.Hitstun != originalCharacterClass.Moveset[thisMove].Hits[hitctr].Hitstun)
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["hitstop"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.Hitstun != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].Hitstun)
                         {
                             dataGridView1.Rows[hitctr].Cells["hitstun"].Style.ForeColor = Color.Red;
                             dataGridView1.Rows[hitctr].Cells["hitstun"].ToolTipText = tooltipMoveString;
-                            btnResetMove.Enabled = _mainwindow.currentEditable;
+                            moveHasChanges = true;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["hitstun"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.MultiHit != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].MultiHit)
+                        {
+                            dataGridView1.Rows[hitctr].Cells["multi"].Style.ForeColor = Color.Red;
+                            dataGridView1.Rows[hitctr].Cells["multi"].ToolTipText = tooltipMoveString;
+                            moveHasChanges = true;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["multi"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.RecoverHP != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].RecoverHP)
+                        {
+                            dataGridView1.Rows[hitctr].Cells["recoverHP"].Style.ForeColor = Color.Red;
+                            dataGridView1.Rows[hitctr].Cells["recoverHP"].ToolTipText = tooltipMoveString;
+                            moveHasChanges = true;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["recoverHP"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.XForce != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].XForce)
+                        {
+                            dataGridView1.Rows[hitctr].Cells["xForce"].Style.ForeColor = Color.Red;
+                            dataGridView1.Rows[hitctr].Cells["xForce"].ToolTipText = tooltipMoveString;
+                            moveHasChanges = true;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["xForce"].Style.ForeColor = Color.Black;
+                        }
+                        if (hit.YForce != originalCharacterClass.Moveset[selectedMoveIndex].Hits[hitctr].YForce)
+                        {
+                            dataGridView1.Rows[hitctr].Cells["yForce"].Style.ForeColor = Color.Red;
+                            dataGridView1.Rows[hitctr].Cells["yForce"].ToolTipText = tooltipMoveString;
+                            moveHasChanges = true;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[hitctr].Cells["yForce"].Style.ForeColor = Color.Black;
                         }
                         hitctr++;
                     }
+                    if (moveHasChanges)
+                        btnResetMove.Enabled = _mainwindow.currentEditable;
                 }
                 dataGridView1.Enabled = _mainwindow.currentEditable;
-                
             }
-
+            populatingMove = false;
         }
 
         private void btnSetItem_Click(object sender, EventArgs e)
         {
             if (characterList.SelectedIndex > -1)
             {
-                int assetKey = characterList.SelectedIndex;
-                int targetKey = assetKey;
-                if (classlib.changeList.ContainsKey(targetKey)) targetKey = classlib.changeList[assetKey];
-
-                CharacterClass originalCharacter = classlib.bigfileClass.GetCustomCharacterDetails(assetKey);
-                CharacterClass targetCharacter = classlib.bigfileClass.GetCustomCharacterDetails(targetKey);
-
                 List<Moveset> moveset;
                 Speed speed = new();
-                if (classlib.characterCustomizationInMemory.ContainsKey(assetKey))
-                {
-                    moveset = classlib.characterCustomizationInMemory[assetKey].Moveset;
-                }
+                if (classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
+                    moveset = classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset;
                 else
-                {
-                    moveset = targetCharacter.Moveset;
-                }
+                    moveset = swappedCharacterClass.Moveset;
                 speed.X = int.Parse(txtSpeedX.Text.Trim());
                 speed.Y = int.Parse(txtSpeedY.Text.Trim());
 
                 CharacterClass characterDetails = new()
                 {
-                    NewCharacterId = targetKey,
-                    NameIndex = Library.characterDictionary[assetKey].CustomNameIndex,
-                    Name = originalCharacter.Name,
-                    SwapNameIndex = originalCharacter.NameIndex,
+                    NewCharacterId = swappedCharacterKey,
+                    NameIndex = Library.characterDictionary[selectedCharacterKey].CustomNameIndex,
+                    Name = originalCharacterClass.Name,
+                    SwapNameIndex = originalCharacterClass.NameIndex,
                     NewName = txtName.Text.Trim(),
                     Health = int.Parse(txtHealth.Text.Trim()),
                     Moveset = moveset,
                     Speed = speed,
                     IsBoss = chkBoss.Checked,
                     DespawnsAfterDeath = chkDespawn.Checked,
-                    Shader = classlib.bigfileClass.shaderStrings[cmbShader.SelectedIndex],
+                    Shader = classlib.shaderStrings[cmbShader.SelectedIndex],
                     Team = int.Parse(txtTeam.Text.Trim()),
+                    VerticalLaunch = int.Parse(txtVertLaunch.Text.Trim()),
                     Scale = int.Parse(txtScale.Text.Trim()),
                     AlwaysArmor = chkAlwaysArmor.Checked,
                     AI = Library.characterDictionary[cmbAI.SelectedIndex].Path,
@@ -384,7 +431,7 @@ namespace SOR4_Swapper
                 _mainwindow.container.btnStartReplace.Enabled = true;
                 _mainwindow.container.btnClearAllSwaps.Enabled = true;
 
-                classlib.AddCustom(_mainwindow, "character", assetKey, characterDetails);
+                classlib.AddCustom(_mainwindow, "character", selectedCharacterKey, characterDetails);
 
                 if ((_mainwindow.info.labelLoadedSwapFile.Visible) && (!_mainwindow.info.labelLoadedSwapFile.Text.Contains(" (modified)"))) _mainwindow.info.labelLoadedSwapFile.Text += " (modified)";
 
@@ -399,14 +446,9 @@ namespace SOR4_Swapper
         private void btnShowList_Click(object sender, EventArgs e)
         {
             if (_mainwindow.Width < _mainwindow.fullWindowWidth)
-            {
                 _mainwindow.ToggleSwapList(true);
-            }
             else
-            {
                 _mainwindow.ToggleSwapList(false);
-            }
-
         }
 
 
@@ -415,31 +457,24 @@ namespace SOR4_Swapper
             _mainwindow.ClearSwaps("character", "custom");
         }
 
-        private void ProcessControl(Control control, int selectedCharacterKey, int selectedMoveIndex = -1)
+        private void ProcessControl(Control control)
         {
+            if (!classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
+                classlib.characterCustomizationInMemory[selectedCharacterKey] = originalCharacterClass.Copy();
+
             if ((selectedCharacterKey > -1) && !justArrived)
             {
                 Control targetControl = control;
                 dynamic memoryValue = "";
                 dynamic originalValue = "";
-                int swappedCharacterKey = selectedCharacterKey;
-
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = classlib.bigfileClass.GetCustomCharacterDetails(swappedCharacterKey);
-                if (!classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
-                {
-                    classlib.characterCustomizationInMemory[selectedCharacterKey] = swappedCharacterClass;
-                }
 
                 switch (control.Name)
                 {
                     case "txtName":
-                        CharacterClass selectedCharacterClass = classlib.bigfileClass.GetCustomCharacterDetails(selectedCharacterKey);
-                        string originalName = selectedCharacterClass.Name;
-                        if (selectedCharacterClass.Name != swappedCharacterClass.Name)
-                        {
+                        string originalName = originalCharacterClass.Name;
+                        if (originalName != swappedCharacterClass.Name)
                             originalName = classlib.customCharacterNames[swappedCharacterClass.NameIndex];
-                        }
+
                         memoryValue = txtName.Text.Trim();
                         originalValue = originalName;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].NewName = control.Text.Trim();
@@ -447,7 +482,7 @@ namespace SOR4_Swapper
                         break;
                     case "txtHealth":
                         memoryValue = ValidateData(control.Text.Trim(), "health", swappedCharacterClass.Health);
-                        originalValue = swappedCharacterClass.Health;
+                        originalValue = originalCharacterClass.Health;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Health = memoryValue;
                         control.Text = memoryValue.ToString();
                         targetControl = labelHealth;
@@ -457,7 +492,7 @@ namespace SOR4_Swapper
                         break;
                     case "txtSpeedX":
                         memoryValue = ValidateData(control.Text.Trim(), "speed", swappedCharacterClass.Speed.X);
-                        originalValue = swappedCharacterClass.Speed.X;
+                        originalValue = originalCharacterClass.Speed.X;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Speed.X = memoryValue;
                         control.Text = memoryValue.ToString();
                         targetControl = labelSpeedX;
@@ -467,7 +502,7 @@ namespace SOR4_Swapper
                         break;
                     case "txtSpeedY":
                         memoryValue = ValidateData(control.Text.Trim(), "speed", swappedCharacterClass.Speed.Y);
-                        originalValue = swappedCharacterClass.Speed.Y;
+                        originalValue = originalCharacterClass.Speed.Y;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Speed.Y = memoryValue;
                         control.Text = memoryValue.ToString();
                         targetControl = labelSpeedY;
@@ -477,7 +512,7 @@ namespace SOR4_Swapper
                         break;
                     case "chkBoss":
                         memoryValue = chkBoss.Checked;
-                        originalValue = swappedCharacterClass.IsBoss;
+                        originalValue = originalCharacterClass.IsBoss;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].IsBoss = memoryValue;
                         break;
                     case "chkDespawn":
@@ -486,21 +521,31 @@ namespace SOR4_Swapper
                         classlib.characterCustomizationInMemory[selectedCharacterKey].DespawnsAfterDeath = memoryValue;
                         break;
                     case "cmbShader":
-                        memoryValue = classlib.bigfileClass.shaderStrings[cmbShader.SelectedIndex];
-                        originalValue = swappedCharacterClass.Shader;
+                        memoryValue = classlib.shaderStrings[cmbShader.SelectedIndex];
+                        originalValue = originalCharacterClass.Shader;
                         targetControl = labelShader;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Shader = memoryValue;
                         break;
                     case "txtTeam":
                         memoryValue = ValidateData(control.Text.Trim(), "team", swappedCharacterClass.Team);
-                        originalValue = swappedCharacterClass.Team;
+                        originalValue = originalCharacterClass.Team;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Team = memoryValue;
                         control.Text = memoryValue.ToString();
                         targetControl = labelTeam;
                         break;
+                    case "txtVertLaunch":
+                        memoryValue = ValidateData(control.Text.Trim(), "scale", swappedCharacterClass.VerticalLaunch);
+                        originalValue = originalCharacterClass.VerticalLaunch;
+                        classlib.characterCustomizationInMemory[selectedCharacterKey].VerticalLaunch = memoryValue;
+                        control.Text = memoryValue.ToString();
+                        targetControl = labelVertLaunch;
+                        btnVertLaunchReset.Enabled = memoryValue != originalValue;
+                        labelOrigVertLaunch.Text = originalValue.ToString();
+                        labelOrigVertLaunch.Visible = memoryValue != originalValue;
+                        break;
                     case "txtScale":
                         memoryValue = ValidateData(control.Text.Trim(), "scale", swappedCharacterClass.Scale);
-                        originalValue = swappedCharacterClass.Scale;
+                        originalValue = originalCharacterClass.Scale;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].Scale = memoryValue;
                         control.Text = memoryValue.ToString();
                         targetControl = labelScale;
@@ -509,10 +554,11 @@ namespace SOR4_Swapper
                         if (selectedMoveIndex != -1)
                         {
                             memoryValue = cmbMoveDpad.Text;
-                            originalValue = swappedCharacterClass.Moveset[selectedMoveIndex].Dpad;
+                            originalValue = originalCharacterClass.Moveset[selectedMoveIndex].Dpad;
                             classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].Dpad = memoryValue;
                             targetControl = labelMoveDpad;
-                            btnResetMove.Enabled = memoryValue != originalValue;
+                            if ((populatingMove && (memoryValue != originalValue)) || !populatingMove)
+                                btnResetMove.Enabled = memoryValue != originalValue;
                             btnMoveDpadReset.Enabled = memoryValue != originalValue;
                         }
                         break;
@@ -520,10 +566,11 @@ namespace SOR4_Swapper
                         if (selectedMoveIndex != -1)
                         {
                             memoryValue = cmbMoveButton.Text;
-                            originalValue = swappedCharacterClass.Moveset[selectedMoveIndex].Button;
+                            originalValue = originalCharacterClass.Moveset[selectedMoveIndex].Button;
                             classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].Button = memoryValue;
                             targetControl = labelMoveButton;
-                            btnResetMove.Enabled = memoryValue != originalValue;
+                            if ((populatingMove && (memoryValue != originalValue)) || !populatingMove)
+                                btnResetMove.Enabled = memoryValue != originalValue;
                             btnMoveButtonReset.Enabled = memoryValue != originalValue;
                         }
                         break;
@@ -531,27 +578,29 @@ namespace SOR4_Swapper
                         if (selectedMoveIndex != -1)
                         {
                             memoryValue = cmbMoveArmor.Text;
-                            originalValue = swappedCharacterClass.Moveset[selectedMoveIndex].Armor;
+                            originalValue = originalCharacterClass.Moveset[selectedMoveIndex].Armor;
                             classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].Armor = memoryValue;
                             targetControl = labelMoveArmor;
-                            btnResetMove.Enabled = memoryValue != originalValue;
+                            if ((populatingMove && (memoryValue != originalValue)) || !populatingMove)
+                                btnResetMove.Enabled = memoryValue != originalValue;
                             btnMoveArmorReset.Enabled = memoryValue != originalValue;
                         }
                         break;
                     case "chkAlwaysArmor":
                         memoryValue = chkAlwaysArmor.Checked;
-                        originalValue = swappedCharacterClass.AlwaysArmor;
+                        originalValue = originalCharacterClass.AlwaysArmor;
                         classlib.characterCustomizationInMemory[selectedCharacterKey].AlwaysArmor = memoryValue;
                         break;
                     case "txtGreenHP":
                         if (selectedMoveIndex != -1)
                         {
                             memoryValue = ValidateData(control.Text.Trim(), "greenHP", swappedCharacterClass.Moveset[selectedMoveIndex].HPCost);
-                            originalValue = swappedCharacterClass.Moveset[selectedMoveIndex].HPCost;
+                            originalValue = originalCharacterClass.Moveset[selectedMoveIndex].HPCost;
                             classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].HPCost = memoryValue;
                             control.Text = memoryValue.ToString();
                             targetControl = labelGreenHP;
-                            btnResetMove.Enabled = memoryValue != originalValue;
+                            if ((populatingMove && (memoryValue != originalValue)) || !populatingMove)  
+                                btnResetMove.Enabled = memoryValue != originalValue;
                             btnGreenHPReset.Enabled = memoryValue != originalValue;
                         }
                         break;
@@ -559,7 +608,7 @@ namespace SOR4_Swapper
                         if ((cmbAI.SelectedIndex != -1) && (Library.characterDictionary[cmbAI.SelectedIndex].Path != "n/a"))
                         {
                             memoryValue = Library.characterDictionary[cmbAI.SelectedIndex].Path;
-                            originalValue = swappedCharacterClass.AI;
+                            originalValue = originalCharacterClass.AI;
                             classlib.characterCustomizationInMemory[selectedCharacterKey].AI = memoryValue;
                             labelAIPath.Text = classlib.bigfileClass.aiDictionary[memoryValue];
                             targetControl = labelAI;
@@ -570,6 +619,7 @@ namespace SOR4_Swapper
 
                 control.ForeColor = CompareValues(memoryValue, originalValue);
                 targetControl.ForeColor = control.ForeColor;
+                swappedCharacterClass = classlib.characterCustomizationInMemory[selectedCharacterKey].Copy();
                 if (memoryValue != originalValue)
                     btnResetCharacter.Enabled = _mainwindow.currentEditable;
             }
@@ -709,28 +759,22 @@ namespace SOR4_Swapper
 
         private void ResetCustomizer(string resetTargetType, int selectedIndex, int hitRowCtr = 0, bool fromHitResetButton = false)
         {
-            int selectedCharacterIndex = characterList.SelectedIndex;
-            int targetCharacter = selectedCharacterIndex;
-            if (classlib.changeList.ContainsKey(selectedCharacterIndex))
-                targetCharacter = classlib.changeList[selectedCharacterIndex];
-
-            CharacterClass origData = classlib.bigfileClass.characterCollection[targetCharacter];
             switch (resetTargetType)
             {
                 case "character":
                     hasChanges = false;
-                    txtName.Text = classlib.bigfileClass.customCharacterNames[origData.NameIndex];
-                    txtHealth.Text = origData.Health.ToString();
-                    txtSpeedX.Text = origData.Speed.X.ToString();
-                    txtSpeedY.Text = origData.Speed.Y.ToString();
-                    chkBoss.Checked = origData.IsBoss;
-                    chkDespawn.Checked = origData.DespawnsAfterDeath;
-                    txtScale.Text = origData.Scale.ToString();
-                    cmbAI.SelectedIndex = classlib.bigfileClass.pathDictionary["CharacterData"][origData.AI];
-                    chkAlwaysArmor.Checked = origData.AlwaysArmor;
+                    txtName.Text = classlib.bigfileClass.customCharacterNames[originalCharacterClass.NameIndex];
+                    txtHealth.Text = originalCharacterClass.Health.ToString();
+                    txtSpeedX.Text = originalCharacterClass.Speed.X.ToString();
+                    txtSpeedY.Text = originalCharacterClass.Speed.Y.ToString();
+                    chkBoss.Checked = originalCharacterClass.IsBoss;
+                    chkDespawn.Checked = originalCharacterClass.DespawnsAfterDeath;
+                    txtScale.Text = originalCharacterClass.Scale.ToString();
+                    cmbAI.SelectedIndex = classlib.bigfileClass.pathDictionary["CharacterData"][originalCharacterClass.AI];
+                    chkAlwaysArmor.Checked = originalCharacterClass.AlwaysArmor;
 
-                    if (classlib.bigfileClass.shaderStrings.Contains(origData.Shader))
-                        cmbShader.SelectedIndex = classlib.bigfileClass.shaderStrings.IndexOf(origData.Shader);
+                    if (classlib.shaderStrings.Contains(originalCharacterClass.Shader))
+                        cmbShader.SelectedIndex = classlib.shaderStrings.IndexOf(originalCharacterClass.Shader);
                     else
                         cmbShader.SelectedIndex = -1;
 
@@ -739,17 +783,22 @@ namespace SOR4_Swapper
                             ResetCustomizer("move", cmbMoveList.SelectedIndex);
 
                     if (classlib.characterCustomizationInMemory.ContainsKey(selectedIndex))
+                    {
                         classlib.characterCustomizationInMemory.Remove(selectedIndex);
+                        swappedCharacterClass = classlib.bigfileClass.characterCollection[swappedCharacterKey].Copy();
+                    }
+                        
 
-                    txtTeam.Text = origData.Team.ToString();
+                    txtTeam.Text = originalCharacterClass.Team.ToString();
+                    txtVertLaunch.Text = originalCharacterClass.VerticalLaunch.ToString();
                     btnResetCharacter.Enabled = false;
                     btnResetMove.Enabled = false;
                     break;
                 case "move":
-                    Moveset move = origData.Moveset[selectedIndex];
+                    Moveset move = originalCharacterClass.Moveset[selectedIndex];
                     int hitctr = 0;
                     dataGridView1.Rows.Clear();
-                    if ((move.Hits.Count > 0) && (classlib.characterCustomizationInMemory[selectedCharacterIndex].Moveset[selectedIndex] != null))
+                    if ((move.Hits.Count > 0) && (classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex] != null))
                     {
                         foreach (var hit in move.Hits)
                         {
@@ -757,18 +806,22 @@ namespace SOR4_Swapper
                             hitctr++;
                         }
                     }
-                    txtGreenHP.Text = origData.Moveset[selectedIndex].HPCost.ToString();
-                    cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[origData.Moveset[selectedIndex].Armor];
-                    cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[origData.Moveset[selectedIndex].Dpad];
-                    cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[origData.Moveset[selectedIndex].Button];
+                    txtGreenHP.Text = originalCharacterClass.Moveset[selectedIndex].HPCost.ToString();
+                    cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[originalCharacterClass.Moveset[selectedIndex].Armor];
+                    cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[originalCharacterClass.Moveset[selectedIndex].Dpad];
+                    cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[originalCharacterClass.Moveset[selectedIndex].Button];
                     btnResetMove.Enabled = false;
 
                     break;
                 case "hit":
-                    HitValue hitValue = origData.Moveset[selectedIndex].Hits[hitRowCtr];
-                    classlib.characterCustomizationInMemory[selectedCharacterIndex].Moveset[selectedIndex].Hits[hitRowCtr].Damage = hitValue.Damage;
-                    classlib.characterCustomizationInMemory[selectedCharacterIndex].Moveset[selectedIndex].Hits[hitRowCtr].Hitstop = hitValue.Hitstop;
-                    classlib.characterCustomizationInMemory[selectedCharacterIndex].Moveset[selectedIndex].Hits[hitRowCtr].Hitstun = hitValue.Hitstun;
+                    HitValue hitValue = originalCharacterClass.Moveset[selectedIndex].Hits[hitRowCtr];
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].Damage = hitValue.Damage;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].Hitstop = hitValue.Hitstop;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].Hitstun = hitValue.Hitstun;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].MultiHit = hitValue.MultiHit;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].RecoverHP = hitValue.RecoverHP;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].XForce = hitValue.XForce;
+                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedIndex].Hits[hitRowCtr].YForce = hitValue.YForce;
 
                     // if coming from Hit Reset button, will not reset the data grid view
                     if (fromHitResetButton)
@@ -776,14 +829,22 @@ namespace SOR4_Swapper
                         dataGridView1.Rows[hitRowCtr].Cells["damage"].Value = hitValue.Damage;
                         dataGridView1.Rows[hitRowCtr].Cells["hitstop"].Value = hitValue.Hitstop;
                         dataGridView1.Rows[hitRowCtr].Cells["hitstun"].Value = hitValue.Hitstun;
+                        dataGridView1.Rows[hitRowCtr].Cells["multi"].Value = hitValue.MultiHit;
+                        dataGridView1.Rows[hitRowCtr].Cells["recoverHP"].Value = hitValue.RecoverHP;
+                        dataGridView1.Rows[hitRowCtr].Cells["xForce"].Value = hitValue.XForce;
+                        dataGridView1.Rows[hitRowCtr].Cells["yForce"].Value = hitValue.YForce;
                         dataGridView1.Rows[hitRowCtr].Cells["damage"].Style.ForeColor = Color.Black;
                         dataGridView1.Rows[hitRowCtr].Cells["hitstop"].Style.ForeColor = Color.Black;
                         dataGridView1.Rows[hitRowCtr].Cells["hitstun"].Style.ForeColor = Color.Black;
+                        dataGridView1.Rows[hitRowCtr].Cells["multi"].Style.ForeColor = Color.Black;
+                        dataGridView1.Rows[hitRowCtr].Cells["recoverHP"].Style.ForeColor = Color.Black;
+                        dataGridView1.Rows[hitRowCtr].Cells["xForce"].Style.ForeColor = Color.Black;
+                        dataGridView1.Rows[hitRowCtr].Cells["yForce"].Style.ForeColor = Color.Black;
                     }
                     // if not, will be from Move Reset button which will clear the data grid view before this
                     else
                     {
-                        dataGridView1.Rows.Add(hitRowCtr + 1, hitValue.Damage, hitValue.Hitstop, hitValue.Hitstun);
+                        dataGridView1.Rows.Add(hitRowCtr + 1, hitValue.Damage, hitValue.Hitstop, hitValue.Hitstun, hitValue.MultiHit, hitValue.RecoverHP, hitValue.XForce, hitValue.YForce);
                     }
                     break;
             }
@@ -815,40 +876,67 @@ namespace SOR4_Swapper
         #region Events
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (characterList.SelectedIndex > -1)
+            if (dataGridView1.CurrentCell != null)
             {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass characterClass = classlib.bigfileClass.GetCustomCharacterDetails(swappedCharacterKey);
-                CharacterClass originalCharacterClass = classlib.bigfileClass.GetCustomCharacterDetails(swappedCharacterKey);
-                if (!classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
-                    classlib.characterCustomizationInMemory[selectedCharacterKey] = characterClass;
-
-                int thisMove = cmbMoveList.SelectedIndex;
-                foreach (DataGridViewRow dr in dataGridView1.Rows)
+                int column = dataGridView1.CurrentCell.ColumnIndex;
+                int row = dataGridView1.CurrentRow.Index;
+                if (characterList.SelectedIndex > -1)
                 {
-                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Damage = Convert.ToInt32(dr.Cells["damage"].Value);
-                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Hitstop = Convert.ToInt32(dr.Cells["hitstop"].Value);
-                    classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Hitstun = Convert.ToInt32(dr.Cells["hitstun"].Value);
-                    if (originalCharacterClass.Moveset[thisMove].Hits[dr.Index].Damage != classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Damage)
+                    if (!classlib.characterCustomizationInMemory.ContainsKey(selectedCharacterKey))
+                        classlib.characterCustomizationInMemory[selectedCharacterKey] = swappedCharacterClass;
+                    HitValue hit = originalCharacterClass.Moveset[selectedMoveIndex].Hits[row];
+                    HitValue hitmem = classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].Hits[row];
+
+                    bool changed = false;
+                    switch (column)
                     {
-                        dr.Cells["damage"].Style.ForeColor = Color.Red;
+                        case 1:
+                            hitmem.Damage = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (hit.Damage != hitmem.Damage)
+                                changed = true;
+                            break;
+                        case 2:
+                            hitmem.Hitstop = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (hit.Hitstop != hitmem.Hitstop)
+                                changed = true;
+                            break;
+                        case 3:
+                            hitmem.Hitstun = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (hit.Hitstun != hitmem.Hitstun)
+                                changed = true;
+                            break;
+                        case 4:
+                            hitmem.MultiHit = Convert.ToBoolean(dataGridView1.CurrentCell.Value);
+                            if (hit.MultiHit != hitmem.MultiHit)
+                                changed = true;
+                            break;
+                        case 5:
+                            hitmem.RecoverHP = Convert.ToBoolean(dataGridView1.CurrentCell.Value);
+                            if (hit.RecoverHP != hitmem.RecoverHP)
+                                changed = true;
+                            break;
+                        case 6:
+                            hitmem.XForce = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (hit.XForce != hitmem.XForce)
+                                changed = true;
+                            break;
+                        case 7:
+                            hitmem.YForce = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (hit.YForce != hitmem.YForce)
+                                changed = true;
+                            break;
+                    }
+
+                    if (changed)
+                    {
+                        classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[selectedMoveIndex].Hits[row] = hitmem;
+                        dataGridView1.Rows[row].Cells[column].Style.ForeColor = Color.Red;
                         btnResetCharacter.Enabled = _mainwindow.currentEditable;
                         btnResetMove.Enabled = _mainwindow.currentEditable;
                     }
-                    if (originalCharacterClass.Moveset[thisMove].Hits[dr.Index].Hitstop != classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Hitstop)
+                    else
                     {
-                        dr.Cells["hitstop"].Style.ForeColor = Color.Red;
-                        btnResetCharacter.Enabled = _mainwindow.currentEditable;
-                        btnResetMove.Enabled = _mainwindow.currentEditable;
-                    }
-                    if (originalCharacterClass.Moveset[thisMove].Hits[dr.Index].Hitstun != classlib.characterCustomizationInMemory[selectedCharacterKey].Moveset[thisMove].Hits[dr.Index].Hitstun)
-                    {
-                        dr.Cells["hitstun"].Style.ForeColor = Color.Red;
-                        btnResetCharacter.Enabled = _mainwindow.currentEditable;
-                        btnResetMove.Enabled = _mainwindow.currentEditable;
+                        dataGridView1.Rows[row].Cells[column].Style.ForeColor = Color.Black;
                     }
                 }
             }
@@ -859,14 +947,6 @@ namespace SOR4_Swapper
             var senderGrid = (DataGridView)sender;
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
                 ResetCustomizer("hit", cmbMoveList.SelectedIndex, e.RowIndex, true);
-        }
-
-        private void txtTeam_Leave(object sender, EventArgs e)
-        {
-            if (txtTeam.Text.Trim() == "")
-            {
-
-            }
         }
 
         private void btnResetCharacter_Click(object sender, EventArgs e)
@@ -880,150 +960,53 @@ namespace SOR4_Swapper
             if ((characterList.SelectedIndex != -1) && (cmbMoveList.SelectedIndex != -1))
                 ResetCustomizer("move", cmbMoveList.SelectedIndex);
         }
-        private void txtName_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtName, characterList.SelectedIndex);
-        }
-        private void txtHealth_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtHealth, characterList.SelectedIndex);
-        }
-        private void txtSpeedX_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtSpeedX, characterList.SelectedIndex);
-        }
-        private void txtSpeedY_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtSpeedY, characterList.SelectedIndex);
-        }
-        private void chkBoss_CheckedChanged(object sender, EventArgs e)
-        {
-            ProcessControl(chkBoss, characterList.SelectedIndex);
-        }
-        private void chkDespawn_CheckedChanged(object sender, EventArgs e)
-        {
-            ProcessControl(chkDespawn, characterList.SelectedIndex);
-        }
-        private void cmbShader_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ProcessControl(cmbShader, characterList.SelectedIndex);
-        }
-        private void txtTeam_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtTeam, characterList.SelectedIndex);
-        }
+        private void txtName_TextChanged(object sender, EventArgs e) => ProcessControl(txtName);
+        private void txtHealth_TextChanged(object sender, EventArgs e) => ProcessControl(txtHealth);
+        private void txtSpeedX_TextChanged(object sender, EventArgs e) => ProcessControl(txtSpeedX);
+        private void txtSpeedY_TextChanged(object sender, EventArgs e) => ProcessControl(txtSpeedY);
+        private void chkBoss_CheckedChanged(object sender, EventArgs e) => ProcessControl(chkBoss);
+        private void chkDespawn_CheckedChanged(object sender, EventArgs e) => ProcessControl(chkDespawn);
+        private void cmbShader_SelectedIndexChanged(object sender, EventArgs e) => ProcessControl(cmbShader);
+        private void txtTeam_TextChanged(object sender, EventArgs e) => ProcessControl(txtTeam);
 
-        private void txtName_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Using small letters will look awkward in the game", txtName, 10000);
-        }
-
-        private void txtHealth_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("A full healthbar has a value of 100", txtHealth, 10000);
-        }
-
-        private void txtSpeedX_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Horizontal speed / X-axis\n\nIf this is red, this will be ignored by the global movement speed modifier.", txtSpeedX, 10000);
-        }
-
-        private void txtSpeedY_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Vertical speed / Y-axis\n\nIf this is red, this will be ignored by the global movement speed modifier.", txtSpeedY, 10000);
-        }
-
-        private void txtTeam_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Default teams are:\n \"-1\" for no team\n \"2\" for police", txtTeam, 10000);
-        }
-
-        private void cmbShader_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Color effects like red for Elites", cmbShader, 10000);
-        }
-
-        private void chkBoss_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Enable this to clear a stage after defeating this character as a boss", chkBoss, 10000);
-        }
-
-        private void chkDespawn_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Enable this to prevent softlocks when spawning this character", chkDespawn, 10000);
-        }
-
-        private void cmbMoveList_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show(tooltipMoveString, cmbMoveList, 10000);
-        }
-
+        private void txtName_MouseHover(object sender, EventArgs e) => tooltip.Show("Using small letters will look awkward in the game", txtName, 10000);
+        private void txtHealth_MouseHover(object sender, EventArgs e) => tooltip.Show("A full healthbar has a value of 100", txtHealth, 10000);
+        private void txtSpeedX_MouseHover(object sender, EventArgs e) => tooltip.Show("Horizontal speed / X-axis\n\nIf this is red, this will be ignored by the global movement speed modifier.", txtSpeedX, 10000);
+        private void txtSpeedY_MouseHover(object sender, EventArgs e) => tooltip.Show("Vertical speed / Y-axis\n\nIf this is red, this will be ignored by the global movement speed modifier.", txtSpeedY, 10000);
+        private void txtTeam_MouseHover(object sender, EventArgs e) => tooltip.Show("Default teams are:\n \"-1\" for no team\n \"2\" for police", txtTeam, 10000);
+        private void cmbShader_MouseHover(object sender, EventArgs e) => tooltip.Show("Color effects like red for Elites", cmbShader, 10000);
+        private void chkBoss_MouseHover(object sender, EventArgs e) => tooltip.Show("Enable this to clear a stage after defeating this character as a boss", chkBoss, 10000);
+        private void chkDespawn_MouseHover(object sender, EventArgs e) => tooltip.Show("Enable this to prevent softlocks when spawning this character", chkDespawn, 10000);
+        private void cmbMoveList_MouseHover(object sender, EventArgs e) => tooltip.Show(tooltipMoveString, cmbMoveList, 10000);
         private void btnSpeedXReset_Click(object sender, EventArgs e)
         {
             if (characterList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                txtSpeedX.Text = swappedCharacterClass.Speed.X.ToString();
-            }
+                txtSpeedX.Text = originalCharacterClass.Speed.X.ToString();
         }
 
         private void btnSpeedYReset_Click(object sender, EventArgs e)
         {
             if (characterList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                txtSpeedY.Text = swappedCharacterClass.Speed.Y.ToString();
-            }
-
+                txtSpeedY.Text = originalCharacterClass.Speed.Y.ToString();
         }
 
         private void btnHealthReset_Click(object sender, EventArgs e)
         {
             if (characterList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                txtHealth.Text = swappedCharacterClass.Health.ToString();
-            }
+                txtHealth.Text = originalCharacterClass.Health.ToString();
         }
         
-        private void cmbMoveDpad_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ProcessControl(cmbMoveDpad, characterList.SelectedIndex, cmbMoveList.SelectedIndex);
-        }
+        private void cmbMoveDpad_SelectedIndexChanged(object sender, EventArgs e) => ProcessControl(cmbMoveDpad);
 
-        private void cmbMoveButton_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ProcessControl(cmbMoveButton, characterList.SelectedIndex, cmbMoveList.SelectedIndex);
-        }
+        private void cmbMoveButton_SelectedIndexChanged(object sender, EventArgs e) => ProcessControl(cmbMoveButton);
 
-        private void txtScale_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtScale, characterList.SelectedIndex);
-        }
+        private void txtScale_TextChanged(object sender, EventArgs e) => ProcessControl(txtScale);
 
-        private void txtScale_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show("Character size\n\nChanging this will also affect the character's hitbox and possibly the ability to hit anything", txtScale, 10000);
-        }
+        private void txtScale_MouseHover(object sender, EventArgs e) => tooltip.Show("Character size\n\nChanging this will also affect the character's hitbox and possibly the ability to hit anything", txtScale, 10000);
 
-        private void cmbMoveArmor_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ProcessControl(cmbMoveArmor, characterList.SelectedIndex, cmbMoveList.SelectedIndex);
-        }
+        private void cmbMoveArmor_SelectedIndexChanged(object sender, EventArgs e) => ProcessControl(cmbMoveArmor);
 
-        private void txtGreenHP_TextChanged(object sender, EventArgs e)
-        {
-            ProcessControl(txtGreenHP, characterList.SelectedIndex, cmbMoveList.SelectedIndex);
-        }
+        private void txtGreenHP_TextChanged(object sender, EventArgs e) => ProcessControl(txtGreenHP);
 
         private void cmbAI_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1032,82 +1015,52 @@ namespace SOR4_Swapper
                 if (Library.characterDictionary[cmbAI.SelectedIndex].Path == "n/a")
                     cmbAI.SelectedIndex = -1;
                 else
-                    ProcessControl(cmbAI, characterList.SelectedIndex);
+                    ProcessControl(cmbAI);
             }
         }
 
-        private void cmbMoveArmor_MouseHover(object sender, EventArgs e)
-        {
-            tooltip.Show(cmbMoveArmor.Text, cmbMoveArmor, 10000);
-        }
+        private void cmbMoveArmor_MouseHover(object sender, EventArgs e) => tooltip.Show(cmbMoveArmor.Text, cmbMoveArmor, 10000);
 
-        private void chkAlwaysArmor_CheckedChanged(object sender, EventArgs e)
-        {
-            ProcessControl(chkAlwaysArmor, characterList.SelectedIndex);
-        }
+
+        private void chkAlwaysArmor_CheckedChanged(object sender, EventArgs e) => ProcessControl(chkAlwaysArmor);
 
         private void btnGreenHPReset_Click(object sender, EventArgs e)
         {
             if (cmbMoveList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                txtGreenHP.Text = swappedCharacterClass.Moveset[cmbMoveList.SelectedIndex].HPCost.ToString();
-            }
+                txtGreenHP.Text = originalCharacterClass.Moveset[cmbMoveList.SelectedIndex].HPCost.ToString();
         }
 
         private void btnMoveArmorReset_Click(object sender, EventArgs e)
         {
             if (cmbMoveList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[swappedCharacterClass.Moveset[cmbMoveList.SelectedIndex].Armor];
-            }
-
+                cmbMoveArmor.SelectedIndex = classlib.bigfileClass.superArmors[originalCharacterClass.Moveset[cmbMoveList.SelectedIndex].Armor];
         }
 
         private void btnMoveDpadReset_Click(object sender, EventArgs e)
         {
             if (cmbMoveList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[swappedCharacterClass.Moveset[cmbMoveList.SelectedIndex].Dpad];
-            }
-
+                cmbMoveDpad.SelectedIndex = classlib.bigfileClass.moveDpads[originalCharacterClass.Moveset[cmbMoveList.SelectedIndex].Dpad];
         }
 
         private void btnMoveButtonReset_Click(object sender, EventArgs e)
         {
             if (cmbMoveList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[swappedCharacterClass.Moveset[cmbMoveList.SelectedIndex].Button];
-            }
-
+                cmbMoveButton.SelectedIndex = classlib.bigfileClass.moveButtons[originalCharacterClass.Moveset[cmbMoveList.SelectedIndex].Button];
         }
         #endregion
 
         private void btnAIReset_Click(object sender, EventArgs e)
         {
             if (characterList.SelectedIndex != -1)
-            {
-                int selectedCharacterKey = characterList.SelectedIndex;
-                int swappedCharacterKey = selectedCharacterKey;
-                if (classlib.changeList.ContainsKey(swappedCharacterKey)) swappedCharacterKey = classlib.changeList[swappedCharacterKey];
-                CharacterClass swappedCharacterClass = new(classlib.bigfileClass.characterCollection[swappedCharacterKey]);
-                cmbAI.SelectedIndex = classlib.bigfileClass.pathDictionary["CharacterData"][swappedCharacterClass.AI];
-            }
+                cmbAI.SelectedIndex = classlib.bigfileClass.pathDictionary["CharacterData"][originalCharacterClass.AI];
+        }
+
+        private void txtVertLaunch_TextChanged(object sender, EventArgs e) => ProcessControl(txtVertLaunch);
+
+        private void btnVertLaunchReset_Click(object sender, EventArgs e)
+        {
+            if (characterList.SelectedIndex != -1)
+                txtVertLaunch.Text = originalCharacterClass.VerticalLaunch.ToString();
         }
     }
 }

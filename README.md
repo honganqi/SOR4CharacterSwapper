@@ -1,10 +1,20 @@
 # SOR4 Swapper
 
+[![Latest Release](https://badgen.net/github/release/honganqi/SOR4CharacterSwapper "Latest Release")](https://github.com/honganqi/SOR4CharacterSwapper/releases/latest) ![Downloads](https://img.shields.io/github/downloads/honganqi/SOR4CharacterSwapper/total "Downloads") ![GitHub Repo stars](https://img.shields.io/github/stars/honganqi/SOR4CharacterSwapper "GitHub Repo stars") [![License](https://img.shields.io/github/license/honganqi/SOR4CharacterSwapper "License")](https://github.com/honganqi/SOR4CharacterSwapper/blob/main/LICENSE) [![Discord](https://badgen.net/discord/members/5J63RUM8C4?icon=discord&label "Discord")](https://discord.gg/5J63RUM8C4) [![Buy Me A Coffee](https://badgen.net/badge/icon/Donate?icon=buymeacoffee&label "Donate through Buy Me A Coffee")](https://buymeacoffee.com/honganqi)
+
 This app allows you to mod Streets of Rage 4 by swapping
 specific characters, items, breakables, and/or levels!
 This app only works for the Steam version of the game as far
 as I know and is known to work only on the v7 patch of the
 game (v07-s r13060M) released back in July 23/24, 2021.
+
+## Tutorials on YouTube
+* [Item Customization](https://youtu.be/yPo7oOXnq9g)
+* [Move Inputs](https://youtu.be/O7lH-5gBrXY)
+* [Armor](https://youtu.be/IXv2w2yVzVM)
+* [Character Customization, Teams, Battle Royale](https://youtu.be/zr34cwzrnrM)
+* [Swap Mod Author, Difficulty](https://youtu.be/w1_efI2H4Hg)
+* [Basic Usage](https://youtu.be/9uCy-UJBRkA)
 
 ## Usage
 * To get started, load your game's `bigfile` into the app. It

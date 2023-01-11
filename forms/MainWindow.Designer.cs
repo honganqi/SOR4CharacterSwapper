@@ -53,7 +53,6 @@
             this.imgListShadow = new System.Windows.Forms.PictureBox();
             this.panelSwapList = new System.Windows.Forms.Panel();
             this.panelInstructions = new System.Windows.Forms.Panel();
-            this.btnTextEditor = new System.Windows.Forms.Button();
             this.panelLeft.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelContainer.SuspendLayout();
@@ -118,7 +117,6 @@
             // panelLeft
             // 
             this.panelLeft.BackColor = System.Drawing.Color.Black;
-            this.panelLeft.Controls.Add(this.btnTextEditor);
             this.panelLeft.Controls.Add(this.label1);
             this.panelLeft.Controls.Add(this.btnShowSwapperPanel);
             this.panelLeft.Controls.Add(this.btnShowCustomizer);
@@ -387,24 +385,6 @@
             this.panelInstructions.TabIndex = 47;
             this.panelInstructions.Visible = false;
             // 
-            // btnTextEditor
-            // 
-            this.btnTextEditor.FlatAppearance.BorderSize = 0;
-            this.btnTextEditor.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnTextEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTextEditor.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTextEditor.ForeColor = System.Drawing.Color.White;
-            this.btnTextEditor.Location = new System.Drawing.Point(11, 651);
-            this.btnTextEditor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnTextEditor.Name = "btnTextEditor";
-            this.btnTextEditor.Size = new System.Drawing.Size(88, 60);
-            this.btnTextEditor.TabIndex = 53;
-            this.btnTextEditor.Text = "Text Editor";
-            this.btnTextEditor.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnTextEditor.UseVisualStyleBackColor = true;
-            this.btnTextEditor.Visible = false;
-            this.btnTextEditor.Click += new System.EventHandler(this.btnTextEditor_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -461,7 +441,6 @@
         public System.Windows.Forms.Button btnShowCustomizer;
         public System.Windows.Forms.Button btnShowSwapperPanel;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Button btnTextEditor;
     }
 }
 

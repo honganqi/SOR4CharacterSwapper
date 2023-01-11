@@ -649,6 +649,10 @@ namespace SOR4_Swapper
         public Dictionary<string, Dictionary<string, string>> nameReference = new();
         public Dictionary<string, string> originalNameReference = new();
 
+        public List<string> shaderStrings = new();
+        public List<string> weaponTypeStrings = new();
+        public List<string> foodTypeStrings = new();
+
         // internal variables
         public Dictionary<int, int> changeList = new();
         public Dictionary<int, bool> changeTo = new();
@@ -663,6 +667,9 @@ namespace SOR4_Swapper
         public Dictionary<int, CharacterClass> characterCustomizationQueue = new();
         public Dictionary<string, string> customCharacterNames = new();
         public GameplayConfigDataClass originalGCD = new();
+        public Dictionary<int, ItemClass> itemCustomizationInMemory = new();
+        public Dictionary<int, ItemClass> itemCustomizationQueue = new();
+        public Dictionary<string, string> customItemNames = new();
 
         // images
         public readonly Dictionary<string, FileStream> DataFiles = new();
@@ -681,6 +688,7 @@ namespace SOR4_Swapper
         public DataTable destroyableSwapTable = new();
         public DataTable levelSwapTable = new();
         public DataTable customTable = new();
+        public DataTable customItemTable = new();
 
         public string CreateBackup()
         {
@@ -935,6 +943,7 @@ namespace SOR4_Swapper
                 (originalClass.DespawnsAfterDeath != characterDetails.DespawnsAfterDeath) ||
                 (originalClass.Shader != characterDetails.Shader) ||
                 (originalClass.Team != characterDetails.Team) ||
+                (originalClass.VerticalLaunch != characterDetails.VerticalLaunch) ||
                 (originalClass.Scale != characterDetails.Scale) ||
                 (originalClass.AlwaysArmor != characterDetails.AlwaysArmor) ||
                 (originalClass.AI != characterDetails.AI)
@@ -972,6 +981,10 @@ namespace SOR4_Swapper
                     if (inputDetails.Damage != hit.Damage) goAhead = true;
                     if (inputDetails.Hitstop != hit.Hitstop) goAhead = true;
                     if (inputDetails.Hitstun != hit.Hitstun) goAhead = true;
+                    if (inputDetails.MultiHit != hit.MultiHit) goAhead = true;
+                    if (inputDetails.RecoverHP != hit.RecoverHP) goAhead = true;
+                    if (inputDetails.XForce != hit.XForce) goAhead = true;
+                    if (inputDetails.YForce != hit.YForce) goAhead = true;
                     hitctr++;
                 }
                 movectr++;
@@ -1038,6 +1051,92 @@ namespace SOR4_Swapper
             }
         }
 
+        public void AddCustomItem(MainWindow mainwindow, string assetClass, int assetKey, ItemClass itemDetails)
+        {
+            Bitmap origThumb = mainwindow.thumbnailslib.getThumbnail(assetClass, assetKey);
+            DataRow row;
+            bool goAhead = false;
+
+            // check for differences before proceeding
+
+            // 2. iterate and compare every item in the class
+            // if a difference is found, go ahead, else remove from queue
+            int targetKey = assetKey;
+            if (itemChangeList.ContainsKey(assetKey)) targetKey = itemChangeList[assetKey];
+            ItemClass originalClass = bigfileClass.ItemCollection[targetKey].Copy();
+            itemDetails.Path = originalClass.Path;
+
+            if (
+                (originalClass.Life != itemDetails.Life) ||
+                (originalClass.Score != itemDetails.Score) ||
+                (originalClass.Star != itemDetails.Star) ||
+                (originalClass.FoodType != itemDetails.FoodType) ||
+                (originalClass.WeaponData != itemDetails.WeaponData)
+                )
+                goAhead = true;
+
+            // add or remove from the queue and table
+            if (goAhead)
+            {
+                DataRow[] dataRows = customItemTable.Select("origKey = " + assetKey);
+                if (dataRows.Count() == 0)
+                {
+                    row = customItemTable.NewRow();
+                    row["delete"] = "\u2716";
+                    row["origThumb"] = origThumb;
+                    row["origName"] = itemDictionary[assetKey].Name;
+                    if (itemChangeList.ContainsKey(assetKey))
+                    {
+                        row["spacer"] = "\u2794";
+                        row["replaceThumb"] = mainwindow.thumbnailslib.getThumbnail("item", itemChangeList[assetKey]);
+                        row["replaceName"] = itemDictionary[itemChangeList[assetKey]].Name;
+                    }
+                    else
+                    {
+                        row["spacer"] = "";
+                        row["replaceThumb"] = mainwindow.thumbnailslib.getThumbnail("placeholder", 0);
+                        row["replaceName"] = "";
+                    }
+                    row["origKey"] = assetKey;
+                    row["rowIndex"] = customItemTable.Rows.Count;
+
+                    customItemTable.Rows.Add(row);
+                }
+                else
+                {
+                    // get rowIndex of origKey and maybe update it
+                }
+
+                itemCustomizationQueue[assetKey] = itemDetails;
+
+                mainwindow.itemcustomizerpanel.labelReplaceCount.Text = (customItemTable.Rows.Count).ToString();
+
+                mainwindow.hasNoPending = false;
+                mainwindow.container.labelPending.Visible = true;
+                mainwindow.itemcustomizerscreen.btnShowList.Enabled = true;
+                mainwindow.BringToFront();
+            }
+            else
+            {
+                // find the index of the row where this custom is stored and remove that row
+                foreach (System.Windows.Forms.DataGridViewRow customRow in mainwindow.itemcustomizerpanel.dataGridView1.Rows)
+                {
+                    try
+                    {
+                        if ((int)customRow.Cells[3].Value == assetKey)
+                        {
+                            RemoveFromTable(mainwindow, "customItem", assetKey);
+                            break;
+                        }
+                    }
+                    catch
+                    {
+
+                    }
+                }
+            }
+        }
+
         public void CreateSwapTable(MainWindow mainwindow)
         {
             swapTable.Columns.Add("delete", typeof(string));
@@ -1093,6 +1192,16 @@ namespace SOR4_Swapper
             customTable.Columns.Add("origKey", typeof(int));
             customTable.Columns.Add("rowIndex", typeof(int));   
             mainwindow.charactercustomizerpanel.dataGridView1.DataSource = customTable;
+
+            customItemTable.Columns.Add("delete", typeof(string));
+            customItemTable.Columns.Add("origThumb", typeof(Bitmap));
+            customItemTable.Columns.Add("origName", typeof(string));
+            customItemTable.Columns.Add("spacer", typeof(string));
+            customItemTable.Columns.Add("replaceThumb", typeof(Bitmap));
+            customItemTable.Columns.Add("replaceName", typeof(string));
+            customItemTable.Columns.Add("origKey", typeof(int));
+            customItemTable.Columns.Add("rowIndex", typeof(int));
+            mainwindow.itemcustomizerpanel.dataGridView1.DataSource = customItemTable;
         }
 
         public void FilterSwapTable(string mode, string datatype, string lookup)
@@ -1113,6 +1222,9 @@ namespace SOR4_Swapper
                     break;
                 case "customCharacter":
                     customTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%'", datatype, lookup);
+                    break;
+                case "customItem":
+                    customItemTable.DefaultView.RowFilter = string.Format("{0} LIKE '%{1}%'", datatype, lookup);
                     break;
             }
         }
@@ -1167,6 +1279,23 @@ namespace SOR4_Swapper
                     break;
                 case "item":
                     itemChangeList.Remove(origKey);
+
+                    if (itemCustomizationQueue.ContainsKey(origKey))
+                    {
+                        int[] customcount = RemoveFromTable(mainwindow, "customItem", origKey);
+                        mainwindow.itemcustomizerpanel.labelReplaceCount.Text = customcount[0].ToString();
+                    }
+                    if (mainwindow.itemcustomizerscreen.itemList.SelectedIndex == origKey)
+                    {
+                        if (mainwindow.itemcustomizerscreen.itemList.SelectedIndex == 1)
+                            mainwindow.itemcustomizerscreen.itemList.SelectedIndex = 2;
+                        else
+                            mainwindow.itemcustomizerscreen.itemList.SelectedIndex = 1;
+
+                        itemCustomizationInMemory.Remove(origKey);
+                        mainwindow.itemcustomizerscreen.itemList.SelectedIndex = origKey;
+                        itemCustomizationInMemory.Remove(origKey);
+                    }
 
                     // fetch row index
                     swapRows = itemSwapTable.Select("origKey = " + origKey);
@@ -1268,6 +1397,30 @@ namespace SOR4_Swapper
 
                     returnCount = new int[2] { customTable.Rows.Count, 0 };
                     break;
+                case "customItem":
+                    itemCustomizationQueue.Remove(origKey);
+                    itemCustomizationInMemory.Remove(origKey);
+
+                    int itemtargetKey = origKey;
+                    if (itemChangeList.ContainsKey(origKey)) targetKey = itemChangeList[origKey];
+
+                    // fetch row index
+                    swapRows = customItemTable.Select("origKey = " + origKey);
+                    if (swapRows.Count() > 0)
+                    {
+                        foreach (DataRow dataRow in swapRows)
+                        {
+                            int rowIndex = int.Parse(dataRow["rowIndex"].ToString());
+                            customItemTable.Rows.RemoveAt(rowIndex);
+                        }
+                    }
+
+                    // re-index row numbers to allow removal
+                    for (int i = 0; i < customItemTable.Rows.Count; i++)
+                        customItemTable.Rows[i]["rowIndex"] = i;
+
+                    returnCount = new int[2] { customItemTable.Rows.Count, 0 };
+                    break;
             }
             return returnCount;
         }
@@ -1318,6 +1471,7 @@ namespace SOR4_Swapper
                     break;
                 case "customCharacter":
                     customTable.Clear();
+                    characterCustomizationQueue.Clear();
                     characterCustomizationInMemory.Clear();
                     customCharacterNames.Clear();
                     // character names
@@ -1337,6 +1491,13 @@ namespace SOR4_Swapper
                         }
                         customCharacterNames[charClass.Value.NameIndex] = nameFromOriginalIndex;
                     }
+                    if (panel != null)
+                        panel.labelReplaceCount.Text = "0";
+
+                    break;
+                case "customItem":
+                    customItemTable.Clear();
+                    itemCustomizationInMemory.Clear();
                     if (panel != null)
                         panel.labelReplaceCount.Text = "0";
 

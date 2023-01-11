@@ -120,8 +120,8 @@ namespace SOR4_Swapper
                             targetForm = _mainwindow.randomizeritems;
                             break;
                         case "custom":
-                            listPanelToSwitchTo = _mainwindow.charactercustomizerpanel;
-                            targetForm = _mainwindow.charactercustomizerscreen;
+                            listPanelToSwitchTo = _mainwindow.itemcustomizerpanel;
+                            targetForm = _mainwindow.itemcustomizerscreen;
                             break;
                     }
                     break;
@@ -180,6 +180,7 @@ namespace SOR4_Swapper
                 if (
                     (_mainwindow.functionmode == "custom" && button != btnCharPanel)
                     && (_mainwindow.functionmode == "custom" && button != btnLevelPanel)
+                    && (_mainwindow.functionmode == "custom" && button != btnItemPanel)
                     )
                 {
                     button.Hide();
