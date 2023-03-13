@@ -420,23 +420,27 @@ namespace SOR4_Swapper
                 info.labelValidBigfile.ForeColor = Color.Crimson;
             }
 
-            if (backupBigfileExists = classlib.CheckBackupFile(classlib.backup_filename))
-                info.labelBackupMade.Visible = false;
-
-            if (!backupBigfileExists)
+            // check for existence of any bigfile before checking for backup
+            if (File.Exists(Path.Combine(classlib.bigfilePath)))
             {
-                if (originalBigfileExists)
+                if (backupBigfileExists = classlib.CheckBackupFile(classlib.backup_filename))
+                    info.labelBackupMade.Visible = false;
+
+                if (!backupBigfileExists)
                 {
-                    string backup_filename = classlib.CreateBackup();
-                    info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
-                    info.labelBackupMade.Visible = true;
-                }
-                else
-                {
-                    string backupMessage = $@"Unable to find a valid bigfile or a backup of it.
+                    if (originalBigfileExists)
+                    {
+                        string backup_filename = classlib.CreateBackup();
+                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
+                        info.labelBackupMade.Visible = true;
+                    }
+                    else
+                    {
+                        string backupMessage = $@"Unable to find a valid bigfile or a backup of it.
 This version of the Swapper supports only v{classlib.gameVerString} or earlier.
 Please get a valid bigfile by re-validating your copy of the game. Proceed at your own risk.";
-                    MessageBox.Show(backupMessage, "No valid bigfile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(backupMessage, "No valid bigfile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
@@ -629,10 +633,6 @@ Please get a valid bigfile by re-validating your copy of the game. Proceed at yo
                 //swapper.btnSetItem.Enabled = true;
                 randomizer.btnRandomize.Enabled = true;
                 randomizer.btnRandomizeEverybody.Enabled = true;
-
-                ManageBackups();
-
-                thumbnailslib.InitializeThumbnails(classlib.gameDir);
 
                 if (File.Exists(bigfilePath))
                 {
