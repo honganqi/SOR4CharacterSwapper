@@ -286,49 +286,8 @@ namespace SOR4_Swapper
                 classlib.bigfilePath = Path.Combine(classlib.gameDir, "bigfile");
                 swapper.characterList.Enabled = true;
                 swapper.replacementComboBox.Enabled = true;
-                //swapper.btnSetItem.Enabled = true;
                 randomizer.btnRandomize.Enabled = true;
                 randomizer.btnRandomizeEverybody.Enabled = true;
-
-                thumbnailslib.InitializeThumbnails(classlib.gameDir);
-                if (classlib.CheckBigfile(classlib.bigfilePath))
-                {
-                    info.labelValidBigfile.Text = $"original v{classlib.gameVerString} bigfile";
-                    info.labelValidBigfile.ForeColor = Color.ForestGreen;
-                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
-                    {
-                        string backup_filename = classlib.CreateBackup();
-                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
-                        info.labelBackupMade.Visible = true;
-                    }
-                    else
-                    {
-                        info.labelBackupMade.Visible = false;
-                    }
-                }
-                else
-                {
-                    info.labelValidBigfile.Text = $"modded v{classlib.gameVerString} bigfile";
-                    info.labelValidBigfile.ForeColor = Color.Crimson;
-                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
-                    {
-                        string backup_filename = classlib.CreateBackup();
-                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
-                        info.labelBackupMade.Visible = true;
-                    }
-                    else
-                    {
-                        info.labelBackupMade.Visible = false;
-                    }
-                    //labelBackupMade.Text = "A backup named \"bigfile_custom_backup\" will be made.";
-                    info.labelBackupMade.Visible = false;
-                }
-
-                info.labelValidBigfile.Visible = true;
-                classlib.gameDir = Path.GetDirectoryName(classlib.bigfilePath);
-
-                info.labelBigfileLocationInfo.Text = "Loaded file:\n" + classlib.bigfilePath;
-                classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
 
                 Initialize();
 
@@ -342,6 +301,10 @@ namespace SOR4_Swapper
 
         private void Initialize()
         {
+            ManageBackups();
+
+            thumbnailslib.InitializeThumbnails(classlib.gameDir);
+
             string originalBigfilePath = classlib.bigfilePath;
             string backupFilename = Path.Combine(classlib.gameDir, classlib.backup_filename);
 
@@ -415,17 +378,6 @@ namespace SOR4_Swapper
 
             difficultyscreen.difficultyJustArrived = true;
             difficultyscreen.txtDifficultyName.Text = "CUSTOM";
-            Dictionary<string, CharacterClass> globalCharacterSettings = new()
-            { 
-                ["playables"] = new()
-                {
-                    MoveSpeed = 100
-                },
-                ["enemies"] = new()
-                {
-                    MoveSpeed = 100
-                }
-            };
             difficultyscreen.cmbDifficultyCollection.SelectedIndex = lastDifficultyIndex;
             difficultyscreen.difficultyJustArrived = false;
             difficultyscreen.txtDifficultyName.Text = "CUSTOM";
@@ -452,6 +404,48 @@ namespace SOR4_Swapper
             }
         }
 
+        private void ManageBackups()
+        {
+            bool originalBigfileExists;
+            bool backupBigfileExists;
+
+            if (originalBigfileExists = classlib.CheckBigfile(classlib.bigfilePath))
+            {
+                info.labelValidBigfile.Text = $"original v{classlib.gameVerString} bigfile";
+                info.labelValidBigfile.ForeColor = Color.ForestGreen;
+            }
+            else
+            {
+                info.labelValidBigfile.Text = $"modded bigfile";
+                info.labelValidBigfile.ForeColor = Color.Crimson;
+            }
+
+            if (backupBigfileExists = classlib.CheckBackupFile(classlib.backup_filename))
+                info.labelBackupMade.Visible = false;
+
+            if (!backupBigfileExists)
+            {
+                if (originalBigfileExists)
+                {
+                    string backup_filename = classlib.CreateBackup();
+                    info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
+                    info.labelBackupMade.Visible = true;
+                }
+                else
+                {
+                    string backupMessage = $@"Unable to find a valid bigfile or a backup of it.
+This version of the Swapper supports only v{classlib.gameVerString} or earlier.
+Please get a valid bigfile by re-validating your copy of the game. Proceed at your own risk.";
+                    MessageBox.Show(backupMessage, "No valid bigfile", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            info.labelValidBigfile.Visible = true;
+            classlib.gameDir = Path.GetDirectoryName(classlib.bigfilePath);
+
+            info.labelBigfileLocationInfo.Text = "Loaded file:\n" + classlib.bigfilePath;
+            classlib.bigfileClass.bigfilePath = classlib.bigfilePath;
+        }
 
         public void ApplyChanges()
         {
@@ -466,16 +460,16 @@ namespace SOR4_Swapper
             }
             // reassign bigfilePath to backup to fetch all original characters
             else
-            if (File.Exists(Path.Combine(classlib.gameDir, "bigfile_rep7_13648_backup")))
+            if (File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
             {
-                bigfileClass.bigfilePath = Path.Combine(classlib.gameDir, "bigfile_rep7_13648_backup");
+                bigfileClass.bigfilePath = Path.Combine(classlib.gameDir, classlib.backup_filename);
             }
 
             GetValuesFromUI(true);
 
             if (bigfileClass.CommitChanges(swaps))
             {
-                info.labelValidBigfile.Text = "modded v7 bigfile";
+                info.labelValidBigfile.Text = $"modded bigfile";
                 info.labelValidBigfile.ForeColor = Color.Crimson;
                 info.btnRestoreBigfile.Enabled = true;
                 hasNoPending = true;
@@ -635,28 +629,9 @@ namespace SOR4_Swapper
                 //swapper.btnSetItem.Enabled = true;
                 randomizer.btnRandomize.Enabled = true;
                 randomizer.btnRandomizeEverybody.Enabled = true;
-                if (classlib.CheckBigfile(bigfilePath))
-                {
-                    if (!File.Exists(Path.Combine(classlib.gameDir, classlib.backup_filename)))
-                    {
-                        string backup_filename = classlib.CreateBackup();
-                        info.labelBackupMade.Text = $"A backup file named \"{ backup_filename}\" was created.";
-                        info.labelBackupMade.Visible = true;
-                    }
-                    else
-                    {
-                        info.labelBackupMade.Visible = false;
-                    }
-                }
-                else
-                {
-                    info.labelValidBigfile.Text = "modded v7 bigfile";
-                    info.labelValidBigfile.ForeColor = Color.Crimson;
-                    //labelBackupMade.Text = "A backup named \"bigfile_custom_backup\" will be made.";
-                    info.labelBackupMade.Visible = false;
-                }
 
-                classlib.gameDir = Path.GetDirectoryName(bigfilePath);
+                ManageBackups();
+
                 thumbnailslib.InitializeThumbnails(classlib.gameDir);
 
                 if (File.Exists(bigfilePath))

@@ -5,8 +5,8 @@
 This app allows you to mod Streets of Rage 4 by swapping
 specific characters, items, breakables, and/or levels!
 This app only works for the Steam version of the game as far
-as I know and is known to work only on the v7 patch of the
-game (v07-s r13060M) released back in July 23/24, 2021.
+as I know and is known to work only on the v8 patch of the
+game (v08-s r14424) released in March 10, 2023.
 
 ## Tutorials on YouTube
 * [Item Customization](https://youtu.be/yPo7oOXnq9g)

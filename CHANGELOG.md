@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.0 - 2023/03/13 10:26:21 GMT+08:00
+### Added
+* Added Zamza, Yamato Cursed, Diva Reinforcement to the list of Characters
+* Added Training Start 1 to 4 to the list of Items
+* Added Arcade Cursed 2 and Arcade Cursed 3 to the list of Breakables
+### Changed
+* Now shows an alert during startup if no valid bigfile or backup is foun. A backup is still created if a valid bigfile is present and a backup is missing.
+* Changed the text "modded v7 bigfile" to just "modded bigfile" since there's no way to check which version the modded bigfile came from anyway
+### Fixed
+* Made to work with game version `v8-s 14424`
+* Corrected sprite path of Walkie Talkie
+
 ## 4.2.9 - 2023/01/11 18:54:48 GMT+08:00
 ### Added
 * Added the ability to customize items in the `Customizer` > `Item` tab which includes food and weapons.
