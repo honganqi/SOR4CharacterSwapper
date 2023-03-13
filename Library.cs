@@ -340,6 +340,10 @@ namespace SOR4_Swapper
             [262] = new Character { Name = "Shiva (double survival)", Path = "characters/sor4_enemies/shiva/chrsor4shivadoublesurvival", Thumbnail = "animatedsprites/sor4/enemies/shiva/sprsor4shiva_double", NameIndex = "CHR_SHIVA", CustomNameIndex = "CHR_SHIVA_DOUBLE", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
             [263] = new Character { Name = "Barney (alt)", Path = "characters/sor4_enemies/cop/chrsor4cop_l7_bad", Thumbnail = "animatedsprites/sor4/enemies/cop/sprsor4copbad", NameIndex = "CHR_BARNEY", CustomNameIndex = "CHR_BARNEY_ALT", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
             [264] = new Character { Name = "Koobo (Koobig)", Path = "characters/sor4_enemies/koobo/chrsor4koobig", Thumbnail = "animatedsprites/sor4/enemies/koobo/sprsor4koobo", NameIndex = "CHR_KOOBIG", CustomNameIndex = "CHR_KOOBIG", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [265] = new Character { Name = "--- V8 ---", Path = "n/a", Thumbnail = "", NameIndex = "", CustomNameIndex = "", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = true },
+            [266] = new Character { Name = "Zamza", Path = "characters/sor2_enemies/chrsor2zamza", Thumbnail = "animatedsprites/sor2/enemies/sprsor2zamza", NameIndex = "CHR_ZAMZA", CustomNameIndex = "CHR_ZAMZA_NEW", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [267] = new Character { Name = "Yamato (cursed)", Path = "characters/sor3_enemies/chrsor3yamato_cursed", Thumbnail = "animatedsprites/sor3/enemies/sprsor3yamato", NameIndex = "CHR_SOR3_YAMATO", CustomNameIndex = "CHR_SOR3_YAMATO_CURSED", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
+            [268] = new Character { Name = "Diva (reinforcement)", Path = "characters/sor4_enemies/diva/chrsor4diva_reinforcement", Thumbnail = "animatedsprites/sor4/enemies/diva/sprsor4diva", NameIndex = "CHR_DIVA", CustomNameIndex = "CHR_DIVA_REINFORCEMENT", IsPlayable = false, IsBoss = false, ReplaceRegs = false, ReplacedByRegs = false, IsMiniboss = false, IsRegularPlus = false, IsExcluded = false },
         };
         public static Dictionary<int, Item> itemDictionary = new()
         {
@@ -431,7 +435,12 @@ namespace SOR4_Swapper
             [85] = new Item { Name = "Training Spawner 4", Path = "objects/pickup_trainingspawner4", Thumbnail = "animatedsprites/sor4/pickups/spawner1_ground", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
             [86] = new Item { Name = "Training Spawner 5", Path = "objects/pickup_trainingspawner5", Thumbnail = "animatedsprites/sor4/pickups/spawner1_ground", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
             [87] = new Item { Name = "Training Spawner 6", Path = "objects/pickup_trainingspawner6", Thumbnail = "animatedsprites/sor4/pickups/spawner1_ground", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
-            [88] = new Item { Name = "Walkie Talkie", Path = "objects/pickup_talkie_walkie", Thumbnail = "animatedsprites/sor4/weapons/talkie_military", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [88] = new Item { Name = "Walkie Talkie", Path = "objects/pickup_talkie_walkie", Thumbnail = "animatedsprites/sor4/pickups/talkie_military", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [89] = new Item { Name = "--- V8  ---", Path = "n/a", Thumbnail = "", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [90] = new Item { Name = "Training Start 1", Path = "objects/pickup_trainingstart1", Thumbnail = "animatedsprites/sor4/pickups/sprstart1", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [91] = new Item { Name = "Training Start 2", Path = "objects/pickup_trainingstart2", Thumbnail = "animatedsprites/sor4/pickups/sprstart2", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [92] = new Item { Name = "Training Start 3", Path = "objects/pickup_trainingstart3", Thumbnail = "animatedsprites/sor4/pickups/sprstart3", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
+            [93] = new Item { Name = "Training Start 4", Path = "objects/pickup_trainingstart4", Thumbnail = "animatedsprites/sor4/pickups/sprstart4", IsPickup = false, IsWeapon = false, IsGolden = false, IsExcluded = true },
         };
         public static Dictionary<int, Destroyable> destroyableDictionary = new()
         {
@@ -521,6 +530,9 @@ namespace SOR4_Swapper
             [83] = new Destroyable { Name = "Explosive Barrel", Path = "objects/object_barrel_explosion", Thumbnail = "animatedsprites/sor4/destroyables/sprbarrel_fire/bidon_feux_step1", IsBreakable = true, IsDestructive = true, IsUnbreakable = false, IsExcluded = false },
             [84] = new Destroyable { Name = "Factory Bomb", Path = "objects/survival/object_factory_bomb", Thumbnail = "animatedsprites/sor4/destroyables/factory_bomb/factory_bomb01", IsBreakable = true, IsDestructive = true, IsUnbreakable = false, IsExcluded = false },
             [85] = new Destroyable { Name = "Toxic Barrel", Path = "objects/object_barrel_toxic", Thumbnail = "animatedsprites/sor4/destroyables/sprbarrel_toxic/bidon_toxic_step1", IsBreakable = true, IsDestructive = true, IsUnbreakable = false, IsExcluded = false },
+            [86] = new Destroyable { Name = "--- V8 ---", Path = "n/a", Thumbnail = "", IsBreakable = false, IsDestructive = false, IsUnbreakable = false, IsExcluded = true },
+            [87] = new Destroyable { Name = "Arcade Machine (Cursed 2)", Path = "objects/object_arcade_cursed2", Thumbnail = "animatedsprites/sor4/destroyables/sprarcadecursed2", IsBreakable = true, IsDestructive = false, IsUnbreakable = false, IsExcluded = false },
+            [88] = new Destroyable { Name = "Arcade Machine (Cursed 3)", Path = "objects/object_arcade_cursed3", Thumbnail = "animatedsprites/sor4/destroyables/sprarcadecursed3", IsBreakable = true, IsDestructive = false, IsUnbreakable = false, IsExcluded = false },
         };
         public static Dictionary<int, Level> levelDictionary = new()
         {
@@ -766,11 +778,16 @@ namespace SOR4_Swapper
                         gameVerString = "5";
                         backup_filename = "bigfile_rep_backup";
                         return true;
+                    case "45ceb56aa8810dec95078614ce29b53d":
+                        gameVer = 814424;
+                        gameVerString = "8-s r14424";
+                        backup_filename = "bigfile_rep8_14424_backup";
+                        return true;
                     default:
                         // should be the currently supported version by the Swapper
-                        gameVer = 713648;
-                        gameVerString = "7-s r13648";
-                        backup_filename = "bigfile_rep7_13648_backup";
+                        gameVer = 814424;
+                        gameVerString = "8-s r14424";
+                        backup_filename = "bigfile_rep8_14424_backup";
                         return false;
                 }
             }
@@ -778,6 +795,11 @@ namespace SOR4_Swapper
             {
                 return false;
             }
+        }
+
+        public bool CheckBackupFile(string filename)
+        {
+            return File.Exists(Path.Combine(gameDir, filename));
         }
 
         public bool RestoreBackupFile()
@@ -794,8 +816,11 @@ namespace SOR4_Swapper
                 case 713648:
                     backup_filename = "bigfile_rep7_13648_backup";
                     break;
+                case 814424:
+                    backup_filename = "bigfile_rep8_14424_backup";
+                    break;
                 default:
-                    backup_filename = "bigfile_rep7_13648_backup";
+                    backup_filename = "bigfile_rep8_14424_backup";
                     break;
             }
             string backupPath = Path.Combine(gameDir, backup_filename);

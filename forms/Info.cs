@@ -43,9 +43,13 @@ namespace SOR4_Swapper
                     gameVer = "7-s r13648";
                     backup_filename = "bigfile_rep7_13648_backup";
                     break;
+                case 814424:
+                    gameVer = "8-s r14424";
+                    backup_filename = "bigfile_rep8_14424_backup";
+                    break;
                 default:
-                    gameVer = "7-s r13648";
-                    backup_filename = "bigfile_rep7_13648_backup";
+                    gameVer = "8-s r14424";
+                    backup_filename = "bigfile_rep8_14424_backup";
                     break;
             }
             string backupPath = Path.Combine(classlib.gameDir, backup_filename);
