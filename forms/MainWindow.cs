@@ -319,7 +319,7 @@ namespace SOR4_Swapper
             textEditorForm = new(this);
 
             // initialize shader combobox in customizer
-            string[] shaderStrings = { "Normal", "Shiva Double", "Elite", "Motion Blur", "Doppelganger" };
+            string[] shaderStrings = { "Normal", "Shiva Double", "Motion Blur", "Elite", "Doppelganger" };
             int shaderComboIndex = 0;
             classlib.shaderStrings = bigfileClass.GetListStrings("shaders");
             foreach (var item in classlib.shaderStrings)

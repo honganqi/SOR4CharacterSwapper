@@ -2,6 +2,18 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.1 - 2023/03/17 03:26:03 GMT+08:00
+### Changed
+* On Randomize, changed Zamza (the new one) to a miniboss and be able to be replaced by regulars
+* On Randomize, changed SOR3 Yamato (cursed) to a miniboss, be able to be replaced by regulars, and be able to replace regulars
+* On Randomize, changed Diva (reinforcement) to be able to be replaced by regulars, and be able to replace regulars
+* Renamed "Shiva (boss spirit)" to "Shiva (unused boss spirit)" since the game no longer uses it like before v7
+* Renamed "Shiva (double survival)" to "Shiva (boss spirit)" since the game no longer uses it like before v7
+### Fixed
+* Old swap mods are now working properly - hopefully even those that are really old
+* Training Mode item list now fixed
+* Fixed Shader issues: Motion Blur previously gave Elite and vice versa
+
 ## 4.3.0 - 2023/03/13 10:26:21 GMT+08:00
 ### Added
 * Added Zamza, Yamato Cursed, Diva Reinforcement to the list of Characters

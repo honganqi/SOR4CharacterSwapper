@@ -155,19 +155,18 @@ namespace SOR4_Swapper
         {
             try
             {
-                int fileIndex = 1;
-                string imagefilename = Path.Combine(gameDir, "textures");
-                string imagetablefilename = Path.Combine(gameDir, "texture_table");
-                while (File.Exists(imagefilename) && File.Exists(imagetablefilename))
+                List<string> indexes = new() { "", "02", "08" };
+                foreach (string fileIndex in indexes)
                 {
-                    DataFiles[imagefilename] = new FileStream(imagefilename, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
-                    GenerateList(imagetablefilename, imagefilename);
-                    fileIndex++;
-                    imagefilename = Path.Combine(gameDir, $"textures{fileIndex:D2}");
-                    imagetablefilename = Path.Combine(gameDir, $"texture_table{fileIndex:D2}");
+                    string imagefilename = Path.Combine(gameDir, $"textures{fileIndex}");
+                    string imagetablefilename = Path.Combine(gameDir, $"texture_table{fileIndex}");
+
+                    if (File.Exists(imagefilename) && File.Exists(imagetablefilename))
+                    {
+                        DataFiles[imagefilename] = new FileStream(imagefilename, FileMode.OpenOrCreate, FileAccess.Read, FileShare.ReadWrite);
+                        GenerateList(imagetablefilename, imagefilename);
+                    }
                 }
-                //var imagefile = File.OpenRead(imagefilename);
-                //var imagetablefile = File.OpenRead(imagetablefilename);
             }
             catch (Exception)
             {
