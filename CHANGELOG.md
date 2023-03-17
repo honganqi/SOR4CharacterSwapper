@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.2 - 2023/03/17 16:21:14 GMT+08:00
+### Fixed
+* Old swap mods now REALLY load without crashing - tested with mods created with Swapper v4.2.0, v4.2.8, and v4.2.9
+* Fixed the issue in the character select screen where the cursor doesn't go to the SOR4 characters when coming SOR1/SOR2 characters
+
 ## 4.3.1 - 2023/03/17 03:26:03 GMT+08:00
 ### Changed
 * On Randomize, changed Zamza (the new one) to a miniboss and be able to be replaced by regulars
