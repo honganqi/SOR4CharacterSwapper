@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.4 - 2023/03/20 01:31:24 GMT+08:00
+### Fixed
+* Added checks for missing properties which crashed the Swapper when loading swap mods created before v4.2.8 then applying the changes
+
 ## 4.3.3 - 2023/03/19 22:58:41 GMT+08:00
 ### Fixed
 * Fixed character move hit issue where the properties of the first hit erroneously gets applied to all the next hits

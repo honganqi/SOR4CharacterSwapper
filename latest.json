@@ -1,6 +1,6 @@
 {
-	"version": "4.3.3.0",
-	"release_date": "2023-03-19T14:58:41",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.3.zip/download",
-	"description": "Fixes game-breaking hit properties when characters are customized"
+	"version": "4.3.4.0",
+	"release_date": "2023-03-19T17:31:24",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.4.zip/download",
+	"description": "Fixes crashes when loading old mods (made before v4.2.8)"
 }
