@@ -1,6 +1,6 @@
 {
-	"version": "4.3.4.0",
-	"release_date": "2023-03-19T17:31:24",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.4.zip/download",
-	"description": "Fixes crashes when loading old mods (made before v4.2.8)"
+	"version": "4.3.5.0",
+	"release_date": "2023-03-21T14:23:24",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.5.zip/download",
+	"description": "Made to work with v8s-r18163"
 }

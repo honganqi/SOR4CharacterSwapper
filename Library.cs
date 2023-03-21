@@ -687,7 +687,7 @@ namespace SOR4_Swapper
         public readonly Dictionary<string, FileStream> DataFiles = new();
 
 
-        public int gameVer = 713648;
+        public int gameVer = 818163;
         public string backupLogicState = "none";
         public string gameDir;
         public string bigfilePath;
@@ -758,6 +758,8 @@ namespace SOR4_Swapper
                 for (int i = 0; i < retVal.Length; i++) sb.Append(retVal[i].ToString("x2"));
                 string bigfileHash = sb.ToString();
 
+                Console.WriteLine(bigfileHash);
+
                 switch (bigfileHash)
                 {
                     case "624173c8c4865011fbf95abd8c5a1e15":
@@ -783,11 +785,16 @@ namespace SOR4_Swapper
                         gameVerString = "8-s r14424";
                         backup_filename = "bigfile_rep8_14424_backup";
                         return true;
+                    case "cf977b0b0f649b80d1b374299b383cd2":
+                        gameVer = 818163;
+                        gameVerString = "8-s r18163";
+                        backup_filename = "bigfile_rep8_18163_backup";
+                        return true;
                     default:
                         // should be the currently supported version by the Swapper
-                        gameVer = 814424;
-                        gameVerString = "8-s r14424";
-                        backup_filename = "bigfile_rep8_14424_backup";
+                        gameVer = 818163;
+                        gameVerString = "8-s r18163";
+                        backup_filename = "bigfile_rep8_18163_backup";
                         return false;
                 }
             }

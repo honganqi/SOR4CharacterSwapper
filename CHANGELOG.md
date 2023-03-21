@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.5 - 2023/03/21 22:23:24 GMT+08:00
+### Fixed
+* Updated to work with v8s-r18163 released on March 21, 2023
+
 ## 4.3.4 - 2023/03/20 01:31:24 GMT+08:00
 ### Fixed
 * Added checks for missing properties which crashed the Swapper when loading swap mods created before v4.2.8 then applying the changes
