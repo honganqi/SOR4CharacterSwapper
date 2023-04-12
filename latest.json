@@ -1,6 +1,6 @@
 {
-	"version": "4.3.5.0",
-	"release_date": "2023-03-21T14:23:24",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.5.zip/download",
-	"description": "Made to work with v8s-r18163"
+	"version": "4.3.6.0",
+	"release_date": "2023-04-12T01:55:45",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.6.zip/download",
+	"description": "Fixed erroneous dependency on v8s-r14424"
 }

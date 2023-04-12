@@ -757,9 +757,6 @@ namespace SOR4_Swapper
                 StringBuilder sb = new();
                 for (int i = 0; i < retVal.Length; i++) sb.Append(retVal[i].ToString("x2"));
                 string bigfileHash = sb.ToString();
-
-                Console.WriteLine(bigfileHash);
-
                 switch (bigfileHash)
                 {
                     case "624173c8c4865011fbf95abd8c5a1e15":
@@ -826,8 +823,11 @@ namespace SOR4_Swapper
                 case 814424:
                     backup_filename = "bigfile_rep8_14424_backup";
                     break;
+                case 818163:
+                    backup_filename = "bigfile_rep8_18163_backup";
+                    break;
                 default:
-                    backup_filename = "bigfile_rep8_14424_backup";
+                    backup_filename = "bigfile_rep8_18163_backup";
                     break;
             }
             string backupPath = Path.Combine(gameDir, backup_filename);

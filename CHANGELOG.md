@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.6 - 2023/04/12 09:55:45 GMT+08:00
+### Fixed
+* Fixed the issue where the "Restore Bigfile" button erroneously reverted the bigfile to game version v8s-r14424. It would look for a backup of that version and would throw an error if it wasn't found. Thanks Waternar
+
 ## 4.3.5 - 2023/03/21 22:23:24 GMT+08:00
 ### Fixed
 * Updated to work with v8s-r18163 released on March 21, 2023

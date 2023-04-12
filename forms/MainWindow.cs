@@ -1955,7 +1955,6 @@ Please get a valid bigfile by re-validating your copy of the game. Proceed at yo
                             classlib.AddToList(this, "character", customCharacter.Key, customCharacter.Value.NewCharacterId);
                         }
 
-                        Console.WriteLine(customCharacter);
                         classlib.AddCustom(this, "character", customCharacter.Key, customCharacter.Value);
                         classlib.characterCustomizationInMemory[customCharacter.Key] = customCharacter.Value;
                         classlib.customCharacterNames[customCharacter.Value.NameIndex] = customCharacter.Value.NewName;
