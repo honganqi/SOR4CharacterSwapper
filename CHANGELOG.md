@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.7 - 2023/07/29 11:20:59 GMT+08:00
+### Added
+* Difficulty: Added memory for many properties
+### Fixed
+* Difficulty: 1UP Score and 1UP Score Arcade is now working again
+
 ## 4.3.6 - 2023/04/12 09:55:45 GMT+08:00
 ### Fixed
 * Fixed the issue where the "Restore Bigfile" button erroneously reverted the bigfile to game version v8s-r14424. It would look for a backup of that version and would throw an error if it wasn't found. Thanks Waternar

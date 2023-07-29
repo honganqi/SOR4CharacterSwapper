@@ -682,6 +682,7 @@ namespace SOR4_Swapper
         public Dictionary<int, ItemClass> itemCustomizationInMemory = new();
         public Dictionary<int, ItemClass> itemCustomizationQueue = new();
         public Dictionary<string, string> customItemNames = new();
+        public Dictionary<int, DifficultyClass> difficultyItemsInMemory = new();
 
         // images
         public readonly Dictionary<string, FileStream> DataFiles = new();

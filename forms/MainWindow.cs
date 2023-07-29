@@ -372,6 +372,8 @@ namespace SOR4_Swapper
                 if (asset.Key <= 5)
                 {
                     difficultyscreen.cmbDifficultyCollection.Items.Insert(asset.Key, asset.Value.Name);
+                    classlib.difficultyItemsInMemory.Add(asset.Key, asset.Value);
+                    difficultyscreen.originalDifficultyCollection.Add(asset.Key, asset.Value.Copy());
                     lastDifficultyIndex = asset.Key;
                 }
             }

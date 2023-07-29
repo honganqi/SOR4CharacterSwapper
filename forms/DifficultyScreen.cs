@@ -17,6 +17,11 @@ namespace SOR4_Swapper
         ToolTip moveSpeedTooltip = new();
         ToolTip gravityTooltip = new();
 
+        int selectedDifficultyKey;
+        DifficultyClass originalDifficultyClass;
+        DifficultyClass customDifficultyClass;
+        public Dictionary<int, DifficultyClass> originalDifficultyCollection = new();
+
         public DifficultyScreen(MainWindow mainwindow)
         {
             difficultyJustArrived = true;
@@ -60,6 +65,11 @@ namespace SOR4_Swapper
 
         private void cmbDifficultyCollection_SelectedIndexChanged(object sender, EventArgs e)
         {
+            selectedDifficultyKey = cmbDifficultyCollection.SelectedIndex;
+            originalDifficultyClass = originalDifficultyCollection[selectedDifficultyKey].Copy();
+            customDifficultyClass = originalDifficultyCollection[selectedDifficultyKey].Copy();
+            if (classlib.difficultyItemsInMemory.ContainsKey(selectedDifficultyKey))
+                customDifficultyClass = classlib.difficultyItemsInMemory[selectedDifficultyKey].Copy();
             ResetDifficultyValues(cmbDifficultyCollection.SelectedIndex);
             btnReset.Text = "Reset to " + cmbDifficultyCollection.Text;
         }
@@ -222,15 +232,15 @@ namespace SOR4_Swapper
         }
 
         public void LoadSettings(DifficultyClass difficulty, GameplayConfigDataClass gcd, Dictionary<string, CharacterClass> globalCharacterSettings)
-        {  
+        {
             txtDifficultyName.Text = difficulty.Name;
             txtPlayerDefense.Text = difficulty.Defense.ToString();
             txtPlayerLives.Text = difficulty.Lives.ToString();
             txtPlayerLivesArcade.Text = difficulty.LivesArcade.ToString();
             txtPlayerStars.Text = difficulty.Stars.ToString();
             txtPlayerGreen.Text = difficulty.GreenHealthMultiplier.ToString();
-            txtLifeUp.Text = gcd.ScoreLifeUp.ToString();
-            txtLifeUpArcade.Text = gcd.ScoreLifeUpArcade.ToString();
+            txtLifeUp.Text = difficulty.ScoreLifeUp.ToString();
+            txtLifeUpArcade.Text = difficulty.ScoreLifeUpArcade.ToString();
             txtGravity.Text = gcd.Gravity.ToString();
 
             txtEnemyHP.Text = difficulty.EnemyHealthMultiplier.ToString();
@@ -380,13 +390,16 @@ namespace SOR4_Swapper
                     MoveSpeed = 100
                 }
             };
-            LoadSettings(classlib.bigfileClass.difficultyCollection[diffIndex], classlib.bigfileClass.gameplayConfigData, globalCharacterSettings);
+            LoadSettings(originalDifficultyCollection[selectedDifficultyKey], classlib.bigfileClass.gameplayConfigData, globalCharacterSettings);
         }
 
 
         private void ProcessInput(object sender, EventArgs e)
         {
             Control thisControl = (Control)sender;
+            dynamic memoryValue = "";
+            dynamic originalValue = "";
+
             if (uint.TryParse(thisControl.Text, out uint inputValue))
             {
                 int resetValue = controlsWithPreviousValues[thisControl];
@@ -396,85 +409,102 @@ namespace SOR4_Swapper
                 {
                     if (cmbDifficultyCollection.SelectedIndex != -1)
                     {
-                        DifficultyClass originalDifficultyValues = classlib.bigfileClass.difficultyCollection[cmbDifficultyCollection.SelectedIndex];
                         GameplayConfigDataClass originalGCD = classlib.bigfileClass.gameplayConfigData;
                         // fetch original values and compare them with input
-                        int originalValue = 100;
                         switch (thisControl.Name)
                         {
                             case "txtPlayerDefense":
-                                originalValue = originalDifficultyValues.Defense;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].Defense);
+                                originalValue = originalDifficultyClass.Defense;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].Defense = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtPlayerGreen":
-                                originalValue = originalDifficultyValues.GreenHealthMultiplier;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].GreenHealthMultiplier);
+                                originalValue = originalDifficultyClass.GreenHealthMultiplier;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].GreenHealthMultiplier = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtEnemyHP":
-                                originalValue = originalDifficultyValues.EnemyHealthMultiplier;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyHealthMultiplier);
+                                originalValue = originalDifficultyClass.EnemyHealthMultiplier;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyHealthMultiplier = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtEnemySpawn":
-                                originalValue = originalDifficultyValues.EnemyMultiplier;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyMultiplier);
+                                originalValue = originalDifficultyClass.EnemyMultiplier;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyMultiplier = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtPlayerLives":
-                                maxValue = int.MaxValue;
-                                originalValue = originalDifficultyValues.Lives;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "integer", classlib.difficultyItemsInMemory[selectedDifficultyKey].Lives);
+                                originalValue = originalDifficultyClass.Lives;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].Lives = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtPlayerLivesArcade":
-                                maxValue = int.MaxValue;
-                                originalValue = originalDifficultyValues.LivesArcade;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "integer", classlib.difficultyItemsInMemory[selectedDifficultyKey].LivesArcade);
+                                originalValue = originalDifficultyClass.LivesArcade;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].LivesArcade = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtPlayerStars":
-                                maxValue = int.MaxValue;
-                                originalValue = originalDifficultyValues.Stars;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "integer", classlib.difficultyItemsInMemory[selectedDifficultyKey].Stars);
+                                originalValue = originalDifficultyClass.Stars;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].Stars = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtLifeUp":
-                                maxValue = int.MaxValue;
-                                originalValue = originalGCD.ScoreLifeUp;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "integer", customDifficultyClass.ScoreLifeUp);
+                                originalValue = originalDifficultyClass.ScoreLifeUp;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].ScoreLifeUp = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtLifeUpArcade":
-                                maxValue = int.MaxValue;
-                                originalValue = originalGCD.ScoreLifeUpArcade;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "integer", classlib.difficultyItemsInMemory[selectedDifficultyKey].ScoreLifeUpArcade);
+                                originalValue = originalDifficultyClass.ScoreLifeUpArcade;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].ScoreLifeUpArcade = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtEnemyAFK":
-                                originalValue = originalDifficultyValues.EnemyAFKPercentage;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyAFKPercentage);
+                                originalValue = originalDifficultyClass.EnemyAFKPercentage;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemyAFKPercentage = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtEnemyAggro":
-                                originalValue = originalDifficultyValues.AggroLimit;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].AggroLimit);
+                                originalValue = originalDifficultyClass.AggroLimit;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].AggroLimit = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtEnemySpeedMultiplier":
-                                originalValue = originalDifficultyValues.EnemySpeedMultiplier;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "percent", classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemySpeedMultiplier);
+                                originalValue = originalDifficultyClass.EnemySpeedMultiplier;
+                                classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemySpeedMultiplier = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                             case "txtGravity":
-                                maxValue = 5200;
+                                memoryValue = ValidateData(thisControl.Text.Trim(), "gravity", classlib.difficultyItemsInMemory[selectedDifficultyKey].EnemySpeedMultiplier);
                                 originalValue = originalGCD.Gravity;
+                                originalGCD.Gravity = memoryValue;
+                                thisControl.Text = memoryValue.ToString();
                                 break;
                         }
-                        thisControl.ForeColor = CompareValues(thisControl.Text.Trim(), originalValue.ToString());
                     }
-                    if (inputValue > maxValue)
-                    {
-                        resetValue = maxValue;
-                        thisControl.Text = resetValue.ToString();
-                    }
-                    else
-                    if (inputValue < minValue)
-                    {
-                        resetValue = minValue;
-                        thisControl.Text = resetValue.ToString();
-                    }
-                    else
-                    {
-                        resetValue = (int)inputValue;
-                    }
+
+                    thisControl.ForeColor = CompareValues(memoryValue, originalValue);
+                    customDifficultyClass = classlib.difficultyItemsInMemory[selectedDifficultyKey].Copy();
+                    if (memoryValue != originalValue)
+                        btnReset.Enabled = _mainwindow.currentEditable;
                 }
                 controlsWithPreviousValues[thisControl] = resetValue;
-
- 
             }
             else
             {
                 thisControl.Text = controlsWithPreviousValues[thisControl].ToString();
             }
-
         }
 
         public DifficultyClass GetDifficultyValues()
@@ -541,6 +571,13 @@ namespace SOR4_Swapper
                 difficulty.EnemySpeedMultiplier = (int)textToInt;
             }
             difficulty.RemoveArmor = chkRemoveArmor.Checked;
+
+            textToInt = DifficultyCheckValue(txtLifeUp.Text.Trim(), "value");
+            if (textToInt != null) difficulty.ScoreLifeUp = (int)textToInt;
+
+            textToInt = DifficultyCheckValue(txtLifeUpArcade.Text.Trim(), "value");
+            if (textToInt != null) difficulty.ScoreLifeUpArcade = (int)textToInt;
+
             return difficulty;
         }
 
@@ -548,13 +585,7 @@ namespace SOR4_Swapper
         {
             GameplayConfigDataClass gcd = new();
 
-            int? textToInt = DifficultyCheckValue(txtLifeUp.Text.Trim(), "value");
-            if (textToInt != null) gcd.ScoreLifeUp = (int)textToInt;
-
-            textToInt = DifficultyCheckValue(txtLifeUpArcade.Text.Trim(), "value");
-            if (textToInt != null) gcd.ScoreLifeUpArcade = (int)textToInt;
-
-            textToInt = DifficultyCheckValue(txtGravity.Text.Trim(), "value");
+            int? textToInt = DifficultyCheckValue(txtGravity.Text.Trim(), "value");
             if (textToInt != null) gcd.Gravity = (int)textToInt;
 
             return gcd;
@@ -672,6 +703,90 @@ namespace SOR4_Swapper
             Color color = memoryValue != originalValue ? Color.Red : Color.Black;
             return color;
         }
+
+        private int ValidateData(string valueString, string characterProperty, int previousValue)
+        {
+            int returnVal;
+            string errorMessage = "";
+            int resetValue = 0;
+            int maxValue = int.MaxValue;
+            int minValue = int.MinValue;
+            if (Int64.TryParse(valueString, out long inputValue))
+            {
+                switch (characterProperty)
+                {
+                    case "integer":
+                        minValue = 1;
+                        break;
+                    case "gravity":
+                        maxValue = 5200;
+                        minValue = 1;
+                        break;
+                    case "percent":
+                        maxValue = 32767;
+                        minValue = 1;
+                        break;
+                }
+                if (inputValue > maxValue)
+                {
+                    resetValue = maxValue;
+                    switch (characterProperty)
+                    {
+                        case "health":
+                            //errorMessage = "The Health value you input is bigger than what Galsia understands. This has been reset down to " + resetValue + ".";
+                            errorMessage = "";
+                            break;
+                        case "gravity":
+                            //errorMessage = "Shadow does not understand the Speed value you input. This has been reset down to " + resetValue + ".";
+                            errorMessage = "";
+                            break;
+                        case "percent":
+                            //errorMessage = "Are you trying to create more teams than games on Steam? No...";
+                            errorMessage = "";
+                            break;
+                    }
+                }
+                else if (inputValue < minValue)
+                {
+                    resetValue = minValue;
+                    switch (characterProperty)
+                    {
+                        case "health":
+                            //errorMessage = "The Health value is smaller than Mr. X's patience. Resetting to " + minValue + ".";
+                            errorMessage = "";
+                            break;
+                        case "greenHP":
+                            errorMessage = "The value is slower than... low. This has been reset up to " + minValue + ".";
+                            break;
+                        case "percent":
+                            errorMessage = "";
+                            break;
+                    }
+                }
+                else
+                {
+                    resetValue = (int)inputValue;
+                }
+            }
+            else
+            {
+                // filter for negative numbers depending on Property
+                switch (characterProperty)
+                {
+                    case "health":
+                    case "percent":
+                    case "gravity":
+                        resetValue = previousValue;
+                        errorMessage = "Dr. Zan doesn't understand what you meant by what you put.";
+                        break;
+                }
+            }
+
+            if (errorMessage != "") MessageBox.Show(errorMessage, "Value error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            returnVal = resetValue;
+            return returnVal;
+        }
+
 
         private void txtLifeUp_MouseHover(object sender, EventArgs e)
         {
