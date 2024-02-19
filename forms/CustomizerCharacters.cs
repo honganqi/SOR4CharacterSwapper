@@ -891,17 +891,26 @@ namespace SOR4_Swapper
                     switch (column)
                     {
                         case 1:
-                            hitmem.Damage = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (int.TryParse($"{dataGridView1.CurrentCell.Value}", out var validatedDamage))
+                                hitmem.Damage = validatedDamage;
+                            else
+                                dataGridView1.CurrentCell.Value = hitmem.Damage;
                             if (hit.Damage != hitmem.Damage)
                                 changed = true;
                             break;
                         case 2:
-                            hitmem.Hitstop = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (int.TryParse($"{dataGridView1.CurrentCell.Value}", out var validatedHitstop))
+                                hitmem.Hitstop = validatedHitstop;
+                            else
+                                dataGridView1.CurrentCell.Value = hitmem.Hitstop;
                             if (hit.Hitstop != hitmem.Hitstop)
                                 changed = true;
                             break;
                         case 3:
-                            hitmem.Hitstun = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (int.TryParse($"{dataGridView1.CurrentCell.Value}", out var validatedHitstun))
+                                hitmem.Hitstun = validatedHitstun;
+                            else
+                                dataGridView1.CurrentCell.Value = hitmem.Hitstun;
                             if (hit.Hitstun != hitmem.Hitstun)
                                 changed = true;
                             break;
@@ -916,12 +925,18 @@ namespace SOR4_Swapper
                                 changed = true;
                             break;
                         case 6:
-                            hitmem.XForce = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (int.TryParse($"{dataGridView1.CurrentCell.Value}", out var validatedXForce))
+                                hitmem.XForce = validatedXForce;
+                            else
+                                dataGridView1.CurrentCell.Value = hitmem.XForce;
                             if (hit.XForce != hitmem.XForce)
                                 changed = true;
                             break;
                         case 7:
-                            hitmem.YForce = Convert.ToInt32(dataGridView1.CurrentCell.Value);
+                            if (int.TryParse($"{dataGridView1.CurrentCell.Value}", out var validatedYForce))
+                                hitmem.YForce = validatedYForce;
+                            else
+                                dataGridView1.CurrentCell.Value = hitmem.YForce;
                             if (hit.YForce != hitmem.YForce)
                                 changed = true;
                             break;

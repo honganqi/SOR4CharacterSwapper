@@ -1,6 +1,6 @@
 {
-	"version": "4.3.7.0",
-	"release_date": "2023-07-29T03:20:59",
-	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.7.zip/download",
-	"description": "Fixed 1UP Score not working"
+	"version": "4.3.8.0",
+	"release_date": "2024-02-19T14:24:06",
+	"download_url": "https://sourceforge.net/projects/sor4-character-swapper/files/SOR4%20Swapper%204.3.8.zip/download",
+	"description": "SOR1 Def.Special fixes, crash fixes, customization panel fixes"
 }

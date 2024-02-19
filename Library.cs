@@ -1283,9 +1283,9 @@ namespace SOR4_Swapper
                         else
                             mainwindow.charactercustomizerscreen.characterList.SelectedIndex = 1;
 
-                        characterCustomizationInMemory.Remove(origKey);
+                        //characterCustomizationInMemory.Remove(origKey);
                         mainwindow.charactercustomizerscreen.characterList.SelectedIndex = origKey;
-                        characterCustomizationInMemory.Remove(origKey);
+                        //characterCustomizationInMemory.Remove(origKey);
                     }
 
                     // fetch row index
@@ -1404,7 +1404,7 @@ namespace SOR4_Swapper
                     break;
                 case "customCharacter":
                     characterCustomizationQueue.Remove(origKey);
-                    characterCustomizationInMemory.Remove(origKey);
+                    //characterCustomizationInMemory.Remove(origKey);
 
                     // reset name
                     string customNameIndex = characterDictionary[origKey].CustomNameIndex;
@@ -1432,7 +1432,7 @@ namespace SOR4_Swapper
                     break;
                 case "customItem":
                     itemCustomizationQueue.Remove(origKey);
-                    itemCustomizationInMemory.Remove(origKey);
+                    //itemCustomizationInMemory.Remove(origKey);
 
                     int itemtargetKey = origKey;
                     if (itemChangeList.ContainsKey(origKey)) targetKey = itemChangeList[origKey];

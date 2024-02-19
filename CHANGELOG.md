@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in
 this file.
 
+## 4.3.8 - 2024/
+### Changed
+* Removing an entry in the Character and Item Customization Panels no longer reset their values to default
+### Fixed
+* Swapper no longer crashes when putting invalid values in the Move Customizer table
+* For SOR1/BK1 characters, the defensive/neutral special button (PressY) is now no longer "stuck" to their Star Moves. Note that for the SOR1/BK1 characters, the game still treats the Star Move button and the defensive/neutral button as the same button. To use this, unset the PressY button from their default and alternate star moves and assign the PressY button to your desired move. e.g. To use the defensive special button for SOR1-Axel's "Ultra" move, go to his move customization panel, select "CopAttack", set Trigger to "None" and do the same for his alternate star move, StarThrow. Then select "Ultra" and set Trigger to "PressY".
+* Swapper (and the game) no longer crashes when a character has customized moves which has more hits than the base game. e.g. SOR4-Max's "Hammer" move: the last move of his basic attack combo (thanks, Bragdras - delayed fix by almost a year)
+
 ## 4.3.7 - 2023/07/29 11:20:59 GMT+08:00
 ### Added
 * Difficulty: Added memory for many properties
